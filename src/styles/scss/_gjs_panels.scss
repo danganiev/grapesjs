@@ -6,6 +6,7 @@
     text-align: center;
     padding: 5px;
     z-index: 3;
+    height: 0;
 
     .icon-undo,
     .icon-redo {
@@ -19,7 +20,7 @@
     width: (100% - $leftWidth);
     left: 0;
     top: 0;
-    box-shadow: 0 0 5px $mainDkColor;
+    // box-shadow: 0 0 5px $mainDkColor;
   }
 
   &options {
@@ -32,6 +33,7 @@
     right: 0;
     width: $leftWidth;
     z-index: 4;
+    display: none;
 
     &-container {
       height: 100%;
