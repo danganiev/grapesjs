@@ -21,6 +21,8 @@
  * * [getTitle](#gettitle)
  * * [setContent](#setcontent)
  * * [getContent](#getcontent)
+ * * [onceClose](#onceclose)
+ * * [onceOpen](#onceopen)
  *
  * @module Modal
  */
@@ -32,6 +34,10 @@ module.exports = () => {
     ModalView = require('./view/ModalView');
   var model, modal;
 
+  const triggerEvent = (enable, em) => {
+    em && em.trigger(`modal:${enable ? 'open' : 'close'}`);
+  };
+
   return {
     /**
      * Name of the module
@@ -40,21 +46,28 @@ module.exports = () => {
      */
     name: 'Modal',
 
+    getConfig() {
+      return c;
+    },
+
     /**
      * Initialize module. Automatically called with a new instance of the editor
      * @param {Object} config Configurations
      * @private
      */
-    init(config) {
-      c = config || {};
-      for (var name in defaults) {
-        if (!(name in c)) c[name] = defaults[name];
-      }
+    init(config = {}) {
+      c = {
+        ...defaults,
+        ...config
+      };
 
+      const em = c.em;
+      this.em = em;
       var ppfx = c.pStylePrefix;
       if (ppfx) c.stylePrefix = ppfx + c.stylePrefix;
 
       model = new ModalM(c);
+      model.on('change:open', (m, enb) => triggerEvent(enb, em));
       modal = new ModalView({
         model,
         config: c
@@ -88,6 +101,28 @@ module.exports = () => {
      */
     close() {
       modal.hide();
+      return this;
+    },
+
+    /**
+     * Execute callback when the modal will be closed.
+     * The callback will be called one only time
+     * @param {Function} clb
+     * @returns {this}
+     */
+    onceClose(clb) {
+      this.em.once('modal:close', clb);
+      return this;
+    },
+
+    /**
+     * Execute callback when the modal will be opened.
+     * The callback will be called one only time
+     * @param {Function} clb
+     * @returns {this}
+     */
+    onceOpen(clb) {
+      this.em.once('modal:open', clb);
       return this;
     },
 

@@ -57,6 +57,24 @@ component.get('tagName');
     By default, when `toolbar` property is falsy the editor will add automatically commands like `move`, `delete`, etc. based on its properties.
 -   `components` **Collection&lt;[Component][9]>?** Children components. Default: `null`
 
+## init
+
+Hook method, called once the model is created
+
+## updated
+
+Hook method, called when the model has been updated (eg. updated some model's property)
+
+### Parameters
+
+-   `property` **[String][1]** Property name, if triggered after some property update
+-   `value` **any** Property value, if triggered after some property update
+-   `previous` **any** Property previous value, if triggered after some property update
+
+## removed
+
+Hook method, called once the model has been removed
+
 ## is
 
 Check component's type
@@ -73,6 +91,12 @@ component.is('image')
 ```
 
 Returns **[Boolean][3]** 
+
+## index
+
+Get the index of the component in the parent collection.
+
+Returns **[Number][10]** 
 
 ## find
 
@@ -394,10 +418,17 @@ Returns **this**
 
 ## getEl
 
-Get the DOM element of the component. This works only of the
-component is already rendered
+Get the DOM element of the component.
+This works only if the component is already rendered
 
-Returns **[HTMLElement][10]** 
+Returns **[HTMLElement][11]** 
+
+## getView
+
+Get the View of the component.
+This works only if the component is already rendered
+
+Returns **ComponentView** 
 
 ## onAll
 
@@ -423,6 +454,28 @@ Remove the component
 
 Returns **this** 
 
+## getList
+
+The list of components is taken from the Components module.
+Initially, the list, was set statically on the Component object but it was
+not ok, as it was shared between multiple editor instances
+
+### Parameters
+
+-   `model`  
+
+## checkId
+
+This method checks, for each parsed component and style object
+(are not Components/CSSRules yet), for duplicated id and fixes them
+This method is used in Components.js just after the parsing
+
+### Parameters
+
+-   `components`  
+-   `styles`   (optional, default `[]`)
+-   `list`   (optional, default `{}`)
+
 [1]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 
 [2]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
@@ -441,4 +494,6 @@ Returns **this**
 
 [9]: #component
 
-[10]: https://developer.mozilla.org/docs/Web/HTML/Element
+[10]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+
+[11]: https://developer.mozilla.org/docs/Web/HTML/Element
