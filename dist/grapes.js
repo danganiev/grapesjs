@@ -33480,7 +33480,8 @@ module.exports = {
 
   wrapperId: 'wrapper',
 
-  wrapperName: 'Body',
+  // wrapperName: 'Body',
+  wrapperName: 'Документ',
 
   // Default wrapper configuration
   wrapper: {
@@ -34997,7 +34998,7 @@ var Component = Backbone.Model.extend(_Styleable2.default).extend({
   getName: function getName() {
     var customName = this.get('name') || this.get('custom-name');
     var tag = this.get('tagName');
-    tag = tag == 'div' ? 'box' : tag;
+    tag = tag == 'div' ? 'Блок' : tag;
     var name = this.get('type') || tag;
     name = name.charAt(0).toUpperCase() + name.slice(1);
     return customName || name;
@@ -35818,7 +35819,8 @@ var Component = __webpack_require__(/*! ./Component */ "./src/dom_components/mod
 
 module.exports = Component.extend({
   defaults: _extends({}, Component.prototype.defaults, {
-    highlightable: 0
+    highlightable: 0,
+    'custom-name': 'SVG'
   }),
 
   getName: function getName() {
@@ -36124,7 +36126,8 @@ module.exports = Component.extend({
   defaults: _extends({}, Component.prototype.defaults, {
     type: 'text',
     droppable: false,
-    editable: true
+    editable: true,
+    name: 'Текст'
   }),
 
   toHTML: function toHTML() {
@@ -40945,7 +40948,7 @@ module.exports = function () {
     plugins: plugins,
 
     // Will be replaced on build
-    version: '0.14.61',
+    version: '0.14.62',
 
     /**
      * Initialize the editor with passed options
@@ -41908,29 +41911,7 @@ exports.default = _backbone2.default.View.extend({
     var gut = 30 + level * 10 + 'px';
     var name = model.getName();
 
-    // return `
-    //   ${
-    //     hidable
-    //       ? `<i class="${pfx}layer-vis fa fa-eye ${
-    //           this.isVisible() ? '' : 'fa-eye-slash'
-    //         }" data-toggle-visible></i>`
-    //       : ''
-    //   }
-    //   <div class="${clsTitleC}">
-    //     <div class="${clsTitle}" style="padding-left: ${gut}" data-toggle-select>
-    //       <div class="${pfx}layer-title-inn">
-    //         <i class="${clsCaret}" data-toggle-open></i>
-    //         ${model.getIcon()}
-    //         <span class="${clsInput}" data-name>${name}</span>
-    //       </div>
-    //     </div>
-    //   </div>
-    //   <div class="${this.clscount}">${count || ''}</div>
-    //   <div class="${this.clsmove}" data-toggle-move>
-    //     <i class="fa fa-arrows"></i>
-    //   </div>
-    //   <div class="${this.clschildren}"></div>`;
-    return '<div />';
+    return '\n      ' + (hidable ? '<i class="' + pfx + 'layer-vis fa fa-eye ' + (this.isVisible() ? '' : 'fa-eye-slash') + '" data-toggle-visible></i>' : '') + '\n      <div class="' + clsTitleC + '">\n        <div class="' + clsTitle + '" style="padding-left: ' + gut + '" data-toggle-select>\n          <div class="' + pfx + 'layer-title-inn">\n            <i class="' + clsCaret + '" data-toggle-open></i>\n            ' + model.getIcon() + '\n            <span class="' + clsInput + '" data-name>' + name + '</span>\n          </div>\n        </div>\n      </div>\n      <div class="' + this.clscount + '">' + (count || '') + '</div>\n      <div class="' + this.clsmove + '" data-toggle-move>\n        <i class="fa fa-arrows"></i>\n      </div>\n      <div class="' + this.clschildren + '"></div>';
   },
   initialize: function initialize() {
     var o = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};

@@ -85,7 +85,7 @@ module.exports = {
       });
 
       test('Has expected name', () => {
-        expect(obj.getName()).toEqual('Box');
+        expect(obj.getName()).toEqual('Блок');
       });
 
       test('Has expected name 2', () => {
