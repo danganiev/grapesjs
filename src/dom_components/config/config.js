@@ -3,7 +3,8 @@ module.exports = {
 
   wrapperId: 'wrapper',
 
-  wrapperName: 'Body',
+  // wrapperName: 'Body',
+  wrapperName: 'Документ',
 
   // Default wrapper configuration
   wrapper: {

@@ -1,5 +1,6 @@
 $frameAnimation: 0.35s ease;
-$canvasTop: 40px;
+// $canvasTop: 40px;
+$canvasTop: 0px;
 $guide_pad: 5px;
 
 .#{$prefix} {
@@ -100,7 +101,8 @@ $guide_pad: 5px;
   z-index: 1;
   position: absolute;
   left: 0;
-  top: 40px;
+  // top: 40px;
+  top: 0px;
 
   &#{gjs-is(grab)},
   &#{gjs-is(grabbing)} {
@@ -131,7 +133,8 @@ $guide_pad: 5px;
   .#{$app-prefix}highlighter,
   .#{$app-prefix}highlighter-sel {
     position: absolute;
-    outline: 1px solid $colorBlue;
+    // outline: 1px solid $colorBlue;
+    outline: 1px dashed$colorBlue;
     outline-offset: -1px;
     pointer-events: none;
   }

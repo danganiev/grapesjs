@@ -5,7 +5,8 @@ module.exports = Component.extend({
     ...Component.prototype.defaults,
     type: 'text',
     droppable: false,
-    editable: true
+    editable: true,
+    name: 'Текст'
   },
 
   toHTML() {

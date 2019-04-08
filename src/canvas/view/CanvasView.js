@@ -192,8 +192,10 @@ module.exports = Backbone.View.extend({
         }
 
         .${ppfx}comp-selected {
-          outline: 3px solid #3b97e3 !important;
-          outline-offset: -3px;
+          // outline: 3px solid #3b97e3 !important;
+          outline: 1px solid #006fff !important;
+          outline-offset: 0px;
+          // outline-offset: -3px;
         }
 
         .${ppfx}comp-selected-parent {

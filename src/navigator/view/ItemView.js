@@ -49,11 +49,11 @@ export default Backbone.View.extend({
           </div>
         </div>
       </div>
-      <div class="${this.clsCount}">${count || ''}</div>
-      <div class="${this.clsMove}" data-toggle-move>
+      <div class="${this.clscount}">${count || ''}</div>
+      <div class="${this.clsmove}" data-toggle-move>
         <i class="fa fa-arrows"></i>
       </div>
-      <div class="${this.clsChildren}"></div>`;
+      <div class="${this.clschildren}"></div>`;
   },
 
   initialize(o = {}) {

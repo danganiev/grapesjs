@@ -4,7 +4,8 @@ module.exports = Component.extend(
   {
     defaults: {
       ...Component.prototype.defaults,
-      highlightable: 0
+      highlightable: 0,
+      'custom-name': 'SVG'
     },
 
     getName() {

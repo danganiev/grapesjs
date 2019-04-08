@@ -1,6 +1,7 @@
 .#{$pn-prefix} {
   &panel {
-    display: inline-block;
+    display: none;
+    // display: inline-block;
     position: absolute;
     box-sizing: border-box;
     text-align: center;
