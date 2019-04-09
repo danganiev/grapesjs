@@ -39915,7 +39915,8 @@ exports.default = function () {
      * });
      */
     setCustomRte: function setCustomRte(obj) {
-      this.RichTextEditor.customRte = obj;
+      // this.RichTextEditor.customRte = obj;
+      this.RichTextEditor.setCustomRte(obj);
     },
 
 
@@ -40948,7 +40949,7 @@ module.exports = function () {
     plugins: plugins,
 
     // Will be replaced on build
-    version: '0.14.62',
+    version: '0.14.63',
 
     /**
      * Initialize the editor with passed options
@@ -44292,7 +44293,9 @@ module.exports = {
   adjustToolbar: 1,
 
   // Default RTE actions
-  actions: ['bold', 'italic', 'underline', 'strikethrough', 'link']
+  actions: ['bold', 'italic', 'underline', 'strikethrough', 'link'],
+
+  noRTE: false
 };
 
 /***/ }),
@@ -44379,6 +44382,11 @@ module.exports = function () {
 
       config = opts;
 
+      this.noRTE = config.noRTE;
+      if (config.noRTE) {
+        return;
+      }
+
       for (var name in defaults) {
         if (!(name in config)) {
           config[name] = defaults[name];
@@ -44411,10 +44419,19 @@ module.exports = function () {
      * @private
      */
     postRender: function postRender(ev) {
+      if (this.noRTE) {
+        return;
+      }
+
       var canvas = ev.model.get('Canvas');
       toolbar.style.pointerEvents = 'all';
       hideToolbar();
       canvas.getToolsEl().appendChild(toolbar);
+    },
+    setCustomRTE: function setCustomRTE(rte) {
+      globalRte = rte;
+      this.customRte = rte;
+      this.noRTE = false;
     },
 
 
@@ -44591,6 +44608,10 @@ module.exports = function () {
      * @private
      * */
     enable: function enable(view, rte) {
+      if (this.noRTE) {
+        return;
+      }
+
       lastEl = view.el;
       var em = config.em;
       var el = view.getChildrenContainer();
@@ -44618,6 +44639,10 @@ module.exports = function () {
      * @private
      * */
     disable: function disable(view, rte) {
+      if (this.noRTE) {
+        return;
+      }
+
       var em = config.em;
       var customRte = this.customRte;
       var el = view.getChildrenContainer();
