@@ -60,6 +60,11 @@ module.exports = () => {
     init(opts = {}) {
       config = opts;
 
+      this.noRTE = config.noRTE
+      if (config.noRTE){
+        return;
+      }
+
       for (let name in defaults) {
         if (!(name in config)) {
           config[name] = defaults[name];
@@ -89,10 +94,20 @@ module.exports = () => {
      * @private
      */
     postRender(ev) {
+      if (this.noRTE){
+        return
+      }
+
       const canvas = ev.model.get('Canvas');
       toolbar.style.pointerEvents = 'all';
       hideToolbar();
       canvas.getToolsEl().appendChild(toolbar);
+    },
+
+    setCustomRTE(rte){
+      globalRte = rte
+      this.customRte = rte
+      this.noRTE = false;
     },
 
     /**
@@ -259,6 +274,10 @@ module.exports = () => {
      * @private
      * */
     enable(view, rte) {
+      if (this.noRTE){
+        return;
+      }
+
       lastEl = view.el;
       const em = config.em;
       const el = view.getChildrenContainer();
@@ -285,6 +304,10 @@ module.exports = () => {
      * @private
      * */
     disable(view, rte) {
+      if (this.noRTE){
+        return
+      }
+
       const em = config.em;
       const customRte = this.customRte;
       var el = view.getChildrenContainer();

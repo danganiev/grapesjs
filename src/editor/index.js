@@ -588,7 +588,8 @@ export default (config = {}) => {
      * });
      */
     setCustomRte(obj) {
-      this.RichTextEditor.customRte = obj;
+      // this.RichTextEditor.customRte = obj;
+      this.RichTextEditor.setCustomRte(obj)
     },
 
     /**
