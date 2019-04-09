@@ -40949,7 +40949,7 @@ module.exports = function () {
     plugins: plugins,
 
     // Will be replaced on build
-    version: '0.14.65',
+    version: '0.14.66',
 
     /**
      * Initialize the editor with passed options
@@ -44428,7 +44428,7 @@ module.exports = function () {
       hideToolbar();
       canvas.getToolsEl().appendChild(toolbar);
     },
-    setCustomRTE: function setCustomRTE(rte) {
+    setCustomRte: function setCustomRte(rte) {
       globalRte = rte;
       this.customRte = rte;
       this.noRTE = false;

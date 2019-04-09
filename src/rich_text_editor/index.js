@@ -104,7 +104,7 @@ module.exports = () => {
       canvas.getToolsEl().appendChild(toolbar);
     },
 
-    setCustomRTE(rte){
+    setCustomRte(rte){
       globalRte = rte
       this.customRte = rte
       this.noRTE = false;
