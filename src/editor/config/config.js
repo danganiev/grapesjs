@@ -54,9 +54,14 @@ module.exports = {
     p{
       margin: 0
     }
+
     #wrapper {
       overflow: auto;
       overflow-x: hidden;
+    }
+
+    span > div {
+      display: inline-block;
     }
 
     * ::-webkit-scrollbar-track {
@@ -69,6 +74,34 @@ module.exports = {
 
     * ::-webkit-scrollbar {
       width: 10px
+    }
+
+    .ql-container {
+    }
+
+    .ql-container.ql-disabled .ql-tooltip {
+      visibility: hidden;
+    }
+    .ql-container.ql-disabled .ql-editor ul[data-checked] > li::before {
+      pointer-events: none;
+    }
+    .ql-clipboard {
+      left: -100000px;
+      height: 1px;
+      overflow-y: hidden;
+      position: absolute;
+      top: 50%;
+    }
+    .ql-clipboard p {
+      margin: 0;
+      padding: 0;
+    }
+    .ql-editor {
+      white-space: pre-wrap;
+      // word-wrap: break-word;
+    }
+    .ql-editor > * {
+      cursor: text;
     }
   `,
 
