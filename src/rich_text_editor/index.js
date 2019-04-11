@@ -85,6 +85,9 @@ module.exports = () => {
 
       //Avoid closing on toolbar clicking
       on(toolbar, 'mousedown', e => e.stopPropagation());
+      if (config.customToolbar){
+        on(config.customToolbar, 'mousedown', e => e.stopPropagation())
+      }
       return this;
     },
 

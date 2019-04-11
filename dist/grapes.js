@@ -40953,7 +40953,7 @@ module.exports = function () {
     plugins: plugins,
 
     // Will be replaced on build
-    version: '0.14.68',
+    version: '0.14.69',
 
     /**
      * Initialize the editor with passed options
@@ -44413,6 +44413,11 @@ module.exports = function () {
       (0, _mixins.on)(toolbar, 'mousedown', function (e) {
         return e.stopPropagation();
       });
+      if (config.customToolbar) {
+        (0, _mixins.on)(config.customToolbar, 'mousedown', function (e) {
+          return e.stopPropagation();
+        });
+      }
       return this;
     },
 
