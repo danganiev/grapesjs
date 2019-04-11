@@ -39089,7 +39089,7 @@ module.exports = {
   // and sets a default background color of white. This CSS is desired in most cases.
   // use this property if you wish to overwrite the base CSS to your own CSS. This is most
   // useful if for example your template is not based off a document with 0 as body margin.
-  baseCss: '\n    * {\n      box-sizing: border-box;\n    }\n    html, body, #wrapper {\n      min-height: 100%;\n    }\n    body {\n      margin: 0;\n      height: 100%;\n      background-color: #fff\n    }\n    p{\n      margin: 0\n    }\n    #wrapper {\n      overflow: auto;\n      overflow-x: hidden;\n    }\n\n    * ::-webkit-scrollbar-track {\n      background: rgba(0, 0, 0, 0.1)\n    }\n\n    * ::-webkit-scrollbar-thumb {\n      background: rgba(255, 255, 255, 0.2)\n    }\n\n    * ::-webkit-scrollbar {\n      width: 10px\n    }\n  ',
+  baseCss: '\n    * {\n      box-sizing: border-box;\n    }\n    html, body, #wrapper {\n      min-height: 100%;\n    }\n    body {\n      margin: 0;\n      height: 100%;\n      background-color: #fff\n    }\n    p{\n      margin: 0\n    }\n\n    #wrapper {\n      overflow: auto;\n      overflow-x: hidden;\n    }\n\n    span > div {\n      display: inline-block;\n    }\n\n    * ::-webkit-scrollbar-track {\n      background: rgba(0, 0, 0, 0.1)\n    }\n\n    * ::-webkit-scrollbar-thumb {\n      background: rgba(255, 255, 255, 0.2)\n    }\n\n    * ::-webkit-scrollbar {\n      width: 10px\n    }\n\n    .ql-container {\n    }\n\n    .ql-container.ql-disabled .ql-tooltip {\n      visibility: hidden;\n    }\n    .ql-container.ql-disabled .ql-editor ul[data-checked] > li::before {\n      pointer-events: none;\n    }\n    .ql-clipboard {\n      left: -100000px;\n      height: 1px;\n      overflow-y: hidden;\n      position: absolute;\n      top: 50%;\n    }\n    .ql-clipboard p {\n      margin: 0;\n      padding: 0;\n    }\n    .ql-editor {\n      white-space: pre-wrap;\n      // word-wrap: break-word;\n    }\n    .ql-editor > * {\n      cursor: text;\n    }\n  ',
 
   // CSS that could only be seen (for instance, inside the code viewer)
   protectedCss: '* { box-sizing: border-box; } body {margin: 0;}',
@@ -39919,6 +39919,10 @@ exports.default = function () {
       this.RichTextEditor.setCustomRte(obj);
     },
 
+
+    // unsetCustomRte() {
+    //   this.RichTextEditor.unsetCustomRte()
+    // },
 
     /**
      * Replace the default CSS parser with a custom one.
@@ -40949,7 +40953,7 @@ module.exports = function () {
     plugins: plugins,
 
     // Will be replaced on build
-    version: '0.14.66',
+    version: '0.14.68',
 
     /**
      * Initialize the editor with passed options
@@ -44431,9 +44435,15 @@ module.exports = function () {
     setCustomRte: function setCustomRte(rte) {
       globalRte = rte;
       this.customRte = rte;
-      this.noRTE = false;
+      // this.noRTE = true;
     },
 
+
+    // unsetCustomRte(){
+    //   // globalRte = undefined
+    //   this.customRte = undefined
+    //   // this.noRte = true
+    // },
 
     /**
      * Init the built-in RTE

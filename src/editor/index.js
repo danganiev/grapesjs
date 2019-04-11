@@ -592,6 +592,10 @@ export default (config = {}) => {
       this.RichTextEditor.setCustomRte(obj)
     },
 
+    // unsetCustomRte() {
+    //   this.RichTextEditor.unsetCustomRte()
+    // },
+
     /**
      * Replace the default CSS parser with a custom one.
      * The parser function receives a CSS string as a parameter and expects

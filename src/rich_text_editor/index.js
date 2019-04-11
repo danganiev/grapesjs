@@ -107,8 +107,14 @@ module.exports = () => {
     setCustomRte(rte){
       globalRte = rte
       this.customRte = rte
-      this.noRTE = false;
+      // this.noRTE = true;
     },
+
+    // unsetCustomRte(){
+    //   // globalRte = undefined
+    //   this.customRte = undefined
+    //   // this.noRte = true
+    // },
 
     /**
      * Init the built-in RTE
