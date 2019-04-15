@@ -60,8 +60,8 @@ module.exports = () => {
     init(opts = {}) {
       config = opts;
 
-      this.noRTE = config.noRTE
-      if (config.noRTE){
+      this.noRTE = config.noRTE;
+      if (config.noRTE) {
         return;
       }
 
@@ -85,8 +85,8 @@ module.exports = () => {
 
       //Avoid closing on toolbar clicking
       on(toolbar, 'mousedown', e => e.stopPropagation());
-      if (config.customToolbar){
-        on(config.customToolbar, 'mousedown', e => e.stopPropagation())
+      if (config.customToolbar) {
+        on(config.customToolbar, 'mousedown', e => e.stopPropagation());
       }
       return this;
     },
@@ -97,8 +97,8 @@ module.exports = () => {
      * @private
      */
     postRender(ev) {
-      if (this.noRTE){
-        return
+      if (this.noRTE) {
+        return;
       }
 
       const canvas = ev.model.get('Canvas');
@@ -107,17 +107,15 @@ module.exports = () => {
       canvas.getToolsEl().appendChild(toolbar);
     },
 
-    setCustomRte(rte){
-      globalRte = rte
-      this.customRte = rte
+    setCustomRte(rte) {
+      globalRte = rte;
+      this.customRte = rte;
       // this.noRTE = true;
     },
 
-    // unsetCustomRte(){
-    //   // globalRte = undefined
-    //   this.customRte = undefined
-    //   // this.noRte = true
-    // },
+    setCustomToolbar(toolbar) {
+      on(toolbar, 'mousedown', e => e.stopPropagation());
+    },
 
     /**
      * Init the built-in RTE
@@ -283,7 +281,7 @@ module.exports = () => {
      * @private
      * */
     enable(view, rte) {
-      if (this.noRTE){
+      if (this.noRTE) {
         return;
       }
 
@@ -313,8 +311,8 @@ module.exports = () => {
      * @private
      * */
     disable(view, rte) {
-      if (this.noRTE){
-        return
+      if (this.noRTE) {
+        return;
       }
 
       const em = config.em;
