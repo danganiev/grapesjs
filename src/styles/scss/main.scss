@@ -305,7 +305,8 @@ $colorsAll: (one, $primaryColor),
 .#{$app-prefix}placeholder,
 .#{$nv-prefix}placeholder {
   border-style: solid !important;
-  border-color: $colorGreen;
+  // border-color: $colorGreen;
+  border-color: $colorBlue;
   outline: none;
   box-sizing: border-box;
   transition: top $animSpeed, left $animSpeed,
@@ -315,8 +316,9 @@ $colorsAll: (one, $primaryColor),
 .#{$app-prefix}placeholder-int,
 .#{$com-prefix}placeholder-int,
 .#{$nv-prefix}placeholder-int {
-	background-color: $colorGreen;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+	// background-color: $colorGreen;
+	background-color: $colorBlue;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
 	height: 100%; width: 100%;
 	pointer-events: none;
 	padding: 1.5px;
@@ -392,8 +394,9 @@ $colorsAll: (one, $primaryColor),
 	  margin-bottom: 15px;
 
 	  	&.#{$am-prefix}hover {
-			border: 2px solid $colorGreen;
-			color: lighten($colorGreen, 5%); /*#7ee07e*/
+			// border: 2px solid $colorGreen;
+			border: 2px solid $colorBlue;
+			color: lighten($colorBlue, 5%); /*#7ee07e*/
 		}
 
 		&.#{$am-prefix}disabled{

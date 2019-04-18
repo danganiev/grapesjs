@@ -103,6 +103,10 @@ module.exports = {
     .ql-editor > * {
       cursor: text;
     }
+
+    .ql-cursor {
+      display: none;
+    }
   `,
 
   // CSS that could only be seen (for instance, inside the code viewer)
