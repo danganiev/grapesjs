@@ -35483,6 +35483,7 @@ module.exports = Component.extend({
     highlightable: 0,
     resizable: { ratioDefault: 1 },
     traits: ['alt'],
+    name: 'Изображение',
 
     src: '<svg ' + svgAttrs + '>\n        <path d="M8.5 13.5l2.5 3 3.5-4.5 4.5 6H5m16 1V5a2 2 0 0 0-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2z"></path>\n      </svg>',
 
@@ -41007,7 +41008,7 @@ module.exports = function () {
     plugins: plugins,
 
     // Will be replaced on build
-    version: '0.14.70',
+    version: '0.14.71',
 
     /**
      * Initialize the editor with passed options
