@@ -75,7 +75,6 @@ module.exports = () => {
       // Setup the sync between the global and public collections
       blocks.listenTo(blocks, 'add', model => {
         blocksVisible.add(model);
-        debugger;
         em && em.trigger('block:add', model);
       });
 

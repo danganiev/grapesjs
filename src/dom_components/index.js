@@ -128,9 +128,9 @@ module.exports = () => {
       view: ComponentView
     },
     {
-      id: 'landing-block',
-      model: require('./model/ComponentLandingBlock'),
-      view: require('./view/ComponentLandingBlockView')
+      id: 'section',
+      model: require('./model/ComponentSection'),
+      view: require('./view/ComponentSectionView')
     },
     {
       id: 'default',
