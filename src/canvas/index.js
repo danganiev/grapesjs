@@ -458,9 +458,14 @@ module.exports = () => {
     scrollTo(el, opts = {}) {
       const elem = getElement(el);
       const cv = this.getCanvasView();
+      if (!elem) return;
 
       if (!cv.isElInViewport(elem) || opts.force) {
-        elem.scrollIntoView(opts);
+        const opt =
+          typeof opts === 'object'
+            ? opts
+            : { behavior: 'smooth', block: 'nearest' };
+        elem.scrollIntoView(opt);
       }
     },
 
