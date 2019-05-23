@@ -4,7 +4,7 @@ module.exports = {
   wrapperId: 'wrapper',
 
   // wrapperName: 'Body',
-  wrapperName: 'Документ',
+  wrapperName: 'Сайт',
 
   // Default wrapper configuration
   wrapper: {

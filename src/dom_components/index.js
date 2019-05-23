@@ -123,6 +123,11 @@ module.exports = () => {
       view: ComponentView
     },
     {
+      id: 'landing-block',
+      model: require('./model/ComponentLandingBlock'),
+      view: require('./view/ComponentLandingBlockView')
+    },
+    {
       id: 'default',
       model: Component,
       view: ComponentView

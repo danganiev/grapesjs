@@ -63,6 +63,7 @@
       padding: $inputPadding;
       z-index: 1;
       font-family: inherit;
+      font-size: inherit;
 
       &:focus {
         outline: none;
@@ -330,6 +331,7 @@
     cursor: pointer;
     border: none;
     font-family: $mainFont;
+    font-size: 11.5px;
 
     &:active {
       background-color: $mainLhColor;

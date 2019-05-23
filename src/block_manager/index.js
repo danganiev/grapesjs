@@ -75,6 +75,7 @@ module.exports = () => {
       // Setup the sync between the global and public collections
       blocks.listenTo(blocks, 'add', model => {
         blocksVisible.add(model);
+        debugger;
         em && em.trigger('block:add', model);
       });
 
@@ -121,7 +122,7 @@ module.exports = () => {
      * @param {Object} opts Options
      * @param {string} opts.label Name of the block
      * @param {string} opts.content HTML content
-     * @param {string|Object} opts.category Group the block inside a catgegory.
+     * @param {string|Object} opts.category Group the block inside a category.
      *                                      You should pass objects with id property, eg:
      *                                      {id: 'some-uid', label: 'My category'}
      *                                      The string will be converted in:
