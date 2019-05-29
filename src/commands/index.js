@@ -176,7 +176,8 @@ module.exports = () => {
         ['component-exit', 'ComponentExit', 'select-parent'],
         ['component-delete', 'ComponentDelete'],
         ['component-style-clear', 'ComponentStyleClear'],
-        ['component-drag', 'ComponentDrag']
+        ['component-drag', 'ComponentDrag'],
+        ['toggle-children-edit', 'ToggleChildrenEdit']
       ].forEach(item => {
         const oldCmd = item[2];
         const cmd = require(`./view/${item[1]}`);

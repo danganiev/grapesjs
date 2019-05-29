@@ -634,7 +634,10 @@ const Component = Backbone.Model.extend(Styleable).extend(
         var tb = [];
         if (model.collection) {
           tb.push({
-            attributes: { class: 'fa fa-arrow-up' },
+            attributes: {
+              class: 'fa fa-arrow-up',
+              title: 'Выбрать родительский элемент'
+            },
             command: ed => ed.runCommand('core:component-exit', { force: 1 })
           });
         }
@@ -642,6 +645,7 @@ const Component = Backbone.Model.extend(Styleable).extend(
           tb.push({
             attributes: {
               class: `fa fa-arrows ${ppfx}no-touch-actions`,
+              title: 'Переместить',
               draggable: true
             },
             //events: hasDnd(this.em) ? { dragstart: 'execCommand' } : '',
@@ -650,13 +654,14 @@ const Component = Backbone.Model.extend(Styleable).extend(
         }
         if (model.get('copyable')) {
           tb.push({
-            attributes: { class: 'fa fa-clone' },
+            attributes: { title: 'Клонировать', class: 'fa fa-clone' },
+
             command: 'tlb-clone'
           });
         }
         if (model.get('removable')) {
           tb.push({
-            attributes: { class: 'fa fa-trash-o' },
+            attributes: { class: 'fa fa-trash-o', title: 'Удалить' },
             command: 'tlb-delete'
           });
         }
