@@ -11,7 +11,7 @@ module.exports = Component.extend(
     },
 
     init() {
-      this.toggleChildren = false;
+      this.toggleChildrenEditable();
     },
 
     toggleChildrenEditable() {
@@ -29,28 +29,28 @@ module.exports = Component.extend(
 
       recursionToggle(components);
       this.toggleChildren = !value;
+      this.setEditToolbarButtons();
     },
 
     initToolbar(...args) {
+      this.toggleChildren = false;
       Component.prototype.initToolbar.apply(this, args);
-      const em = this.em;
+      // const em = this.em;
 
-      if (em) {
-        var cmd = em.get('Commands');
-        var cmdName = 'core:toggle-children-edit';
+      var tb = this.get('toolbar');
+      this.defaultToolbar = _.clone(tb);
+      // if (em) {
+      //   // var cmd = em.get("Commands");
 
-        // if (cmd.has(cmdName)) {
-        // let hasButtonBool = false;
-        var tb = this.get('toolbar');
+      // }
+      this.setEditToolbarButtons();
+    },
 
-        // for (let i = 0; i < tb.length; i++) {
-        //   if (tb[i].command === "image-editor") {
-        //     hasButtonBool = true;
-        //     break;
-        //   }
-        // }
+    setEditToolbarButtons() {
+      let tb = _.clone(this.defaultToolbar);
+      var cmdName = 'core:toggle-children-edit';
 
-        // if (!hasButtonBool) {
+      if (this.toggleChildren) {
         tb.push({
           attributes: {
             class: 'fa fa-pencil',
@@ -58,10 +58,16 @@ module.exports = Component.extend(
           },
           command: cmdName
         });
-        this.set('toolbar', tb);
-        // }
-        // }
+      } else {
+        tb.push({
+          attributes: {
+            class: 'fa fa-ban',
+            title: 'Запретить редактирование секции'
+          },
+          command: cmdName
+        });
       }
+      this.set('toolbar', tb);
     }
   },
   {

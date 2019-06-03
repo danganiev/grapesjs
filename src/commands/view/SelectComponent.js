@@ -19,6 +19,7 @@ module.exports = {
 
     em.on('component:update', this.updateAttached, this);
     em.on('change:canvasOffset', this.updateAttached, this);
+    em.on('component:updateToolbar', this.updateToolbar, this);
   },
 
   /**
@@ -489,7 +490,8 @@ module.exports = {
    */
   updateToolbar(mod) {
     var em = this.config.em;
-    var model = mod == em ? em.getSelected() : mod;
+    var model = mod !== em ? em.getSelected() : mod;
+    // debugger;
     var toolbarEl = this.canvas.getToolbarEl();
     var toolbarStyle = toolbarEl.style;
 
@@ -502,7 +504,7 @@ module.exports = {
     }
 
     var toolbar = model.get('toolbar');
-    var ppfx = this.ppfx;
+    // var ppfx = this.ppfx;
     var showToolbar = em.get('Config').showToolbar;
 
     if (showToolbar && toolbar && toolbar.length) {

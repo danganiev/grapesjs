@@ -14,6 +14,16 @@ module.exports = {
       component.toggleChildrenEditable();
     }
 
+    // const tb = component.get("toolbar");
+    // tb.push({
+    //   attributes: {
+    //     class: "fa fa-anchor",
+    //     title: "Запретить редактирование секции"
+    //   },
+    //   command: "bla"
+    // });
+    // component.set("toolbar", tb);
+    component.em.trigger('component:updateToolbar');
     return component;
   }
 };
