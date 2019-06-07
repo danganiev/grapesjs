@@ -317,6 +317,7 @@ module.exports = {
   },
 
   onDrag() {
+    console.log('componentdrag.ondrag');
     const { guidesTarget, opts } = this;
     this.updateGuides(guidesTarget);
     opts.debug && guidesTarget.forEach(item => this.renderGuide(item));
@@ -325,6 +326,7 @@ module.exports = {
   },
 
   onEnd() {
+    console.log('componentdrag.onend');
     const { editor, opts, id } = this;
     const { onEnd } = opts;
     onEnd && onEnd();

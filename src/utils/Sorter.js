@@ -13,6 +13,7 @@ const $ = Backbone.$;
 
 module.exports = Backbone.View.extend({
   initialize(opt) {
+    // debugger;
     this.opt = opt || {};
     _.bindAll(
       this,
@@ -20,7 +21,7 @@ module.exports = Backbone.View.extend({
       'onMove',
       'endMove',
       'rollback',
-      'udpateOffset',
+      'updateOffset',
       'moveDragHelper'
     );
     var o = opt || {};
@@ -62,8 +63,8 @@ module.exports = Backbone.View.extend({
     this.activeTextModel = null;
 
     if (this.em && this.em.on) {
-      this.em.on('change:canvasOffset', this.udpateOffset);
-      this.udpateOffset();
+      this.em.on('change:canvasOffset', this.updateOffset);
+      this.updateOffset();
     }
   },
 
@@ -91,7 +92,7 @@ module.exports = Backbone.View.extend({
   /**
    * Triggered when the offset of the editro is changed
    */
-  udpateOffset() {
+  updateOffset() {
     const offset = this.em.get('canvasOffset') || {};
     this.offTop = offset.top;
     this.offLeft = offset.left;
