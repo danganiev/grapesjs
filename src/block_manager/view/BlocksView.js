@@ -81,7 +81,6 @@ module.exports = require('backbone').View.extend({
    * @private
    */
   onDrop(model) {
-    console.log('blocksview.ondrop');
     const em = this.em;
     em.runDefault();
 

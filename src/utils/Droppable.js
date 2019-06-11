@@ -98,7 +98,7 @@ export default class Droppable {
   handleDrop(ev) {
     ev.preventDefault();
     const dt = ev.dataTransfer;
-    debugger;
+    // debugger;
     const content = this.getContentByData(dt).content;
     ev.target.style.border = '';
 
