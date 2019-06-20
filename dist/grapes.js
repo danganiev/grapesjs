@@ -105,7 +105,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
  * Backbone.Undo.js v0.2
- *
+ * 
  * Copyright (c)2013 Oliver Sartun
  * Released under the MIT License
  *
@@ -128,8 +128,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 	/**
 	 * As call is faster than apply, this is a faster version of apply as it uses call.
-	 *
-	 * @param  {Function} fn 	The function to execute
+	 * 
+	 * @param  {Function} fn 	The function to execute 
 	 * @param  {Object}   ctx 	The context the function should be called in
 	 * @param  {Array}    args 	The array of arguments that should be applied to the function
 	 * @return Forwards whatever the called function returns
@@ -142,7 +142,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 	/**
 	 * Uses slice on an array or an array-like object.
-	 *
+	 * 
 	 * @param  {Array|Object} 	arr 	The array or array-like object.
 	 * @param  {Number} 		[index]	The index from where the array should be sliced. Default is 0.
 	 * @return {Array} The sliced array
@@ -152,13 +152,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 	}
 
 	/**
-	 * Checks if an object has one or more specific keys. The keys
+	 * Checks if an object has one or more specific keys. The keys 
 	 * don't have to be an owned property.
 	 * You can call this function either this way:
 	 * hasKeys(obj, ["a", "b", "c"])
 	 * or this way:
 	 * hasKeys(obj, "a", "b", "c")
-	 *
+	 * 
 	 * @param  {Object}  	obj 	The object to check on
 	 * @param  {Array}  	keys 	The keys to check for
 	 * @return {Boolean} True, if the object has all those keys
@@ -174,9 +174,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 	}
 
 	/**
-	 * Returns a number that is unique per call stack. The number gets
+	 * Returns a number that is unique per call stack. The number gets 
 	 * changed after the call stack has been completely processed.
-	 *
+	 * 
 	 * @return {number} MagicFusionIndex
 	 */
 	var getMagicFusionIndex = (function () {
@@ -188,9 +188,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 		// would be removed from the collection or the last set
 		// attribute would be changed back to its previous value.
 		// To prevent that we have to figure out a way to combine
-		// all those actions that happened "at the same time".
-		// Timestamps aren't exact enough. A complex routine could
-		// run several milliseconds and in that time produce a lot
+		// all those actions that happened "at the same time". 
+		// Timestamps aren't exact enough. A complex routine could 
+		// run several milliseconds and in that time produce a lot 
 		// of actions with different timestamps.
 		// Instead we take advantage of the single-threadedness of
 		// JavaScript:
@@ -200,7 +200,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 			magicFusionIndex++;
 			callstackWasIndexed = true;
 			_.defer(function () {
-				// Here comes the magic. With a Timeout of 0
+				// Here comes the magic. With a Timeout of 0 
 				// milliseconds this function gets called whenever
 				// the current callstack is completed
 				callstackWasIndexed = false;
@@ -215,7 +215,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 	})();
 
 	/**
-	 * To prevent binding a listener several times to one
+	 * To prevent binding a listener several times to one 
 	 * object, we register the objects in an ObjectRegistry
 	 *
 	 * @constructor
@@ -225,39 +225,39 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 		// objects: In case the object has a cid
 		// (which Backbone objects typically have)
 		// it uses this cid as an index. That way
-		// the Array's length attribute doesn't
-		// change and the object isn't an item
+		// the Array's length attribute doesn't 
+		// change and the object isn't an item 
 		// in the array, but an object-property.
 		// Otherwise it's added to the Array as an
 		// item.
 		// That way we can use the fast property-
-		// lookup and only have to fall back to
-		// iterating over the array in case
+		// lookup and only have to fall back to 
+		// iterating over the array in case 
 		// non-Backbone-objects are registered.
 		this.registeredObjects = [];
-		// To return a list of all registered
+		// To return a list of all registered 
 		// objects in the 'get' method we have to
 		// store the objects that have a cid in
-		// an additional array.
+		// an additional array. 
 		this.cidIndexes = [];
 	}
 	ObjectRegistry.prototype = {
 		/**
 		 * Returns whether the object is already registered in this ObjectRegistry or not.
-		 *
+		 * 
 		 * @this 	{ObjectRegistry}
 		 * @param  	{Object} 		 obj 	The object to check
 		 * @return 	{Boolean} True if the object is already registered
 		 */
 		isRegistered: function (obj) {
-			// This is where we get a performance boost
-			// by using the two different ways of storing
+			// This is where we get a performance boost 
+			// by using the two different ways of storing 
 			// objects.
 			return obj && obj.cid ? this.registeredObjects[obj.cid] : _.contains(this.registeredObjects, obj);
 		},
 		/**
 		 * Registers an object in this ObjectRegistry.
-		 *
+		 * 
 		 * @this 	{ObjectRegistry}
 		 * @param  	{Object} 		 obj 	The object to register
 		 * @return 	{undefined}
@@ -276,7 +276,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 		},
 		/**
 		 * Unregisters an object from this ObjectRegistry.
-		 *
+		 * 
 		 * @this {ObjectRegistry}
 		 * @param  {Object} obj The object to unregister
 		 * @return {undefined}
@@ -296,7 +296,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 		},
 		/**
 		 * Returns an array of all objects that are currently in this ObjectRegistry.
-		 *
+		 * 
 		 * @return {Array} An array of all the objects which are currently in the ObjectRegistry
 		 */
 		get: function () {
@@ -306,7 +306,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 	/**
 	 * Binds or unbinds the "all"-listener for one or more objects.
-	 *
+	 * 
 	 * @param  {String}   which 	Either "on" or "off"
 	 * @param  {Object[]} objects 	Array of the objects on which the "all"-listener should be bound / unbound to
 	 * @param  {Function} [fn] 		The function that should be bound / unbound. Optional in case of "off"
@@ -336,7 +336,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 	/**
 	 * Calls the undo/redo-function for a specific action.
-	 *
+	 * 
 	 * @param  {String} which 	Either "undo" or "redo"
 	 * @param  {Object} action 	The Action's attributes
 	 * @return {undefined}
@@ -359,10 +359,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 	 * @return {undefined}
 	 */
 	function managerUndoRedo (which, manager, stack, magic, everything) {
-		if (stack.isCurrentlyUndoRedoing ||
+		if (stack.isCurrentlyUndoRedoing || 
 			(which === "undo" && stack.pointer === -1) ||
 			(which === "redo" && stack.pointer === stack.length - 1)) {
-			// We're either currently in an undo- / redo-process or
+			// We're either currently in an undo- / redo-process or 
 			// we reached the end of the stack
 			return;
 		}
@@ -379,7 +379,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 			action = stack.at(isUndo ? stack.pointer : stack.pointer + 1);
 			actions = magic ? stack.where({"magicFusionIndex": action.get("magicFusionIndex")}) : [action];
 		}
-
+		
 		stack.pointer += (isUndo ? -1 : 1) * actions.length;
 		while (action = isUndo ? actions.pop() : actions.shift()) {
 			// Here we're calling the Action's undo / redo method
@@ -394,9 +394,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 	 * Checks whether an UndoAction should be created or not. Therefore it checks
 	 * whether a "condition" property is set in the undoTypes-object of the specific
 	 * event type. If not, it returns true. If it's set and a boolean, it returns it.
-	 * If it's a function, it returns its result, converting it into a boolean.
+	 * If it's a function, it returns its result, converting it into a boolean. 
 	 * Otherwise it returns true.
-	 *
+	 * 
 	 * @param  {Object} 	undoTypesType 	The object within the UndoTypes that holds the function for this event type (i.e. "change")
 	 * @param  {Arguments} 	args       		The arguments the "condition" function is called with
 	 * @return {Boolean} 	True, if an UndoAction should be created
@@ -409,7 +409,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 	/**
 	 * Adds an Undo-Action to the stack.
-	 *
+	 * 
 	 * @param {UndoStack} 		stack 		The undostack the action should be added to.
 	 * @param {String} 			type 		The event type (i.e. "change")
 	 * @param {Arguments} 		args 		The arguments passed to the undoTypes' "on"-handler
@@ -568,10 +568,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 	/**
 	 * Every UndoManager instance has an own undoTypes object
-	 * which is an instance of OwnedUndoTypes. OwnedUndoTypes'
-	 * prototype is the global UndoTypes object. Changes to the
+	 * which is an instance of OwnedUndoTypes. OwnedUndoTypes' 
+	 * prototype is the global UndoTypes object. Changes to the 
 	 * global UndoTypes object take effect on every instance of
-	 * UndoManager as the object is its prototype. And yet every
+	 * UndoManager as the object is its prototype. And yet every 
 	 * local UndoTypes object can be changed individually.
 	 *
 	 * @constructor
@@ -588,7 +588,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 	 * In case of removing undo-types you can pass an Array for performing
 	 * bulk actions:
 	 * manipulateUndoType(2, ["reset", "change"], undoTypes)
-	 *
+	 * 
 	 * @param  {Number} 				  manipType 		Indicates the kind of action to execute: 0 for add, 1 for change, 2 for remove
 	 * @param  {String|Object|Array} 	  undoType 			The type of undoType that should be added/changed/removed. Can be an object / array to perform bulk actions
 	 * @param  {Object} 				  [fns] 			Object with the functions to add / change. Is optional in case you passed an object as undoType that contains these functions
@@ -617,7 +617,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 			case 0: // add
 				if (hasKeys(fns, "undo", "redo", "on") && _.all(_.pick(fns, "undo", "redo", "on"), _.isFunction)) {
 					undoTypesInstance[undoType] = fns;
-				}
+				} 
 			break;
 			case 1: // change
 				if (undoTypesInstance[undoType] && _.isObject(fns)) {
@@ -628,19 +628,19 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 					// Instead we just want to manipulate this instance. That's why
 					// we're doing this:
 					undoTypesInstance[undoType] = _.extend({}, undoTypesInstance[undoType], fns);
-				}
+				} 
 			break;
 			case 2: // remove
-				delete undoTypesInstance[undoType];
+				delete undoTypesInstance[undoType]; 
 			break;
 		}
 		return this;
 	}
 
 	/**
-	 * Instantiating "Action" creates the UndoActions that
-	 * are collected in an UndoStack. It holds all relevant
-	 * data to undo / redo an action and has an undo / redo
+	 * Instantiating "Action" creates the UndoActions that 
+	 * are collected in an UndoStack. It holds all relevant 
+	 * data to undo / redo an action and has an undo / redo 
 	 * method.
 	 */
 	var Action = Backbone.Model.extend({
@@ -649,7 +649,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 			object: null, // The object on which the action occurred
 			before: null, // The previous values which were changed with this action
 			after: null, // The values after this action
-			magicFusionIndex: null // The magicFusionIndex helps to combine
+			magicFusionIndex: null // The magicFusionIndex helps to combine 
 			// all actions that occurred "at the same time" to undo/redo them altogether
 		},
 		/**
@@ -670,7 +670,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 		}
 	}),
 	/**
-	 * An UndoStack is a collection of UndoActions in
+	 * An UndoStack is a collection of UndoActions in 
 	 * chronological order.
 	 */
 	UndoStack = Backbone.Collection.extend({
@@ -684,7 +684,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 		}
 	}),
 	/**
-	 * An instance of UndoManager can keep track of
+	 * An instance of UndoManager can keep track of 
 	 * changes to objects and helps to undo them.
 	 */
 	UndoManager = Backbone.Model.extend({
@@ -748,10 +748,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 			return this.get("track");
 		},
 		/**
-		 * This is the "all"-handler which is bound to registered
-		 * objects. It creates an UndoAction from the event and adds
+		 * This is the "all"-handler which is bound to registered 
+		 * objects. It creates an UndoAction from the event and adds 
 		 * it to the stack.
-		 *
+		 * 
 		 * @param  {String} 	type 	The event type
 		 * @return {undefined}
 		 */
@@ -834,15 +834,15 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 		 * @return {undefined}
 		 */
 		merge: function (undoManager) {
-			// This sets the stack-reference to the stack of another
-			// undoManager so that the stack of this other undoManager
+			// This sets the stack-reference to the stack of another 
+			// undoManager so that the stack of this other undoManager 
 			// is used by two different managers.
 			// This enables to set up a main-undoManager and besides it
 			// several others for special, exceptional cases (by using
-			// instance-based custom UndoTypes). Models / collections
-			// which need this special treatment are only registered at
-			// those special undoManagers. Those special ones are then
-			// merged into the main-undoManager to write on its stack.
+			// instance-based custom UndoTypes). Models / collections 
+			// which need this special treatment are only registered at 
+			// those special undoManagers. Those special ones are then 
+			// merged into the main-undoManager to write on its stack. 
 			// That way it's easier to manage exceptional cases.
 			var args = _.isArray(undoManager) ? undoManager : slice(arguments), manager;
 			while (manager = args.pop()) {
@@ -25493,7 +25493,6 @@ module.exports = function () {
       // Setup the sync between the global and public collections
       blocks.listenTo(blocks, 'add', function (model) {
         blocksVisible.add(model);
-        debugger;
         em && em.trigger('block:add', model);
       });
 
@@ -28573,7 +28572,7 @@ module.exports = function () {
       defaultCommands['core:redo'] = function (e) {
         return e.UndoManager.redo();
       };
-      [['preview', 'Preview', 'preview'], ['resize', 'Resize', 'resize'], ['fullscreen', 'Fullscreen', 'fullscreen'], ['copy', 'CopyComponent'], ['paste', 'PasteComponent'], ['canvas-move', 'CanvasMove'], ['canvas-clear', 'CanvasClear'], ['open-code', 'ExportTemplate', 'export-template'], ['open-layers', 'OpenLayers', 'open-layers'], ['open-styles', 'OpenStyleManager', 'open-sm'], ['open-traits', 'OpenTraitManager', 'open-tm'], ['open-blocks', 'OpenBlocks', 'open-blocks'], ['open-assets', 'OpenAssets', 'open-assets'], ['component-select', 'SelectComponent', 'select-comp'], ['component-outline', 'SwitchVisibility', 'sw-visibility'], ['component-offset', 'ShowOffset', 'show-offset'], ['component-move', 'MoveComponent', 'move-comp'], ['component-next', 'ComponentNext'], ['component-prev', 'ComponentPrev'], ['component-enter', 'ComponentEnter'], ['component-exit', 'ComponentExit', 'select-parent'], ['component-delete', 'ComponentDelete'], ['component-style-clear', 'ComponentStyleClear'], ['component-drag', 'ComponentDrag']].forEach(function (item) {
+      [['preview', 'Preview', 'preview'], ['resize', 'Resize', 'resize'], ['fullscreen', 'Fullscreen', 'fullscreen'], ['copy', 'CopyComponent'], ['paste', 'PasteComponent'], ['canvas-move', 'CanvasMove'], ['canvas-clear', 'CanvasClear'], ['open-code', 'ExportTemplate', 'export-template'], ['open-layers', 'OpenLayers', 'open-layers'], ['open-styles', 'OpenStyleManager', 'open-sm'], ['open-traits', 'OpenTraitManager', 'open-tm'], ['open-blocks', 'OpenBlocks', 'open-blocks'], ['open-assets', 'OpenAssets', 'open-assets'], ['component-select', 'SelectComponent', 'select-comp'], ['component-outline', 'SwitchVisibility', 'sw-visibility'], ['component-offset', 'ShowOffset', 'show-offset'], ['component-move', 'MoveComponent', 'move-comp'], ['component-next', 'ComponentNext'], ['component-prev', 'ComponentPrev'], ['component-enter', 'ComponentEnter'], ['component-exit', 'ComponentExit', 'select-parent'], ['component-delete', 'ComponentDelete'], ['component-style-clear', 'ComponentStyleClear'], ['component-drag', 'ComponentDrag'], ['toggle-children-edit', 'ToggleChildrenEdit']].forEach(function (item) {
         var oldCmd = item[2];
         var cmd = __webpack_require__("./src/commands/view sync recursive ^\\.\\/.*$")("./" + item[1]);
         var cmdName = 'core:' + item[0];
@@ -28878,7 +28877,9 @@ var map = {
 	"./ShowOffset": "./src/commands/view/ShowOffset.js",
 	"./ShowOffset.js": "./src/commands/view/ShowOffset.js",
 	"./SwitchVisibility": "./src/commands/view/SwitchVisibility.js",
-	"./SwitchVisibility.js": "./src/commands/view/SwitchVisibility.js"
+	"./SwitchVisibility.js": "./src/commands/view/SwitchVisibility.js",
+	"./ToggleChildrenEdit": "./src/commands/view/ToggleChildrenEdit.js",
+	"./ToggleChildrenEdit.js": "./src/commands/view/ToggleChildrenEdit.js"
 };
 
 
@@ -29629,6 +29630,7 @@ module.exports = {
   onDrag: function onDrag() {
     var _this5 = this;
 
+    console.log('componentdrag.ondrag');
     var guidesTarget = this.guidesTarget,
         opts = this.opts;
 
@@ -29641,6 +29643,7 @@ module.exports = {
     }));
   },
   onEnd: function onEnd() {
+    console.log('componentdrag.onend');
     var editor = this.editor,
         opts = this.opts,
         id = this.id;
@@ -30898,7 +30901,7 @@ var showOffsets = void 0;
 
 module.exports = {
   init: function init(o) {
-    (0, _underscore.bindAll)(this, 'onHover', 'onOut', 'onClick', 'onFrameScroll');
+    (0, _underscore.bindAll)(this, "onHover", "onOut", "onClick", "onFrameScroll");
   },
   enable: function enable() {
     this.frameOff = this.canvasOff = this.adjScroll = null;
@@ -30907,8 +30910,9 @@ module.exports = {
 
     showOffsets = 1;
 
-    em.on('component:update', this.updateAttached, this);
-    em.on('change:canvasOffset', this.updateAttached, this);
+    em.on("component:update", this.updateAttached, this);
+    em.on("change:canvasOffset", this.updateAttached, this);
+    em.on("component:updateToolbar", this.updateToolbar, this);
   },
 
 
@@ -30937,16 +30941,16 @@ module.exports = {
   toggleSelectComponent: function toggleSelectComponent(enable) {
     var em = this.em;
 
-    var method = enable ? 'on' : 'off';
+    var method = enable ? "on" : "off";
     var methods = { on: _mixins.on, off: _mixins.off };
     var body = this.getCanvasBody();
     var win = this.getContentWindow();
-    methods[method](body, 'mouseover', this.onHover);
-    methods[method](body, 'mouseout', this.onOut);
-    methods[method](body, 'click', this.onClick);
-    methods[method](win, 'scroll resize', this.onFrameScroll);
-    em[method]('component:toggled', this.onSelect, this);
-    em[method]('change:componentHovered', this.onHovered, this);
+    methods[method](body, "mouseover", this.onHover);
+    methods[method](body, "mouseout", this.onOut);
+    methods[method](body, "click", this.onClick);
+    methods[method](win, "scroll resize", this.onFrameScroll);
+    em[method]("component:toggled", this.onSelect, this);
+    em[method]("change:componentHovered", this.onHovered, this);
   },
 
 
@@ -30959,12 +30963,12 @@ module.exports = {
     e.stopPropagation();
     var trg = e.target;
     var $el = $(trg);
-    var model = $el.data('model');
+    var model = $el.data("model");
 
     if (!model) {
       var parent = $el.parent();
       while (!model && parent.length > 0) {
-        model = parent.data('model');
+        model = parent.data("model");
         parent = parent.parent();
       }
     }
@@ -30975,9 +30979,9 @@ module.exports = {
       this.updateAttached();
     }
 
-    if (model && !model.get('hoverable')) {
+    if (model && !model.get("hoverable")) {
       var _parent = model && model.parent();
-      while (_parent && !_parent.get('hoverable')) {
+      while (_parent && !_parent.get("hoverable")) {
         _parent = _parent.parent();
       }model = _parent;
     }
@@ -31015,13 +31019,13 @@ module.exports = {
    */
   showElementOffset: function showElementOffset(el, pos) {
     var $el = $(el);
-    var model = $el.data('model');
+    var model = $el.data("model");
 
-    if (model && model.get('status') == 'selected' || !showOffsets) {
+    if (model && model.get("status") == "selected" || !showOffsets) {
       return;
     }
 
-    this.editor.runCommand('show-offset', {
+    this.editor.runCommand("show-offset", {
       el: el,
       elPos: pos,
       force: 1
@@ -31037,7 +31041,7 @@ module.exports = {
   hideElementOffset: function hideElementOffset(el, pos) {
     var editor = this.editor;
 
-    editor && editor.stopCommand('show-offset');
+    editor && editor.stopCommand("show-offset");
   },
 
 
@@ -31047,10 +31051,10 @@ module.exports = {
    * @param {Object} pos
    */
   showFixedElementOffset: function showFixedElementOffset(el, pos) {
-    this.editor.runCommand('show-offset', {
+    this.editor.runCommand("show-offset", {
       el: el,
       elPos: pos,
-      state: 'Fixed'
+      state: "Fixed"
     });
   },
 
@@ -31061,7 +31065,7 @@ module.exports = {
    * @param {Object} pos
    */
   hideFixedElementOffset: function hideFixedElementOffset(el, pos) {
-    if (this.editor) this.editor.stopCommand('show-offset', { state: 'Fixed' });
+    if (this.editor) this.editor.stopCommand("show-offset", { state: "Fixed" });
   },
 
 
@@ -31069,7 +31073,7 @@ module.exports = {
    * Hide Highlighter element
    */
   hideHighlighter: function hideHighlighter() {
-    this.canvas.getHighlighter().style.display = 'none';
+    this.canvas.getHighlighter().style.display = "none";
   },
 
 
@@ -31081,22 +31085,22 @@ module.exports = {
   onClick: function onClick(e) {
     e.stopPropagation();
     var $el = $(e.target);
-    var model = $el.data('model');
+    var model = $el.data("model");
 
     if (!model) {
       var parent = $el.parent();
       while (!model && parent.length > 0) {
-        model = parent.data('model');
+        model = parent.data("model");
         parent = parent.parent();
       }
     }
 
     if (model) {
-      if (model.get('selectable')) {
+      if (model.get("selectable")) {
         this.select(model, e);
       } else {
         var _parent2 = model.parent();
-        while (_parent2 && !_parent2.get('selectable')) {
+        while (_parent2 && !_parent2.get("selectable")) {
           _parent2 = _parent2.parent();
         }this.select(_parent2, e);
       }
@@ -31117,7 +31121,7 @@ module.exports = {
     var shiftKey = event.shiftKey;
     var editor = this.editor;
 
-    var multiple = editor.getConfig('multipleSelection');
+    var multiple = editor.getConfig("multipleSelection");
     var em = this.em;
 
     if (ctrlKey && multiple) {
@@ -31180,15 +31184,15 @@ module.exports = {
     var config = canvas.getConfig();
     var customeLabel = config.customBadgeLabel;
     this.cacheEl = el;
-    var model = $el.data('model');
-    if (!model || !model.get('badgable')) return;
+    var model = $el.data("model");
+    if (!model || !model.get("badgable")) return;
     var badge = this.getBadge();
     var badgeLabel = model.getIcon() + model.getName();
     badgeLabel = customeLabel ? customeLabel(model) : badgeLabel;
     badge.innerHTML = badgeLabel;
     var bStyle = badge.style;
-    var u = 'px';
-    bStyle.display = 'block';
+    var u = "px";
+    bStyle.display = "block";
     var canvasPos = this.getCanvasPosition();
 
     if (canvasPos) {
@@ -31212,20 +31216,20 @@ module.exports = {
    */
   updateHighlighter: function updateHighlighter(el, pos) {
     var $el = $(el);
-    var model = $el.data('model');
+    var model = $el.data("model");
 
-    if (!model || !model.get('hoverable') || model.get('status') == 'selected') {
+    if (!model || !model.get("hoverable") || model.get("status") == "selected") {
       return;
     }
 
     var hlEl = this.canvas.getHighlighter();
     var hlStyle = hlEl.style;
-    var unit = 'px';
+    var unit = "px";
     hlStyle.left = pos.left + unit;
     hlStyle.top = pos.top + unit;
     hlStyle.height = pos.height + unit;
     hlStyle.width = pos.width + unit;
-    hlStyle.display = 'block';
+    hlStyle.display = "block";
   },
 
 
@@ -31250,7 +31254,7 @@ module.exports = {
       this.hideHighlighter();
       this.initResize(el);
     } else {
-      this.editor.stopCommand('resize');
+      this.editor.stopCommand("resize");
     }
   },
 
@@ -31264,13 +31268,13 @@ module.exports = {
     var em = this.em,
         canvas = this.canvas;
 
-    var editor = em ? em.get('Editor') : '';
-    var config = em ? em.get('Config') : '';
-    var pfx = config.stylePrefix || '';
-    var attrName = 'data-' + pfx + 'handler';
-    var resizeClass = pfx + 'resizing';
+    var editor = em ? em.get("Editor") : "";
+    var config = em ? em.get("Config") : "";
+    var pfx = config.stylePrefix || "";
+    var attrName = "data-" + pfx + "handler";
+    var resizeClass = pfx + "resizing";
     var model = !(0, _underscore.isElement)(elem) && !(0, _mixins.isTextNode)(elem) ? elem : em.getSelected();
-    var resizable = model.get('resizable');
+    var resizable = model.get("resizable");
     var el = (0, _underscore.isElement)(elem) ? elem : model.getEl();
     var options = {};
     var modelToStyle = void 0;
@@ -31279,8 +31283,8 @@ module.exports = {
       var docs = opts.docs;
       docs && docs.forEach(function (doc) {
         var body = doc.body;
-        var cls = body.className || '';
-        body.className = (method == 'add' ? cls + ' ' + resizeClass : cls.replace(resizeClass, '')).trim();
+        var cls = body.className || "";
+        body.className = (method == "add" ? cls + " " + resizeClass : cls.replace(resizeClass, "")).trim();
       });
     };
 
@@ -31298,19 +31302,19 @@ module.exports = {
               keepAutoHeight = config.keepAutoHeight,
               keepAutoWidth = config.keepAutoWidth;
 
-          toggleBodyClass('add', e, opts);
-          modelToStyle = em.get('StyleManager').getModelToStyle(model);
+          toggleBodyClass("add", e, opts);
+          modelToStyle = em.get("StyleManager").getModelToStyle(model);
           var computedStyle = getComputedStyle(el);
           var modelStyle = modelToStyle.getStyle();
 
           var currentWidth = modelStyle[keyWidth];
-          config.autoWidth = keepAutoWidth && currentWidth === 'auto';
+          config.autoWidth = keepAutoWidth && currentWidth === "auto";
           if (isNaN(parseFloat(currentWidth))) {
             currentWidth = computedStyle[keyWidth];
           }
 
           var currentHeight = modelStyle[keyHeight];
-          config.autoHeight = keepAutoHeight && currentHeight === 'auto';
+          config.autoHeight = keepAutoHeight && currentHeight === "auto";
           if (isNaN(parseFloat(currentHeight))) {
             currentHeight = computedStyle[keyHeight];
           }
@@ -31328,11 +31332,11 @@ module.exports = {
 
         // Update all positioned elements (eg. component toolbar)
         onMove: function onMove() {
-          editor.trigger('change:canvasOffset');
+          editor.trigger("change:canvasOffset");
         },
         onEnd: function onEnd(e, opts) {
-          toggleBodyClass('remove', e, opts);
-          editor.trigger('change:canvasOffset');
+          toggleBodyClass("remove", e, opts);
+          editor.trigger("change:canvasOffset");
           showOffsets = 1;
         },
         updateTarget: function updateTarget(el, rect) {
@@ -31352,38 +31356,38 @@ module.exports = {
               unitWidth = config.unitWidth,
               unitHeight = config.unitHeight;
 
-          var onlyHeight = ['tc', 'bc'].indexOf(selectedHandler) >= 0;
-          var onlyWidth = ['cl', 'cr'].indexOf(selectedHandler) >= 0;
+          var onlyHeight = ["tc", "bc"].indexOf(selectedHandler) >= 0;
+          var onlyWidth = ["cl", "cr"].indexOf(selectedHandler) >= 0;
           var style = modelToStyle.getStyle();
 
           if (!onlyHeight) {
             var padding = 10;
             var frameOffset = canvas.getCanvasView().getFrameOffset();
             var width = rect.w < frameOffset.width - padding ? rect.w : frameOffset.width - padding;
-            style[keyWidth] = autoWidth ? 'auto' : '' + width + unitWidth;
+            style[keyWidth] = autoWidth ? "auto" : "" + width + unitWidth;
           }
 
           if (!onlyWidth) {
-            style[keyHeight] = autoHeight ? 'auto' : '' + rect.h + unitHeight;
+            style[keyHeight] = autoHeight ? "auto" : "" + rect.h + unitHeight;
           }
 
           modelToStyle.setStyle(style, { avoidStore: 1 });
-          var updateEvent = 'update:component:style';
-          em && em.trigger(updateEvent + ':' + keyHeight + ' ' + updateEvent + ':' + keyWidth);
+          var updateEvent = "update:component:style";
+          em && em.trigger(updateEvent + ":" + keyHeight + " " + updateEvent + ":" + keyWidth);
 
           if (store) {
-            modelToStyle.trigger('change:style', modelToStyle, style, {});
+            modelToStyle.trigger("change:style", modelToStyle, style, {});
           }
         }
       };
 
-      if ((typeof resizable === 'undefined' ? 'undefined' : _typeof(resizable)) == 'object') {
+      if ((typeof resizable === "undefined" ? "undefined" : _typeof(resizable)) == "object") {
         options = _extends({}, options, resizable);
       }
 
-      this.resizer = editor.runCommand('resize', { el: el, options: options, force: 1 });
+      this.resizer = editor.runCommand("resize", { el: el, options: options, force: 1 });
     } else {
-      editor.stopCommand('resize');
+      editor.stopCommand("resize");
       this.resizer = null;
     }
   },
@@ -31397,7 +31401,7 @@ module.exports = {
     var _this = this;
 
     var em = this.config.em;
-    var model = mod == em ? em.getSelected() : mod;
+    var model = mod !== em ? em.getSelected() : mod;
     var toolbarEl = this.canvas.getToolbarEl();
     var toolbarStyle = toolbarEl.style;
 
@@ -31409,15 +31413,15 @@ module.exports = {
       return;
     }
 
-    var toolbar = model.get('toolbar');
-    var ppfx = this.ppfx;
-    var showToolbar = em.get('Config').showToolbar;
+    var toolbar = model.get("toolbar");
+    // var ppfx = this.ppfx;
+    var showToolbar = em.get("Config").showToolbar;
 
     if (showToolbar && toolbar && toolbar.length) {
-      toolbarStyle.opacity = '';
-      toolbarStyle.display = '';
+      toolbarStyle.opacity = "";
+      toolbarStyle.display = "";
       if (!this.toolbar) {
-        toolbarEl.innerHTML = '';
+        toolbarEl.innerHTML = "";
         this.toolbar = new Toolbar(toolbar);
         var toolbarView = new ToolbarView({
           collection: this.toolbar,
@@ -31428,13 +31432,13 @@ module.exports = {
 
       this.toolbar.reset(toolbar);
       var view = model.view;
-      toolbarStyle.top = '-100px';
+      toolbarStyle.top = "-100px";
       toolbarStyle.left = 0;
       setTimeout(function () {
         return view && _this.updateToolbarPos(view.el);
       }, 0);
     } else {
-      toolbarStyle.display = 'none';
+      toolbarStyle.display = "none";
     }
   },
 
@@ -31447,13 +31451,13 @@ module.exports = {
   updateToolbarPos: function updateToolbarPos(el, elPos) {
     var canvas = this.canvas;
 
-    var unit = 'px';
+    var unit = "px";
     var toolbarEl = canvas.getToolbarEl();
     var toolbarStyle = toolbarEl.style;
     toolbarStyle.opacity = 0;
     var pos = canvas.getTargetToElementDim(toolbarEl, el, {
       elPos: elPos,
-      event: 'toolbarPosUpdate'
+      event: "toolbarPosUpdate"
     });
 
     if (pos) {
@@ -31473,7 +31477,7 @@ module.exports = {
       var leftPos = pos.left + pos.elementWidth - pos.targetWidth;
       toolbarStyle.top = pos.top + unit;
       toolbarStyle.left = (leftPos < 0 ? 0 : leftPos) + unit;
-      toolbarStyle.opacity = '';
+      toolbarStyle.opacity = "";
     }
   },
 
@@ -31559,7 +31563,7 @@ module.exports = {
    * @private
    * */
   hideBadge: function hideBadge() {
-    this.getBadge().style.display = 'none';
+    this.getBadge().style.display = "none";
   },
 
 
@@ -31570,8 +31574,8 @@ module.exports = {
    */
   cleanPrevious: function cleanPrevious(model) {
     model && model.set({
-      status: '',
-      state: ''
+      status: "",
+      state: ""
     });
   },
 
@@ -31584,7 +31588,7 @@ module.exports = {
     return this.frameEl.contentWindow;
   },
   run: function run(editor) {
-    this.editor = editor && editor.get('Editor');
+    this.editor = editor && editor.get("Editor");
     this.enable();
     this.onSelect();
   },
@@ -31597,10 +31601,10 @@ module.exports = {
     this.clean();
     this.onOut();
     this.hideFixedElementOffset();
-    this.canvas.getToolbarEl().style.display = 'none';
+    this.canvas.getToolbarEl().style.display = "none";
 
-    em.off('component:update', this.updateAttached, this);
-    em.off('change:canvasOffset', this.updateAttached, this);
+    em.off("component:update", this.updateAttached, this);
+    em.off("change:canvasOffset", this.updateAttached, this);
   }
 };
 
@@ -31913,6 +31917,47 @@ module.exports = {
   },
   stop: function stop(ed) {
     ed.Canvas.getBody().className = '';
+  }
+};
+
+/***/ }),
+
+/***/ "./src/commands/view/ToggleChildrenEdit.js":
+/*!*************************************************!*\
+  !*** ./src/commands/view/ToggleChildrenEdit.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+  run: function run(ed, sender) {
+    var opts = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+    var component = opts.component || ed.getSelected();
+
+    if (!component || !component.get('childrenAreProtected')) {
+      console.warn("The element doesn't want to protect it's children", component);
+      return;
+    }
+
+    if (component) {
+      component.toggleChildrenEditable();
+    }
+
+    // const tb = component.get("toolbar");
+    // tb.push({
+    //   attributes: {
+    //     class: "fa fa-anchor",
+    //     title: "Запретить редактирование секции"
+    //   },
+    //   command: "bla"
+    // });
+    // component.set("toolbar", tb);
+    component.em.trigger('component:updateToolbar');
+    return component;
   }
 };
 
@@ -33486,9 +33531,9 @@ module.exports = function () {
     model: __webpack_require__(/*! ./model/ComponentWrapper */ "./src/dom_components/model/ComponentWrapper.js"),
     view: ComponentView
   }, {
-    id: 'landing-block',
-    model: __webpack_require__(/*! ./model/ComponentLandingBlock */ "./src/dom_components/model/ComponentLandingBlock.js"),
-    view: __webpack_require__(/*! ./view/ComponentLandingBlockView */ "./src/dom_components/view/ComponentLandingBlockView.js")
+    id: 'section',
+    model: __webpack_require__(/*! ./model/ComponentSection */ "./src/dom_components/model/ComponentSection.js"),
+    view: __webpack_require__(/*! ./view/ComponentSectionView */ "./src/dom_components/view/ComponentSectionView.js")
   }, {
     id: 'default',
     model: Component,
@@ -34741,7 +34786,10 @@ var Component = Backbone.Model.extend(_Styleable2.default).extend({
       var tb = [];
       if (model.collection) {
         tb.push({
-          attributes: { class: 'fa fa-arrow-up' },
+          attributes: {
+            class: 'fa fa-arrow-up',
+            title: 'Выбрать родительский элемент'
+          },
           command: function command(ed) {
             return ed.runCommand('core:component-exit', { force: 1 });
           }
@@ -34751,6 +34799,7 @@ var Component = Backbone.Model.extend(_Styleable2.default).extend({
         tb.push({
           attributes: {
             class: 'fa fa-arrows ' + ppfx + 'no-touch-actions',
+            title: 'Переместить',
             draggable: true
           },
           //events: hasDnd(this.em) ? { dragstart: 'execCommand' } : '',
@@ -34759,13 +34808,14 @@ var Component = Backbone.Model.extend(_Styleable2.default).extend({
       }
       if (model.get('copyable')) {
         tb.push({
-          attributes: { class: 'fa fa-clone' },
+          attributes: { title: 'Клонировать', class: 'fa fa-clone' },
+
           command: 'tlb-clone'
         });
       }
       if (model.get('removable')) {
         tb.push({
-          attributes: { class: 'fa fa-trash-o' },
+          attributes: { class: 'fa fa-trash-o', title: 'Удалить' },
           command: 'tlb-delete'
         });
       }
@@ -35600,36 +35650,6 @@ module.exports = Component.extend({
 
 /***/ }),
 
-/***/ "./src/dom_components/model/ComponentLandingBlock.js":
-/*!***********************************************************!*\
-  !*** ./src/dom_components/model/ComponentLandingBlock.js ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var Component = __webpack_require__(/*! ./Component */ "./src/dom_components/model/Component.js");
-
-module.exports = Component.extend({
-  defaults: _extends({}, Component.prototype.defaults, {
-    name: 'Блок',
-    type: 'LandingBlock'
-  })
-  // {
-  //   isComponent(el) {
-  //     if (el.tagName == 'LABEL') {
-  //       return { type: 'label' };
-  //     }
-  //   }
-  // }
-});
-
-/***/ }),
-
 /***/ "./src/dom_components/model/ComponentLink.js":
 /*!***************************************************!*\
   !*** ./src/dom_components/model/ComponentLink.js ***!
@@ -35842,6 +35862,102 @@ module.exports = Component.extend({
     }
   }
 });
+
+/***/ }),
+
+/***/ "./src/dom_components/model/ComponentSection.js":
+/*!******************************************************!*\
+  !*** ./src/dom_components/model/ComponentSection.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(_) {
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var Component = __webpack_require__(/*! ./Component */ "./src/dom_components/model/Component.js");
+
+module.exports = Component.extend({
+  defaults: _extends({}, Component.prototype.defaults, {
+    name: 'Секция',
+    type: 'section',
+    // Component can be toggled for permission for children to be changed and selected and dropped into
+    childrenAreProtected: true
+  }),
+
+  init: function init() {
+    this.toggleChildrenEditable();
+  },
+  toggleChildrenEditable: function toggleChildrenEditable() {
+    var value = this.toggleChildren;
+    var components = this.get('components');
+
+    var recursionToggle = function recursionToggle(components) {
+      components.each(function (component, key) {
+        component.set('selectable', value);
+        component.set('hoverable', value);
+        component.set('highlightable', value);
+        recursionToggle(component.get('components'));
+      });
+    };
+
+    recursionToggle(components);
+    this.toggleChildren = !value;
+    this.setEditToolbarButtons();
+  },
+  initToolbar: function initToolbar() {
+    this.toggleChildren = false;
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    Component.prototype.initToolbar.apply(this, args);
+    // const em = this.em;
+
+    var tb = this.get('toolbar');
+    this.defaultToolbar = _.clone(tb);
+    // if (em) {
+    //   // var cmd = em.get("Commands");
+
+    // }
+    this.setEditToolbarButtons();
+  },
+  setEditToolbarButtons: function setEditToolbarButtons() {
+    var tb = _.clone(this.defaultToolbar);
+    var cmdName = 'core:toggle-children-edit';
+
+    if (this.toggleChildren) {
+      tb.push({
+        attributes: {
+          class: 'fa fa-pencil',
+          title: 'Разрешить редактирование секции'
+        },
+        command: cmdName
+      });
+    } else {
+      tb.push({
+        attributes: {
+          class: 'fa fa-ban',
+          title: 'Запретить редактирование секции'
+        },
+        command: cmdName
+      });
+    }
+    this.set('toolbar', tb);
+  }
+}, {
+  isComponent: function isComponent(el) {
+    // TODO: на всякий случай дивы тоже разрешить для олдскульных клиентов типа style="landing-section" или
+    // gjs-type="section"
+    if (el.tagName == 'SECTION') {
+      return { type: 'section' };
+    }
+  }
+});
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! underscore */ "./node_modules/underscore/underscore.js")))
 
 /***/ }),
 
@@ -36906,22 +37022,6 @@ module.exports = __webpack_require__(/*! ./ComponentLinkView */ "./src/dom_compo
 
 /***/ }),
 
-/***/ "./src/dom_components/view/ComponentLandingBlockView.js":
-/*!**************************************************************!*\
-  !*** ./src/dom_components/view/ComponentLandingBlockView.js ***!
-  \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var ComponentView = __webpack_require__(/*! ./ComponentView */ "./src/dom_components/view/ComponentView.js");
-
-module.exports = ComponentView.extend({});
-
-/***/ }),
-
 /***/ "./src/dom_components/view/ComponentLinkView.js":
 /*!******************************************************!*\
   !*** ./src/dom_components/view/ComponentLinkView.js ***!
@@ -37051,6 +37151,22 @@ module.exports = ComponentView.extend({
     return this;
   }
 });
+
+/***/ }),
+
+/***/ "./src/dom_components/view/ComponentSectionView.js":
+/*!*********************************************************!*\
+  !*** ./src/dom_components/view/ComponentSectionView.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var ComponentView = __webpack_require__(/*! ./ComponentView */ "./src/dom_components/view/ComponentView.js");
+
+module.exports = ComponentView.extend({});
 
 /***/ }),
 
@@ -41050,7 +41166,7 @@ module.exports = function () {
     plugins: plugins,
 
     // Will be replaced on build
-    version: '0.14.62',
+    version: '0.14.63',
 
     /**
      * Initialize the editor with passed options
@@ -55030,6 +55146,7 @@ var Droppable = function () {
     value: function handleDrop(ev) {
       ev.preventDefault();
       var dt = ev.dataTransfer;
+      // debugger;
       var content = this.getContentByData(dt).content;
       ev.target.style.border = '';
 
@@ -55707,6 +55824,7 @@ var $ = _backbone2.default.$;
 
 module.exports = _backbone2.default.View.extend({
   initialize: function initialize(opt) {
+    // debugger;
     this.opt = opt || {};
     _.bindAll(this, 'startSort', 'onMove', 'endMove', 'rollback', 'updateOffset', 'moveDragHelper');
     var o = opt || {};

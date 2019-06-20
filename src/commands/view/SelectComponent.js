@@ -491,7 +491,6 @@ module.exports = {
   updateToolbar(mod) {
     var em = this.config.em;
     var model = mod !== em ? em.getSelected() : mod;
-    // debugger;
     var toolbarEl = this.canvas.getToolbarEl();
     var toolbarStyle = toolbarEl.style;
 
