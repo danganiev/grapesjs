@@ -1,29 +1,13 @@
 import Backbone from 'backbone';
 import { isString, isFunction, isArray, result, each } from 'underscore';
-import {
-  on,
-  off,
-  matches,
-  getElement,
-  getPointerEvent,
-  isTextNode,
-  getModel
-} from 'utils/mixins';
+import { on, off, matches, getElement, getPointerEvent, isTextNode, getModel } from 'utils/mixins';
 const $ = Backbone.$;
 
 module.exports = Backbone.View.extend({
   initialize(opt) {
     // debugger;
     this.opt = opt || {};
-    _.bindAll(
-      this,
-      'startSort',
-      'onMove',
-      'endMove',
-      'rollback',
-      'updateOffset',
-      'moveDragHelper'
-    );
+    _.bindAll(this, 'startSort', 'onMove', 'endMove', 'rollback', 'updateOffset', 'moveDragHelper');
     var o = opt || {};
     this.elT = 0;
     this.elL = 0;
@@ -351,11 +335,9 @@ module.exports = Backbone.View.extend({
     const { em, eV } = this;
     const src = source || eV;
     let { dropModel, dropContent } = this;
-    const isTextable = src =>
-      src &&
-      target &&
-      src.opt.avoidChildren &&
-      this.isTextableActive(src, target);
+    const isTextable = src => {
+      src && target && src.opt && src.opt.avoidChildren && this.isTextableActive(src, target);
+    };
 
     if (dropContent && em) {
       if (isTextable(dropModel)) {
@@ -456,10 +438,7 @@ module.exports = Backbone.View.extend({
       this.activeTextModel = null;
 
       // If there is a significant changes with the pointer
-      if (
-        !this.lastPos ||
-        (this.lastPos.index != pos.index || this.lastPos.method != pos.method)
-      ) {
+      if (!this.lastPos || (this.lastPos.index != pos.index || this.lastPos.method != pos.method)) {
         this.movePlaceholder(this.plh, dims, pos, this.prevTargetDim);
         if (!this.$plh) this.$plh = $(this.plh);
 
@@ -531,11 +510,7 @@ module.exports = Backbone.View.extend({
 
     if (style.overflow && style.overflow !== 'visible') return;
     if ($el.css('float') !== 'none') return;
-    if (
-      $parent &&
-      $parent.css('display') == 'flex' &&
-      $parent.css('flex-direction') !== 'column'
-    )
+    if ($parent && $parent.css('display') == 'flex' && $parent.css('flex-direction') !== 'column')
       return;
     switch (style.position) {
       case 'static':
@@ -598,8 +573,7 @@ module.exports = Backbone.View.extend({
     droppable = droppable instanceof Array ? droppable.join(', ') : droppable;
     result.dropInfo = droppable;
     droppable = isString(droppable) ? this.matches(src, droppable) : droppable;
-    droppable =
-      draggable && this.isTextableActive(srcModel, trgModel) ? 1 : droppable;
+    droppable = draggable && this.isTextableActive(srcModel, trgModel) ? 1 : droppable;
     result.droppable = droppable;
 
     if (!droppable || !draggable) {
@@ -669,10 +643,7 @@ module.exports = Backbone.View.extend({
 
     // Generally, on any new target the poiner enters inside its area and
     // triggers nearBorders(), so have to take care of this
-    if (
-      this.nearBorders(this.prevTargetDim, rX, rY) ||
-      (!this.nested && !this.cacheDims.length)
-    ) {
+    if (this.nearBorders(this.prevTargetDim, rX, rY) || (!this.nested && !this.cacheDims.length)) {
       const targetParent = this.targetP;
 
       if (targetParent && this.validTarget(targetParent).valid) {
@@ -794,12 +765,8 @@ module.exports = Backbone.View.extend({
       width = pos.width + elOffsets.marginLeft + elOffsets.marginRight;
     } else {
       var o = this.offset(el);
-      top = this.relative
-        ? el.offsetTop
-        : o.top - (this.wmargin ? -1 : 1) * this.elT;
-      left = this.relative
-        ? el.offsetLeft
-        : o.left - (this.wmargin ? -1 : 1) * this.elL;
+      top = this.relative ? el.offsetTop : o.top - (this.wmargin ? -1 : 1) * this.elT;
+      left = this.relative ? el.offsetLeft : o.left - (this.wmargin ? -1 : 1) * this.elL;
       height = el.offsetHeight;
       width = el.offsetWidth;
     }
@@ -860,8 +827,7 @@ module.exports = Backbone.View.extend({
     var l = dim[1];
     var h = dim[2];
     var w = dim[3];
-    if (t + off > y || y > t + h - off || l + off > x || x > l + w - off)
-      result = 1;
+    if (t + off > y || y > t + h - off || l + off > x || x > l + w - off) result = 1;
 
     return !!result;
   },

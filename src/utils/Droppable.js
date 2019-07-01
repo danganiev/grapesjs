@@ -14,13 +14,7 @@ export default class Droppable {
       .getEl();
     this.el = el;
     this.counter = 0;
-    bindAll(
-      this,
-      'handleDragEnter',
-      'handleDragOver',
-      'handleDrop',
-      'handleDragLeave'
-    );
+    bindAll(this, 'handleDragEnter', 'handleDragOver', 'handleDrop', 'handleDragLeave');
     on(el, 'dragenter', this.handleDragEnter);
     on(el, 'dragover', this.handleDragOver);
     on(el, 'drop', this.handleDrop);
@@ -117,6 +111,7 @@ export default class Droppable {
     const files = dataTransfer.files || [];
     const dragContent = em.get('dragContent');
     let content = dataTransfer.getData('text');
+    debugger;
 
     if (files.length) {
       content = [];
@@ -135,9 +130,7 @@ export default class Droppable {
     } else if (dragContent) {
       content = dragContent;
     } else if (indexOf(types, 'text/html') >= 0) {
-      content = dataTransfer
-        .getData('text/html')
-        .replace(/<\/?meta[^>]*>/g, '');
+      content = dataTransfer.getData('text/html').replace(/<\/?meta[^>]*>/g, '');
     } else if (indexOf(types, 'text/uri-list') >= 0) {
       content = {
         type: 'link',
