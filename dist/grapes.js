@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define([], factory);
 	else if(typeof exports === 'object')
-		exports["grapesjs-landing"] = factory();
+		exports["grapesjs"] = factory();
 	else
-		root["grapesjs-landing"] = factory();
+		root["grapesjs"] = factory();
 })(window, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -41166,7 +41166,7 @@ module.exports = function () {
     plugins: plugins,
 
     // Will be replaced on build
-    version: '0.14.64',
+    version: '0.14.65',
 
     /**
      * Initialize the editor with passed options
