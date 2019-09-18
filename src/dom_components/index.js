@@ -133,6 +133,11 @@ export default () => {
       view: ComponentImageView
     },
     {
+      id: 'section',
+      model: ComponentSection,
+      view: ComponentSectionView
+    },
+    {
       id: 'script',
       model: ComponentScript,
       view: ComponentScriptView
@@ -161,11 +166,6 @@ export default () => {
       id: 'wrapper',
       model: ComponentWrapper,
       view: ComponentView
-    },
-    {
-      id: 'section',
-      model: ComponentSection,
-      view: ComponentSectionView
     },
     {
       id: 'default',

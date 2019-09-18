@@ -350,6 +350,7 @@ export default Backbone.View.extend({
           avoidStore: 1,
           avoidUpdateStyle: 1
         };
+        // This is where the magic happens -- Components.add parses string to create a component
         const tempModel = comps.add(dropContent, { ...opts, temporary: 1 });
         dropModel = comps.remove(tempModel, opts);
         dropModel = dropModel instanceof Array ? dropModel[0] : dropModel;
