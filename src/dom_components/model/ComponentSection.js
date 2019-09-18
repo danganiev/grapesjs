@@ -1,4 +1,5 @@
 import Component from './Component';
+import { clone } from 'underscore';
 
 export default Component.extend(
   {
@@ -6,6 +7,7 @@ export default Component.extend(
       ...Component.prototype.defaults,
       name: 'Секция',
       type: 'section',
+      tagName: 'section',
       // Component can be toggled for permission for children to be changed and selected and dropped into
       childrenAreProtected: true
     },
@@ -38,7 +40,7 @@ export default Component.extend(
       // const em = this.em;
 
       var tb = this.get('toolbar');
-      this.defaultToolbar = _.clone(tb);
+      this.defaultToolbar = clone(tb);
       // if (em) {
       //   // var cmd = em.get("Commands");
 
@@ -47,7 +49,7 @@ export default Component.extend(
     },
 
     setEditToolbarButtons() {
-      let tb = _.clone(this.defaultToolbar);
+      let tb = clone(this.defaultToolbar);
       var cmdName = 'core:toggle-children-edit';
 
       if (this.toggleChildren) {

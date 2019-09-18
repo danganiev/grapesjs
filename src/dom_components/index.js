@@ -66,6 +66,8 @@ import ComponentTextNode from './model/ComponentTextNode';
 import ComponentTextNodeView from './view/ComponentTextNodeView';
 import ComponentText from './model/ComponentText';
 import ComponentTextView from './view/ComponentTextView';
+import ComponentSection from './model/ComponentSection';
+import ComponentSectionView from './view/ComponentSectionView';
 import ComponentWrapper from './model/ComponentWrapper';
 
 export default () => {
@@ -162,8 +164,8 @@ export default () => {
     },
     {
       id: 'section',
-      model: require('./model/ComponentSection'),
-      view: require('./view/ComponentSectionView')
+      model: ComponentSection,
+      view: ComponentSectionView
     },
     {
       id: 'default',
