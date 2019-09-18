@@ -74,6 +74,7 @@ module.exports = Component.extend(
     isComponent(el) {
       // TODO: на всякий случай дивы тоже разрешить для олдскульных клиентов типа style="landing-section" или
       // gjs-type="section"
+      // А может и хуй с ними, пусть верстают по моим правилам
       if (el.tagName == 'SECTION') {
         return { type: 'section' };
       }
