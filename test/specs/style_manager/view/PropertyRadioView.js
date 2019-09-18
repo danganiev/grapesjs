@@ -1,8 +1,8 @@
-const PropertyRadioView = require('style_manager/view/PropertyRadioView');
-const Property = require('style_manager/model/Property');
-const Component = require('dom_components/model/Component');
-const Editor = require('editor/model/Editor');
-const DomComponents = require('dom_components');
+import PropertyRadioView from 'style_manager/view/PropertyRadioView';
+import Property from 'style_manager/model/Property';
+import Component from 'dom_components/model/Component';
+import Editor from 'editor/model/Editor';
+import DomComponents from 'dom_components';
 
 module.exports = {
   run() {
@@ -27,8 +27,7 @@ module.exports = {
       // Have some issue with getCheckedEl() and jsdom
       // this view.getInputEl().querySelector('input:checked') return null
       // but view.getInputEl().querySelectorAll('input:checked')[0] works
-      var getCheckedEl = view =>
-        view.getInputEl().querySelectorAll('input:checked')[0];
+      var getCheckedEl = view => view.getInputEl().querySelectorAll('input:checked')[0];
 
       beforeEach(() => {
         em = new Editor({});
@@ -80,22 +79,12 @@ module.exports = {
 
       test('Options rendered correctly', () => {
         var children = view.el.querySelector('.field').firstChild.children;
-        expect(children[0].querySelector('label').textContent).toEqual(
-          'test1value'
-        );
+        expect(children[0].querySelector('label').textContent).toEqual('test1value');
         expect(children[1].querySelector('label').textContent).toEqual('test2');
-        expect(children[0].querySelector('input').value).toEqual(
-          options[0].value
-        );
-        expect(children[1].querySelector('input').value).toEqual(
-          options[1].value
-        );
-        expect(
-          children[0].querySelector('label').getAttribute('title')
-        ).toEqual(options[0].title);
-        expect(
-          children[1].querySelector('label').getAttribute('title')
-        ).toEqual(null);
+        expect(children[0].querySelector('input').value).toEqual(options[0].value);
+        expect(children[1].querySelector('input').value).toEqual(options[1].value);
+        expect(children[0].querySelector('label').getAttribute('title')).toEqual(options[0].title);
+        expect(children[1].querySelector('label').getAttribute('title')).toEqual(null);
       });
 
       test('Input should exist', () => {

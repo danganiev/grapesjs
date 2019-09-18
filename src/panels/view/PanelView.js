@@ -1,7 +1,7 @@
-var Backbone = require('backbone');
-var ButtonsView = require('./ButtonsView');
+import Backbone from 'backbone';
+import ButtonsView from './ButtonsView';
 
-module.exports = Backbone.View.extend({
+export default Backbone.View.extend({
   initialize(o) {
     const config = o.config || {};
     const model = this.model;
@@ -94,12 +94,8 @@ module.exports = Backbone.View.extend({
           const forContainer = target == 'container';
           const styleWidth = style[keyWidth];
           const styleHeight = style[keyHeight];
-          const width =
-            styleWidth && !forContainer ? parseFloat(styleWidth) : rect.width;
-          const height =
-            styleHeight && !forContainer
-              ? parseFloat(styleHeight)
-              : rect.height;
+          const width = styleWidth && !forContainer ? parseFloat(styleWidth) : rect.width;
+          const height = styleHeight && !forContainer ? parseFloat(styleHeight) : rect.height;
           return {
             left: 0,
             top: 0,

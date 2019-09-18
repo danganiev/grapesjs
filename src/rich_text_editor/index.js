@@ -5,7 +5,7 @@
  * You can customize the initial state of the module from the editor initialization, by passing the following [Configuration Object](https://github.com/artf/grapesjs/blob/master/src/rich_text_editor/config/config.js)
  * ```js
  * const editor = grapesjs.init({
- *  rte: {
+ *  richTextEditor: {
  *    // options
  *  }
  * })
@@ -28,10 +28,10 @@
 
 import RichTextEditor from './model/RichTextEditor';
 import { on, off } from 'utils/mixins';
+import defaults from './config/config';
 
-module.exports = () => {
+export default () => {
   let config = {};
-  const defaults = require('./config/config');
   let toolbar, actions, lastEl, globalRte;
 
   const hideToolbar = () => {
@@ -52,25 +52,33 @@ module.exports = () => {
      */
     name: 'RichTextEditor',
 
+    getConfig() {
+      return config;
+    },
+
     /**
      * Initialize module. Automatically called with a new instance of the editor
      * @param {Object} opts Options
      * @private
      */
     init(opts = {}) {
-      config = opts;
+      // config = opts;
 
-      this.noRTE = config.noRTE;
-      if (config.noRTE) {
-        return;
-      }
+      // this.noRTE = config.noRTE;
+      // if (config.noRTE) {
+      //   return;
+      // }
 
-      for (let name in defaults) {
-        if (!(name in config)) {
-          config[name] = defaults[name];
-        }
-      }
+      // for (let name in defaults) {
+      //   if (!(name in config)) {
+      //     config[name] = defaults[name];
+      //   }
+      // }
 
+      config = {
+        ...defaults,
+        ...opts
+      };
       const ppfx = config.pStylePrefix;
 
       if (ppfx) {
@@ -160,7 +168,7 @@ module.exports = () => {
      * @example
      * rte.add('bold', {
      *   icon: '<b>B</b>',
-     *   attributes: {title: 'Bold',}
+     *   attributes: {title: 'Bold'},
      *   result: rte => rte.exec('bold')
      * });
      * rte.add('link', {

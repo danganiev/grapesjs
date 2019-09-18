@@ -1,7 +1,6 @@
-import { isUndefined } from 'underscore';
 import Backbone from 'backbone';
 
-module.exports = Backbone.Model.extend({
+export default Backbone.Model.extend({
   idAttribute: 'name',
 
   defaults: {
@@ -22,11 +21,9 @@ module.exports = Backbone.Model.extend({
   },
 
   initialize() {
-    this.get('widthMedia') === null &&
-      this.set('widthMedia', this.get('width'));
+    this.get('widthMedia') === null && this.set('widthMedia', this.get('width'));
     this.get('width') === null && this.set('width', this.get('widthMedia'));
-    !this.get('priority') &&
-      this.set('priority', parseFloat(this.get('widthMedia')) || 0);
+    !this.get('priority') && this.set('priority', parseFloat(this.get('widthMedia')) || 0);
     const toCheck = ['width', 'height', 'widthMedia'];
     toCheck.forEach(prop => this.checkUnit(prop));
   },

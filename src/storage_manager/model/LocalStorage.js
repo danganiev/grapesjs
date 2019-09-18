@@ -1,6 +1,6 @@
-var Backbone = require('backbone');
+import Backbone from 'backbone';
 
-module.exports = Backbone.Model.extend({
+export default Backbone.Model.extend({
   defaults: {
     checkLocal: true
   },
@@ -43,8 +43,7 @@ module.exports = Backbone.Model.extend({
   remove(keys) {
     this.checkStorageEnvironment();
 
-    for (var i = 0, len = keys.length; i < len; i++)
-      localStorage.removeItem(keys[i]);
+    for (var i = 0, len = keys.length; i < len; i++) localStorage.removeItem(keys[i]);
   },
 
   /**

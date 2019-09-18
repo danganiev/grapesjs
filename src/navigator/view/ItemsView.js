@@ -1,6 +1,7 @@
+import Backbone from 'backbone';
 import ItemView from './ItemView';
 
-module.exports = require('backbone').View.extend({
+export default Backbone.View.extend({
   initialize(o = {}) {
     this.opt = o;
     const config = o.config || {};
@@ -119,10 +120,7 @@ module.exports = require('backbone').View.extend({
   isCountable(model, hide) {
     var type = model.get('type');
     var tag = model.get('tagName');
-    if (
-      ((type == 'textnode' || tag == 'br') && hide) ||
-      !model.get('layerable')
-    ) {
+    if (((type == 'textnode' || tag == 'br') && hide) || !model.get('layerable')) {
       return false;
     }
     return true;

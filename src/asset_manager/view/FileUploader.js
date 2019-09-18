@@ -1,10 +1,10 @@
-import _ from 'underscore';
+import { template } from 'underscore';
 import Backbone from 'backbone';
 import fetch from 'utils/fetch';
 
-module.exports = Backbone.View.extend(
+export default Backbone.View.extend(
   {
-    template: _.template(`
+    template: template(`
   <form>
     <div id="<%= pfx %>title"><%= title %></div>
     <input type="file" id="<%= uploadId %>" name="file" accept="*/*" <%= disabled ? 'disabled' : '' %> <%= multiUpload ? 'multiple' : '' %>/>
@@ -23,9 +23,7 @@ module.exports = Backbone.View.extend(
       this.target = this.options.globalCollection || {};
       this.uploadId = this.pfx + 'uploadFile';
       this.disabled =
-        c.disableUpload !== undefined
-          ? c.disableUpload
-          : !c.upload && !c.embedAsBase64;
+        c.disableUpload !== undefined ? c.disableUpload : !c.upload && !c.embedAsBase64;
       this.multiUpload = c.multiUpload !== undefined ? c.multiUpload : true;
       this.events['change #' + this.uploadId] = 'uploadFile';
       let uploadFile = c.uploadFile;
@@ -108,6 +106,11 @@ module.exports = Backbone.View.extend(
     uploadFile(e, clb) {
       const files = e.dataTransfer ? e.dataTransfer.files : e.target.files;
       const { config } = this;
+      const { beforeUpload } = config;
+
+      const beforeUploadResponse = beforeUpload && beforeUpload(files);
+      if (beforeUploadResponse === false) return;
+
       const body = new FormData();
       const { params, customFetch } = config;
 
@@ -262,9 +265,7 @@ module.exports = Backbone.View.extend(
 
       // Unlikely, widely supported now
       if (!FileReader) {
-        this.onUploadError(
-          new Error('Unsupported platform, FileReader is not defined')
-        );
+        this.onUploadError(new Error('Unsupported platform, FileReader is not defined'));
         return;
       }
 

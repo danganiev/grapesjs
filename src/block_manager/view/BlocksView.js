@@ -1,9 +1,9 @@
+import Backbone from 'backbone';
 import { isString, isObject, bindAll } from 'underscore';
+import BlockView from './BlockView';
+import CategoryView from './CategoryView';
 
-const BlockView = require('./BlockView');
-const CategoryView = require('./CategoryView');
-
-module.exports = require('backbone').View.extend({
+export default Backbone.View.extend({
   initialize(opts, config) {
     bindAll(this, 'getSorter', 'onDrag', 'onDrop');
     this.config = config || {};
@@ -168,9 +168,7 @@ module.exports = require('backbone').View.extend({
 
   getBlocksEl() {
     if (!this.blocksEl) {
-      this.blocksEl = this.el.querySelector(
-        `.${this.noCatClass} .${this.blockContClass}`
-      );
+      this.blocksEl = this.el.querySelector(`.${this.noCatClass} .${this.blockContClass}`);
     }
 
     return this.blocksEl;

@@ -1,7 +1,7 @@
-var CssRule = require('css_composer/model/CssRule');
-var CssRules = require('css_composer/model/CssRules');
-var Selectors = require('selector_manager/model/Selectors');
-var Selector = require('selector_manager/model/Selector');
+import CssRule from 'css_composer/model/CssRule';
+import CssRules from 'css_composer/model/CssRules';
+import Selectors from 'selector_manager/model/Selectors';
+import Selector from 'selector_manager/model/Selector';
 
 module.exports = {
   run() {
@@ -85,9 +85,7 @@ module.exports = {
         obj.set('atRuleType', 'supports');
         obj.get('selectors').add({ name: 'test1' });
         obj.setStyle({ 'font-family': 'Open Sans' });
-        expect(obj.toCSS()).toEqual(
-          `@supports{.test1{font-family:Open Sans;}}`
-        );
+        expect(obj.toCSS()).toEqual(`@supports{.test1{font-family:Open Sans;}}`);
       });
 
       test('toCSS with a generic single at-rule', () => {
@@ -102,9 +100,7 @@ module.exports = {
         obj.set('mediaText', 'some-condition');
         obj.get('selectors').add({ name: 'test1' });
         obj.setStyle({ 'font-family': 'Open Sans' });
-        expect(obj.toCSS()).toEqual(
-          `@font-face some-condition{.test1{font-family:Open Sans;}}`
-        );
+        expect(obj.toCSS()).toEqual(`@font-face some-condition{.test1{font-family:Open Sans;}}`);
       });
     });
 

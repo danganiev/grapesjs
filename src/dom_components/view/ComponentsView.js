@@ -1,7 +1,7 @@
 import Backbone from 'backbone';
 import { isUndefined } from 'underscore';
 
-module.exports = Backbone.View.extend({
+export default Backbone.View.extend({
   initialize(o) {
     this.opts = o || {};
     this.config = o.config || {};
@@ -31,11 +31,7 @@ module.exports = Backbone.View.extend({
 
       // Remove all related CSS rules
       const allRules = em.get('CssComposer').getAll();
-      allRules.remove(
-        allRules.filter(
-          rule => rule.getSelectors().getFullString() === `#${id}`
-        )
-      );
+      allRules.remove(allRules.filter(rule => rule.getSelectors().getFullString() === `#${id}`));
 
       if (!tempComp) {
         const cm = em.get('Commands');
@@ -61,7 +57,11 @@ module.exports = Backbone.View.extend({
     this.addToCollection(model, null, i);
 
     if (em && !opts.temporary) {
-      em.trigger('component:add', model);
+      const triggerAdd = model => {
+        em.trigger('component:add', model);
+        model.components().forEach(comp => triggerAdd(comp));
+      };
+      triggerAdd(model);
     }
   },
 
@@ -75,7 +75,7 @@ module.exports = Backbone.View.extend({
    * @private
    * */
   addToCollection(model, fragmentEl, index) {
-    if (!this.compView) this.compView = require('./ComponentView');
+    if (!this.compView) this.compView = require('./ComponentView').default;
     const { config, opts } = this;
     const fragment = fragmentEl || null;
     const dt = opts.componentTypes;

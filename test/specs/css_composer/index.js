@@ -1,10 +1,10 @@
-const Models = require('./model/CssModels');
-const CssRuleView = require('./view/CssRuleView');
-const CssRulesView = require('./view/CssRulesView');
-const CssComposer = require('css_composer');
-const e2e = require('./e2e/CssComposer');
-const utils = require('./../test_utils.js');
-const Editor = require('editor/model/Editor');
+import Models from './model/CssModels';
+import CssRuleView from './view/CssRuleView';
+import CssRulesView from './view/CssRulesView';
+import CssComposer from 'css_composer';
+import e2e from './e2e/CssComposer';
+import utils from './../test_utils.js';
+import Editor from 'editor/model/Editor';
 
 describe('Css Composer', () => {
   describe('Main', () => {
@@ -173,12 +173,8 @@ describe('Css Composer', () => {
       const rule = obj.getIdRule(name);
       expect(rule.selectorsToString()).toEqual(`#${name}`);
       expect(rule.styleToString()).toEqual(`color:red;`);
-      expect(rule.styleToString({ important: 1 })).toEqual(
-        `color:red !important;`
-      );
-      expect(rule.styleToString({ important: ['color'] })).toEqual(
-        `color:red !important;`
-      );
+      expect(rule.styleToString({ important: 1 })).toEqual(`color:red !important;`);
+      expect(rule.styleToString({ important: ['color'] })).toEqual(`color:red !important;`);
     });
 
     test('Create a rule with id selector and state by using setIdRule()', () => {
@@ -288,9 +284,7 @@ describe('Css Composer', () => {
         const result = obj.setRule(selector, style, opts);
         expect(obj.getAll().length).toEqual(1);
         const rule = obj.getRule(selector, opts);
-        expect(rule.getAtRule()).toEqual(
-          `@${opts.atRuleType} ${opts.atRuleParams}`
-        );
+        expect(rule.getAtRule()).toEqual(`@${opts.atRuleType} ${opts.atRuleParams}`);
         expect(rule.selectorsToString()).toEqual(selector);
         expect(rule.getStyle()).toEqual(style);
       });
@@ -313,8 +307,7 @@ describe('Css Composer', () => {
         const { selector, style, opt = {} } = test;
         obj.setRule(selector, style, opt);
         const rule = obj.getRule(selector, opt);
-        const atRule = `${opt.atRuleType || ''} ${opt.atRuleParams ||
-          ''}`.trim();
+        const atRule = `${opt.atRuleType || ''} ${opt.atRuleParams || ''}`.trim();
         expect(rule.getAtRule()).toEqual(atRule ? `@${atRule}` : '');
         expect(rule.selectorsToString()).toEqual(selector);
         expect(rule.getStyle()).toEqual(style);

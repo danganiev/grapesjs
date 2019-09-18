@@ -1,7 +1,6 @@
 import 'whatwg-fetch';
-
-const LocalStorage = require('storage_manager/model/LocalStorage');
-const RemoteStorage = require('storage_manager/model/RemoteStorage');
+import LocalStorage from 'storage_manager/model/LocalStorage';
+import RemoteStorage from 'storage_manager/model/RemoteStorage';
 
 module.exports = {
   run() {
@@ -73,9 +72,7 @@ module.exports = {
           params
         };
         obj = new RemoteStorage(storageOptions);
-        sinon
-          .stub(obj, 'fetch')
-          .returns(Promise.resolve(mockResponse({ data: 1 })));
+        sinon.stub(obj, 'fetch').returns(Promise.resolve(mockResponse({ data: 1 })));
       });
 
       afterEach(() => {
@@ -117,9 +114,7 @@ module.exports = {
 
       test('Store data with credentials option as false ', () => {
         obj = new RemoteStorage({ ...storageOptions, credentials: false });
-        sinon
-          .stub(obj, 'fetch')
-          .returns(Promise.resolve(mockResponse({ data: 1 })));
+        sinon.stub(obj, 'fetch').returns(Promise.resolve(mockResponse({ data: 1 })));
 
         obj.store(data);
         const callResult = obj.fetch;
@@ -131,9 +126,7 @@ module.exports = {
 
       test('Load data with credentials option as false', () => {
         obj = new RemoteStorage({ ...storageOptions, credentials: false });
-        sinon
-          .stub(obj, 'fetch')
-          .returns(Promise.resolve(mockResponse({ data: 1 })));
+        sinon.stub(obj, 'fetch').returns(Promise.resolve(mockResponse({ data: 1 })));
         obj.load(['item1', 'item2']);
         const callResult = obj.fetch;
         expect(callResult.called).toEqual(true);
@@ -150,9 +143,7 @@ module.exports = {
             return customOpts;
           }
         });
-        sinon
-          .stub(obj, 'fetch')
-          .returns(Promise.resolve(mockResponse({ data: 1 })));
+        sinon.stub(obj, 'fetch').returns(Promise.resolve(mockResponse({ data: 1 })));
         obj.load(['item1', 'item2']);
         const callResult = obj.fetch;
         expect(callResult.called).toEqual(true);

@@ -1,5 +1,5 @@
-const SectorView = require('style_manager/view/SectorView');
-const Sector = require('style_manager/model/Sector');
+import SectorView from 'style_manager/view/SectorView';
+import Sector from 'style_manager/model/Sector';
 
 module.exports = {
   run() {
@@ -54,11 +54,7 @@ module.exports = {
           model = new Sector({
             open: false,
             name: 'TestName',
-            properties: [
-              { type: 'integer' },
-              { type: 'integer' },
-              { type: 'integer' }
-            ]
+            properties: [{ type: 'integer' }, { type: 'integer' }, { type: 'integer' }]
           });
           view = new SectorView({
             model
@@ -73,9 +69,7 @@ module.exports = {
         test('Rendered correctly', () => {
           var sector = view.el;
           var props = sector.querySelector('.properties');
-          expect(sector.querySelector('.title').innerHTML).toContain(
-            'TestName'
-          );
+          expect(sector.querySelector('.title').innerHTML).toContain('TestName');
           expect(props).toBeTruthy();
           expect(sector.classList.contains('open')).toEqual(false);
           expect(props.style.display).toEqual('none');

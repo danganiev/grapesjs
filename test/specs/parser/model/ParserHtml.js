@@ -1,6 +1,6 @@
-const ParserHtml = require('parser/model/ParserHtml');
-const ParserCss = require('parser/model/ParserCss');
-const DomComponents = require('dom_components');
+import ParserHtml from 'parser/model/ParserHtml';
+import ParserCss from 'parser/model/ParserCss';
+import DomComponents from 'dom_components';
 
 module.exports = {
   run() {
@@ -33,8 +33,7 @@ module.exports = {
       });
 
       test('Node with attributes', () => {
-        var str =
-          '<div id="test1" class="test2 test3" data-one="test4" strange="test5"></div>';
+        var str = '<div id="test1" class="test2 test3" data-one="test4" strange="test5"></div>';
         var result = {
           tagName: 'div',
           classes: ['test2', 'test3'],
@@ -58,8 +57,7 @@ module.exports = {
       });
 
       test('Parse style string with values containing colon to object', () => {
-        var str =
-          'background-image:url("https://some-website.ex"); test:value;';
+        var str = 'background-image:url("https://some-website.ex"); test:value;';
         var result = {
           'background-image': 'url("https://some-website.ex")',
           test: 'value'
@@ -80,8 +78,7 @@ module.exports = {
       });
 
       test('Style attribute is isolated', () => {
-        var str =
-          '<div id="test1" style="color:black; width:100px; test:value;"></div>';
+        var str = '<div id="test1" style="color:black; width:100px; test:value;"></div>';
         var result = {
           tagName: 'div',
           attributes: { id: 'test1' },
@@ -129,8 +126,7 @@ module.exports = {
       });
 
       test('Parse text with few text tags', () => {
-        var str =
-          '<div id="test1"><br/> test2 <br/> a b <b>b</b> <i>i</i> <u>u</u> test </div>';
+        var str = '<div id="test1"><br/> test2 <br/> a b <b>b</b> <i>i</i> <u>u</u> test </div>';
         var result = {
           tagName: 'div',
           attributes: { id: 'test1' },
@@ -347,8 +343,7 @@ module.exports = {
       });
 
       test('Remove script tags', () => {
-        var str =
-          '<div><script>var test;</script></div><div></div><script>var test2;</script>';
+        var str = '<div><script>var test;</script></div><div></div><script>var test2;</script>';
         var result = [{ tagName: 'div' }, { tagName: 'div' }];
         expect(obj.parse(str).html).toEqual(result);
       });

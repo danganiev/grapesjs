@@ -1,10 +1,9 @@
+import Backbone from 'backbone';
 import { extend } from 'underscore';
+import Properties from './Properties';
+import PropertyFactory from './PropertyFactory';
 
-const Backbone = require('backbone');
-const Properties = require('./Properties');
-const PropertyFactory = require('./PropertyFactory');
-
-module.exports = Backbone.Model.extend({
+export default Backbone.Model.extend({
   defaults: {
     id: '',
     name: '',
@@ -53,11 +52,7 @@ module.exports = Backbone.Model.extend({
           // Check for nested properties
           var mPProps = mProp.properties;
           if (mPProps && mPProps.length) {
-            mProp.properties = this.extendProperties(
-              prop.properties || [],
-              mPProps,
-              1
-            );
+            mProp.properties = this.extendProperties(prop.properties || [], mPProps, 1);
           }
           props[j] = ext ? extend(prop, mProp) : mProp;
           isolated[j] = props[j];

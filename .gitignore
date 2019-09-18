@@ -16,6 +16,7 @@ vendor/
 coverage/
 node_modules/
 bower_components/
+dist/
 grapesjs-*.tgz
 _index.html
 docs/.vuepress/dist

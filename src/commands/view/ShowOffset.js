@@ -2,7 +2,7 @@ import Backbone from 'backbone';
 import { isTextNode } from 'utils/mixins';
 const $ = Backbone.$;
 
-module.exports = {
+export default {
   getOffsetMethod(state) {
     var method = state || '';
     return 'get' + method + 'OffsetViewerEl';
@@ -85,8 +85,7 @@ module.exports = {
     var marginLeftSt = parseFloat(style.marginLeft.replace(unit, '')) * zoom;
     var marginRightSt = parseFloat(style.marginRight.replace(unit, '')) * zoom;
     var marginTopSt = parseFloat(style.marginTop.replace(unit, '')) * zoom;
-    var marginBottomSt =
-      parseFloat(style.marginBottom.replace(unit, '')) * zoom;
+    var marginBottomSt = parseFloat(style.marginBottom.replace(unit, '')) * zoom;
     var mtStyle = marginT.style;
     var mbStyle = marginB.style;
     var mlStyle = marginL.style;

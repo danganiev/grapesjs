@@ -1,6 +1,4 @@
-var Backbone = require('backbone');
-
-module.exports = () => ({
+export default () => ({
   /**
    * Build props object by their name
    * @param  {Array<string>|string} props Array of properties name
@@ -26,6 +24,10 @@ module.exports = () => ({
 
       // Fixed values
       switch (prop) {
+        case 'top':
+        case 'right':
+        case 'bottom':
+        case 'left':
         case 'margin-top':
         case 'margin-right':
         case 'margin-bottom':
@@ -200,10 +202,6 @@ module.exports = () => ({
         case 'position':
           obj.defaults = 'static';
           break;
-        case 'top':
-        case 'right':
-        case 'bottom':
-        case 'left':
         case 'margin-top':
         case 'margin-right':
         case 'margin-bottom':
@@ -242,6 +240,10 @@ module.exports = () => ({
         case 'box-shadow-blur':
           obj.defaults = '5px';
           break;
+        case 'top':
+        case 'right':
+        case 'bottom':
+        case 'left':
         case 'min-height':
         case 'min-width':
         case 'max-height':
@@ -485,11 +487,7 @@ module.exports = () => ({
           ];
           break;
         case 'flex-wrap':
-          obj.list = [
-            { value: 'nowrap' },
-            { value: 'wrap' },
-            { value: 'wrap-reverse' }
-          ];
+          obj.list = [{ value: 'nowrap' }, { value: 'wrap' }, { value: 'wrap-reverse' }];
           break;
         case 'justify-content':
           obj.list = [
@@ -598,10 +596,7 @@ module.exports = () => ({
           ];
           break;
         case 'box-shadow-type':
-          obj.list = [
-            { value: '', name: 'Outside' },
-            { value: 'inset', name: 'Inside' }
-          ];
+          obj.list = [{ value: '', name: 'Outside' }, { value: 'inset', name: 'Inside' }];
           break;
         case 'background-repeat':
           obj.list = [
@@ -625,18 +620,10 @@ module.exports = () => ({
           ];
           break;
         case 'background-attachment':
-          obj.list = [
-            { value: 'scroll' },
-            { value: 'fixed' },
-            { value: 'local' }
-          ];
+          obj.list = [{ value: 'scroll' }, { value: 'fixed' }, { value: 'local' }];
           break;
         case 'background-size':
-          obj.list = [
-            { value: 'auto' },
-            { value: 'cover' },
-            { value: 'contain' }
-          ];
+          obj.list = [{ value: 'auto' }, { value: 'cover' }, { value: 'contain' }];
           break;
         case 'transition-property':
           obj.list = [
@@ -710,18 +697,14 @@ module.exports = () => ({
           ]);
           break;
         case 'border':
-          obj.properties = this.build([
-            'border-width',
-            'border-style',
-            'border-color'
-          ]);
+          obj.properties = this.build(['border-width', 'border-style', 'border-color']);
           break;
         case 'border-radius':
           obj.properties = this.build([
             'border-top-left-radius',
             'border-top-right-radius',
-            'border-bottom-left-radius',
-            'border-bottom-right-radius'
+            'border-bottom-right-radius',
+            'border-bottom-left-radius'
           ]);
           break;
         case 'box-shadow':

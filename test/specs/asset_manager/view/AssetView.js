@@ -1,6 +1,5 @@
-var AssetView = require('asset_manager/view/AssetView');
-var Asset = require('asset_manager/model/Asset');
-var Assets = require('asset_manager/model/Assets');
+import Assets from 'asset_manager/model/Assets';
+import AssetView from 'asset_manager/view/AssetView';
 
 module.exports = {
   run() {
@@ -19,9 +18,7 @@ module.exports = {
           model
         });
         document.body.innerHTML = '<div id="fixtures"></div>';
-        document.body
-          .querySelector('#fixtures')
-          .appendChild(testContext.view.render().el);
+        document.body.querySelector('#fixtures').appendChild(testContext.view.render().el);
       });
 
       afterEach(() => {

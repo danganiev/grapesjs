@@ -1,12 +1,12 @@
 import Backbone from 'backbone';
-const CssRuleView = require('./CssRuleView');
-const CssGroupRuleView = require('./CssGroupRuleView');
+import CssRuleView from './CssRuleView';
+import CssGroupRuleView from './CssGroupRuleView';
+
 const $ = Backbone.$;
 
-const getBlockId = (pfx, order) =>
-  `${pfx}${order ? `-${parseFloat(order)}` : ''}`;
+const getBlockId = (pfx, order) => `${pfx}${order ? `-${parseFloat(order)}` : ''}`;
 
-module.exports = Backbone.View.extend({
+export default Backbone.View.extend({
   initialize(o) {
     const config = o.config || {};
     this.atRules = {};
@@ -104,9 +104,7 @@ module.exports = Backbone.View.extend({
   getMediaWidth(mediaText) {
     return (
       mediaText &&
-      mediaText
-        .replace(`(${this.em.getConfig('mediaCondition')}: `, '')
-        .replace(')', '')
+      mediaText.replace(`(${this.em.getConfig('mediaCondition')}: `, '').replace(')', '')
     );
   },
 
@@ -123,9 +121,7 @@ module.exports = Backbone.View.extend({
       .getAll()
       .pluck('priority');
     prs.every(pr => pr) && prs.unshift(0);
-    prs.forEach(pr =>
-      $(`<div id="${getBlockId(className, pr)}"></div>`).appendTo(frag)
-    );
+    prs.forEach(pr => $(`<div id="${getBlockId(className, pr)}"></div>`).appendTo(frag));
 
     collection.each(model => this.addToCollection(model, frag));
     $el.append(frag);

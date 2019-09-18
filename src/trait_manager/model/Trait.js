@@ -1,6 +1,7 @@
+import Backbone from 'backbone';
 import { isUndefined } from 'underscore';
 
-module.exports = require('backbone').Model.extend({
+export default Backbone.Model.extend({
   defaults: {
     type: 'text', // text, number, range, select
     label: '',
@@ -25,11 +26,17 @@ module.exports = require('backbone').Model.extend({
     if (target) {
       this.target = target;
       this.unset('target');
-      const targetEvent = changeProp
-        ? `change:${name}`
-        : `change:attributes:${name}`;
+      const targetEvent = changeProp ? `change:${name}` : `change:attributes:${name}`;
       this.listenTo(target, targetEvent, this.targetUpdated);
     }
+  },
+
+  /**
+   * Return all the propeties
+   * @returns {Object}
+   */
+  props() {
+    return this.attributes;
   },
 
   targetUpdated() {

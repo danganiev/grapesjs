@@ -1,5 +1,3 @@
-const PluginManager = require('plugin_manager');
-
 describe('GrapesJS', () => {
   describe('Main', () => {
     var obj;
@@ -94,9 +92,7 @@ describe('GrapesJS', () => {
 
       var editor = obj.init(config);
 
-      expect(window.frames[0].document.documentElement.outerHTML).toContain(
-        config.baseCss
-      );
+      expect(window.frames[0].document.documentElement.outerHTML).toContain(config.baseCss);
       expect(
         window.frames[0].document.documentElement.outerHTML.replace(/\s+/g, ` `)
       ).not.toContain(`body { margin: 0;`);
@@ -108,9 +104,9 @@ describe('GrapesJS', () => {
 
       var editor = obj.init(config);
 
-      expect(
-        window.frames[0].document.documentElement.outerHTML.replace(/\s+/g, ` `)
-      ).toContain(`body { margin: 0;`);
+      expect(window.frames[0].document.documentElement.outerHTML.replace(/\s+/g, ` `)).toContain(
+        `body { margin: 0;`
+      );
     });
 
     test('Init editor with html', () => {
@@ -222,9 +218,7 @@ describe('GrapesJS', () => {
 
     test.skip('Adds new storage as plugin and store data there', done => {
       const pluginName = storageId + '-p2';
-      obj.plugins.add(pluginName, e =>
-        e.StorageManager.add(storageId, storageMock)
-      );
+      obj.plugins.add(pluginName, e => e.StorageManager.add(storageId, storageMock));
       config.storageManager.type = storageId;
       config.plugins = [pluginName];
       const editor = obj.init(config);
@@ -260,9 +254,7 @@ describe('GrapesJS', () => {
       };
 
       const pluginName = storageId + '-p';
-      obj.plugins.add(pluginName, e =>
-        e.StorageManager.add(storageId, storageMock)
-      );
+      obj.plugins.add(pluginName, e => e.StorageManager.add(storageId, storageMock));
       config.fromElement = 1;
       config.storageManager.type = storageId;
       config.plugins = [pluginName];
@@ -377,10 +369,7 @@ describe('GrapesJS', () => {
 
     test('Set default devices', () => {
       config.deviceManager = {};
-      config.deviceManager.devices = [
-        { name: '1', width: '2' },
-        { name: '3', width: '4' }
-      ];
+      config.deviceManager.devices = [{ name: '1', width: '2' }, { name: '3', width: '4' }];
       var editor = obj.init(config);
       expect(editor.DeviceManager.getAll().length).toEqual(2);
     });

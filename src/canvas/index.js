@@ -32,16 +32,17 @@
 
 import { on, off, hasDnd, getElement, getPointerEvent } from 'utils/mixins';
 import Droppable from 'utils/Droppable';
+import defaults from './config/config';
+import Canvas from './model/Canvas';
+import canvasView from './view/CanvasView';
 
 const { requestAnimationFrame } = window;
 
-module.exports = () => {
-  var c = {},
-    defaults = require('./config/config'),
-    Canvas = require('./model/Canvas'),
-    CanvasView = require('./view/CanvasView');
-  var canvas;
-  var frameRect;
+export default () => {
+  let c = {};
+  let canvas;
+  let frameRect;
+  let CanvasView;
 
   return {
     /**
@@ -75,7 +76,7 @@ module.exports = () => {
       if (ppfx) c.stylePrefix = ppfx + c.stylePrefix;
 
       canvas = new Canvas(config);
-      CanvasView = new CanvasView({
+      CanvasView = new canvasView({
         model: canvas,
         config: c
       });
@@ -113,6 +114,10 @@ module.exports = () => {
      */
     getElement() {
       return CanvasView.el;
+    },
+
+    getFrame() {
+      return canvas.get('frame');
     },
 
     /**
@@ -360,7 +365,9 @@ module.exports = () => {
         targetWidth: target.offsetWidth,
         targetHeight: target.offsetHeight,
         canvasTop: canvasPos.top,
-        canvasLeft: canvasPos.left
+        canvasLeft: canvasPos.left,
+        canvasWidth: canvasPos.width,
+        canvasHeight: canvasPos.height
       };
 
       // In this way I can catch data and also change the position strategy
@@ -461,10 +468,7 @@ module.exports = () => {
       if (!elem) return;
 
       if (!cv.isElInViewport(elem) || opts.force) {
-        const opt =
-          typeof opts === 'object'
-            ? opts
-            : { behavior: 'smooth', block: 'nearest' };
+        const opt = typeof opts === 'object' ? opts : { behavior: 'smooth', block: 'nearest' };
         elem.scrollIntoView(opt);
       }
     },

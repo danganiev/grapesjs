@@ -1,4 +1,6 @@
-module.exports = require('backbone').View.extend({
+import Backbone from 'backbone';
+
+export default Backbone.View.extend({
   template({ pfx, ppfx, content, title }) {
     return `<div class="${pfx}dialog ${ppfx}one-bg ${ppfx}two-color">
       <div class="${pfx}header">
@@ -41,8 +43,7 @@ module.exports = require('backbone').View.extend({
    * @private
    */
   getCollector() {
-    if (!this.$collector)
-      this.$collector = this.$el.find('.' + this.pfx + 'collector');
+    if (!this.$collector) this.$collector = this.$el.find('.' + this.pfx + 'collector');
     return this.$collector;
   },
 

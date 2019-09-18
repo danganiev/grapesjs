@@ -1,18 +1,13 @@
 import { isElement } from 'underscore';
 
-module.exports = {
+export default {
   /**
    * Check if fullscreen mode is enabled
    * @return {Boolean}
    */
   isEnabled() {
     var d = document;
-    if (
-      d.fullscreenElement ||
-      d.webkitFullscreenElement ||
-      d.mozFullScreenElement
-    )
-      return 1;
+    if (d.fullscreenElement || d.webkitFullscreenElement || d.mozFullScreenElement) return 1;
     else return 0;
   },
 
@@ -66,9 +61,7 @@ module.exports = {
   run(editor, sender, opts = {}) {
     this.sender = sender;
     const { target } = opts;
-    const targetEl = isElement(target)
-      ? target
-      : document.querySelector(target);
+    const targetEl = isElement(target) ? target : document.querySelector(target);
     const pfx = this.enable(targetEl || editor.getContainer());
     this.fsChanged = this.fsChanged.bind(this, pfx);
     document.addEventListener(pfx + 'fullscreenchange', this.fsChanged);

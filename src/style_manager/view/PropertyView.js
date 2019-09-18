@@ -5,7 +5,7 @@ import { includes, each } from 'underscore';
 
 const clearProp = 'data-clear-style';
 
-module.exports = Backbone.View.extend({
+export default Backbone.View.extend({
   template(model) {
     const pfx = this.pfx;
     return `
@@ -80,11 +80,7 @@ module.exports = Backbone.View.extend({
         em && em.on(`component:styleUpdate:${property}`, this.targetUpdated);
       });
 
-    this.listenTo(
-      this.propTarget,
-      'update styleManager:update',
-      this.targetUpdated
-    );
+    this.listenTo(this.propTarget, 'update styleManager:update', this.targetUpdated);
     this.listenTo(model, 'destroy remove', this.remove);
     this.listenTo(model, 'change:value', this.modelValueChanged);
     this.listenTo(model, 'targetUpdated', this.targetUpdated);
@@ -215,7 +211,8 @@ module.exports = Backbone.View.extend({
 
     const config = this.config;
     const em = config.em;
-    const model = this.model;
+    const { model } = this;
+    const property = model.get('property');
     let value = '';
     let status = '';
     let targetValue = this.getTargetValue({ ignoreDefault: 1 });
@@ -228,11 +225,7 @@ module.exports = Backbone.View.extend({
       if (config.highlightChanged) {
         status = 'updated';
       }
-    } else if (
-      computedValue &&
-      config.showComputed &&
-      computedValue != defaultValue
-    ) {
+    } else if (computedValue && config.showComputed && computedValue != defaultValue) {
       value = computedValue;
 
       if (config.highlightComputed) {
@@ -247,8 +240,8 @@ module.exports = Backbone.View.extend({
     this.setStatus(status);
 
     if (em) {
-      em.trigger('styleManager:change', this);
-      em.trigger(`styleManager:change:${model.get('property')}`, this);
+      em.trigger('styleManager:change', this, property, value);
+      em.trigger(`styleManager:change:${property}`, this, value);
     }
   },
 
@@ -437,8 +430,7 @@ module.exports = Backbone.View.extend({
     if (toRequire) {
       stylable =
         !target ||
-        (stylableReq &&
-          (stylableReq.indexOf(id) >= 0 || stylableReq.indexOf(property) >= 0));
+        (stylableReq && (stylableReq.indexOf(id) >= 0 || stylableReq.indexOf(property) >= 0));
     }
 
     // Check if the property is available based on other property's values
@@ -461,8 +453,7 @@ module.exports = Backbone.View.extend({
       if (parentEl) {
         const styles = window.getComputedStyle(parentEl);
         each(requiresParent, (values, property) => {
-          stylable =
-            stylable && styles[property] && includes(values, styles[property]);
+          stylable = stylable && styles[property] && includes(values, styles[property]);
         });
       } else {
         stylable = false;
@@ -554,9 +545,7 @@ module.exports = Backbone.View.extend({
     const full = model.get('full');
     const className = `${pfx}property`;
     el.innerHTML = this.template(model);
-    el.className = `${className} ${pfx}${model.get(
-      'type'
-    )} ${className}__${property}`;
+    el.className = `${className} ${pfx}${model.get('type')} ${className}__${property}`;
     el.className += full ? ` ${className}--full` : '';
     this.updateStatus();
 

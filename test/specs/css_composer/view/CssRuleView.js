@@ -1,5 +1,5 @@
-var CssRuleView = require('css_composer/view/CssRuleView');
-var CssRule = require('css_composer/model/CssRule');
+import CssRuleView from 'css_composer/view/CssRuleView';
+import CssRule from 'css_composer/model/CssRule';
 
 module.exports = {
   run() {
@@ -79,9 +79,7 @@ module.exports = {
         test('Render media queries', () => {
           objReg.model.set('style', { prop: 'value' });
           objReg.model.set('mediaText', '(max-width: 999px)');
-          expect(objReg.$el.html()).toEqual(
-            '@media (max-width: 999px){.test1.test2{prop:value;}}'
-          );
+          expect(objReg.$el.html()).toEqual('@media (max-width: 999px){.test1.test2{prop:value;}}');
         });
 
         test('Empty on clear', () => {

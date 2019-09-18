@@ -1,4 +1,4 @@
-var FileUploader = require('asset_manager/view/FileUploader');
+import FileUploader from 'asset_manager/view/FileUploader';
 
 module.exports = {
   run() {
@@ -37,9 +37,7 @@ module.exports = {
         });
 
         test('File input is enabled', () => {
-          expect(obj.$el.find('input[type=file]').prop('disabled')).toEqual(
-            true
-          );
+          expect(obj.$el.find('input[type=file]').prop('disabled')).toEqual(true);
         });
       });
 
@@ -62,9 +60,7 @@ module.exports = {
             }
           });
           view.render();
-          expect(view.$el.find('input[type=file]').prop('disabled')).toEqual(
-            true
-          );
+          expect(view.$el.find('input[type=file]').prop('disabled')).toEqual(true);
         });
 
         test('Handles multiUpload false', () => {
@@ -74,9 +70,7 @@ module.exports = {
             }
           });
           view.render();
-          expect(
-            view.$el.find('input[type=file]').prop('multiple')
-          ).toBeFalsy();
+          expect(view.$el.find('input[type=file]').prop('multiple')).toBeFalsy();
         });
 
         test('Handles embedAsBase64 parameter', () => {
@@ -86,9 +80,7 @@ module.exports = {
             }
           });
           view.render();
-          expect(view.$el.find('input[type=file]').prop('disabled')).toEqual(
-            false
-          );
+          expect(view.$el.find('input[type=file]').prop('disabled')).toEqual(false);
           expect(view.uploadFile).toEqual(FileUploader.embedAsBase64);
         });
       });

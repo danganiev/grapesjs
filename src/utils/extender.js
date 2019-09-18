@@ -1,6 +1,6 @@
 import { isObject, isString, each, isUndefined } from 'underscore';
 
-module.exports = ({ $, Backbone }) => {
+export default ({ $, Backbone }) => {
   if (Backbone) {
     const ViewProt = Backbone.View.prototype;
     const eventNsMap = {};
@@ -93,9 +93,7 @@ module.exports = ({ $, Backbone }) => {
 
           return on.call(this, eventName, delegate, callback, runOnce);
         } else {
-          events.forEach(eventName =>
-            this.on(eventName, delegate, callback, runOnce)
-          );
+          events.forEach(eventName => this.on(eventName, delegate, callback, runOnce));
           return this;
         }
       } else {

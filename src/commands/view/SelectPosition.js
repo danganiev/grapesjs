@@ -1,7 +1,7 @@
 import Backbone from 'backbone';
 const $ = Backbone.$;
 
-module.exports = {
+export default {
   /**
    * Start select position event
    * @param {HTMLElement} trg
@@ -48,18 +48,14 @@ module.exports = {
   stopSelectPosition() {
     this.posTargetCollection = null;
     this.posIndex =
-      this.posMethod == 'after' && this.cDim.length !== 0
-        ? this.posIndex + 1
-        : this.posIndex; //Normalize
+      this.posMethod == 'after' && this.cDim.length !== 0 ? this.posIndex + 1 : this.posIndex; //Normalize
     if (this.sorter) {
       this.sorter.moved = 0;
       this.sorter.endMove();
     }
     if (this.cDim) {
       this.posIsLastEl =
-        this.cDim.length !== 0 &&
-        this.posMethod == 'after' &&
-        this.posIndex == this.cDim.length;
+        this.cDim.length !== 0 && this.posMethod == 'after' && this.posIndex == this.cDim.length;
       this.posTargetEl =
         this.cDim.length === 0
           ? $(this.outsideElem)
@@ -94,9 +90,7 @@ module.exports = {
     var isLast = len !== 0 && m == 'after' && i == len;
     if (
       len !== 0 &&
-      ((!isLast && !dims[i][4]) ||
-        (dims[i - 1] && !dims[i - 1][4]) ||
-        (isLast && !dims[i - 1][4]))
+      ((!isLast && !dims[i][4]) || (dims[i - 1] && !dims[i - 1][4]) || (isLast && !dims[i - 1][4]))
     )
       return 1;
     return 0;

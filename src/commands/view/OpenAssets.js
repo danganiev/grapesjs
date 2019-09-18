@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   run(editor, sender, opts = {}) {
     const modal = editor.Modal;
     const am = editor.AssetManager;
@@ -25,9 +25,7 @@ module.exports = {
     }
 
     if (accept) {
-      const uploadEl = amContainer.querySelector(
-        `input#${config.stylePrefix}uploadFile`
-      );
+      const uploadEl = amContainer.querySelector(`input#${config.stylePrefix}uploadFile`);
       uploadEl && uploadEl.setAttribute('accept', accept);
     }
 

@@ -1,11 +1,11 @@
-const Sector = require('style_manager/model/Sector');
-const Sectors = require('style_manager/model/Sectors');
-const Property = require('style_manager/model/Property');
-const PropertyInteger = require('style_manager/model/PropertyInteger');
-const Properties = require('style_manager/model/Properties');
-const Layer = require('style_manager/model/Layer');
-const Layers = require('style_manager/model/Layers');
-const PropertyFactory = require('style_manager/model/PropertyFactory');
+import Sector from 'style_manager/model/Sector';
+import Sectors from 'style_manager/model/Sectors';
+import Property from 'style_manager/model/Property';
+import PropertyInteger from 'style_manager/model/PropertyInteger';
+import Properties from 'style_manager/model/Properties';
+import Layer from 'style_manager/model/Layer';
+import Layers from 'style_manager/model/Layers';
+import PropertyFactory from 'style_manager/model/PropertyFactory';
 
 module.exports = {
   run() {
@@ -328,9 +328,7 @@ module.exports = {
 
       test('getPropertyValues from layers', () => {
         obj = new Layers([{ properties }, { properties }, { properties }]);
-        expect(obj.getPropertyValues('prop3')).toEqual(
-          'test(val3), test(val3), test(val3)'
-        );
+        expect(obj.getPropertyValues('prop3')).toEqual('test(val3), test(val3), test(val3)');
       });
     });
 
@@ -400,11 +398,7 @@ module.exports = {
             property: 'flex-wrap',
             type: 'select',
             defaults: 'nowrap',
-            list: [
-              { value: 'nowrap' },
-              { value: 'wrap' },
-              { value: 'wrap-reverse' }
-            ],
+            list: [{ value: 'nowrap' }, { value: 'wrap' }, { value: 'wrap-reverse' }],
             requires: { display: ['flex'] }
           }
         ]);
@@ -505,7 +499,8 @@ module.exports = {
         var res = {
           type: 'integer',
           units: ['px', '%', 'vw'],
-          defaults: 0
+          defaults: 'auto',
+          fixedValues: ['initial', 'inherit', 'auto']
         };
         res.property = 'right';
         expect(obj.build('right')).toEqual([res]);
@@ -517,7 +512,8 @@ module.exports = {
         var res = {
           type: 'integer',
           units: ['px', '%', 'vh'],
-          defaults: 0
+          defaults: 'auto',
+          fixedValues: ['initial', 'inherit', 'auto']
         };
         res.property = 'top';
         expect(obj.build('top')).toEqual([res]);
@@ -759,12 +755,7 @@ module.exports = {
         var res = {
           type: 'radio',
           defaults: 'left',
-          list: [
-            { value: 'left' },
-            { value: 'center' },
-            { value: 'right' },
-            { value: 'justify' }
-          ]
+          list: [{ value: 'left' }, { value: 'center' }, { value: 'right' }, { value: 'justify' }]
         };
         res.property = 'text-align';
         expect(obj.build('text-align')).toEqual([res]);
@@ -837,14 +828,14 @@ module.exports = {
               defaults: '0px'
             },
             {
-              property: 'border-bottom-left-radius',
+              property: 'border-bottom-right-radius',
               type: 'integer',
               units: ['px', '%'],
               min: 0,
               defaults: '0px'
             },
             {
-              property: 'border-bottom-right-radius',
+              property: 'border-bottom-left-radius',
               type: 'integer',
               units: ['px', '%'],
               min: 0,
@@ -943,10 +934,7 @@ module.exports = {
               property: 'box-shadow-type',
               type: 'select',
               defaults: '',
-              list: [
-                { value: '', name: 'Outside' },
-                { value: 'inset', name: 'Inside' }
-              ]
+              list: [{ value: '', name: 'Outside' }, { value: 'inset', name: 'Inside' }]
             }
           ]
         };
@@ -997,21 +985,13 @@ module.exports = {
               property: 'background-attachment',
               type: 'select',
               defaults: 'scroll',
-              list: [
-                { value: 'scroll' },
-                { value: 'fixed' },
-                { value: 'local' }
-              ]
+              list: [{ value: 'scroll' }, { value: 'fixed' }, { value: 'local' }]
             },
             {
               property: 'background-size',
               type: 'select',
               defaults: 'auto',
-              list: [
-                { value: 'auto' },
-                { value: 'cover' },
-                { value: 'contain' }
-              ]
+              list: [{ value: 'auto' }, { value: 'cover' }, { value: 'contain' }]
             }
           ]
         };
@@ -1146,12 +1126,7 @@ module.exports = {
           type: 'select',
           property: 'overflow',
           defaults: 'visible',
-          list: [
-            { value: 'visible' },
-            { value: 'hidden' },
-            { value: 'scroll' },
-            { value: 'auto' }
-          ]
+          list: [{ value: 'visible' }, { value: 'hidden' }, { value: 'scroll' }, { value: 'auto' }]
         };
         expect(obj.build('overflow')).toEqual([res]);
       });
@@ -1161,12 +1136,7 @@ module.exports = {
           type: 'select',
           property: 'overflow-x',
           defaults: 'visible',
-          list: [
-            { value: 'visible' },
-            { value: 'hidden' },
-            { value: 'scroll' },
-            { value: 'auto' }
-          ]
+          list: [{ value: 'visible' }, { value: 'hidden' }, { value: 'scroll' }, { value: 'auto' }]
         };
         expect(obj.build('overflow-x')).toEqual([res]);
       });
@@ -1176,12 +1146,7 @@ module.exports = {
           type: 'select',
           property: 'overflow-y',
           defaults: 'visible',
-          list: [
-            { value: 'visible' },
-            { value: 'hidden' },
-            { value: 'scroll' },
-            { value: 'auto' }
-          ]
+          list: [{ value: 'visible' }, { value: 'hidden' }, { value: 'scroll' }, { value: 'auto' }]
         };
         expect(obj.build('overflow-y')).toEqual([res]);
       });

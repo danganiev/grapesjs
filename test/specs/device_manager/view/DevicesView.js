@@ -1,5 +1,5 @@
-const DevicesView = require('device_manager/view/DevicesView');
-const Devices = require('device_manager/model/Devices');
+import DevicesView from 'device_manager/view/DevicesView';
+import Devices from 'device_manager/model/Devices';
 
 module.exports = {
   run() {
@@ -46,9 +46,7 @@ module.exports = {
             config: { em: editorModel }
           });
           document.body.innerHTML = '<div id="fixtures"></div>';
-          document.body
-            .querySelector('#fixtures')
-            .appendChild(view.render().el);
+          document.body.querySelector('#fixtures').appendChild(view.render().el);
         });
 
         test('Update device on select change', () => {

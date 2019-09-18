@@ -1,14 +1,14 @@
 import Backbone from 'backbone';
-const DomComponents = require('dom_components');
-const Component = require('dom_components/model/Component');
-const ComponentImage = require('dom_components/model/ComponentImage');
-const ComponentText = require('dom_components/model/ComponentText');
-const ComponentLink = require('dom_components/model/ComponentLink');
-const ComponentMap = require('dom_components/model/ComponentMap');
-const ComponentVideo = require('dom_components/model/ComponentVideo');
-const Components = require('dom_components/model/Components');
-const Selector = require('selector_manager/model/Selector');
-const Editor = require('editor/model/Editor');
+import DomComponents from 'dom_components';
+import Component from 'dom_components/model/Component';
+import ComponentImage from 'dom_components/model/ComponentImage';
+import ComponentText from 'dom_components/model/ComponentText';
+import ComponentLink from 'dom_components/model/ComponentLink';
+import ComponentMap from 'dom_components/model/ComponentMap';
+import ComponentVideo from 'dom_components/model/ComponentVideo';
+import Components from 'dom_components/model/Components';
+import Selector from 'selector_manager/model/Selector';
+import Editor from 'editor/model/Editor';
 const $ = Backbone.$;
 
 module.exports = {
@@ -106,9 +106,7 @@ module.exports = {
             'data-test2': 'value2'
           }
         });
-        expect(obj.toHTML()).toEqual(
-          '<article data-test1="value1" data-test2="value2"></article>'
-        );
+        expect(obj.toHTML()).toEqual('<article data-test1="value1" data-test2="value2"></article>');
       });
 
       test('Component toHTML with value-less attribute', () => {
@@ -128,9 +126,7 @@ module.exports = {
         ['class1', 'class2'].forEach(item => {
           obj.get('classes').add({ name: item });
         });
-        expect(obj.toHTML()).toEqual(
-          '<article class="class1 class2"></article>'
-        );
+        expect(obj.toHTML()).toEqual('<article class="class1 class2"></article>');
       });
 
       test('Component toHTML with children', () => {
@@ -142,9 +138,7 @@ module.exports = {
       test('Component toHTML with more children', () => {
         obj = new Component({ tagName: 'article' }, compOpts);
         obj.get('components').add([{ tagName: 'span' }, { tagName: 'div' }]);
-        expect(obj.toHTML()).toEqual(
-          '<article><span></span><div></div></article>'
-        );
+        expect(obj.toHTML()).toEqual('<article><span></span><div></div></article>');
       });
 
       test('Component toHTML with no closing tag', () => {
@@ -157,9 +151,7 @@ module.exports = {
         let attrs = obj.get('attributes');
         attrs['data-test'] = '"value"';
         obj.set('attributes', attrs);
-        expect(obj.toHTML()).toEqual(
-          '<div data-test="&quot;value&quot;"></div>'
-        );
+        expect(obj.toHTML()).toEqual('<div data-test="&quot;value&quot;"></div>');
       });
 
       test('Manage correctly boolean attributes', () => {
@@ -170,9 +162,7 @@ module.exports = {
           required: true,
           avoid: true
         });
-        expect(obj.toHTML()).toEqual(
-          '<div data-test="value" required avoid></div>'
-        );
+        expect(obj.toHTML()).toEqual('<div data-test="value" required avoid></div>');
       });
 
       test('Component parse empty div', () => {
@@ -443,9 +433,7 @@ module.exports = {
           attributes: { 'data-test': 'value' },
           content: 'test content'
         });
-        expect(obj.toHTML()).toEqual(
-          '<div data-test="value">test content</div>'
-        );
+        expect(obj.toHTML()).toEqual('<div data-test="value">test content</div>');
       });
     });
 
@@ -486,17 +474,14 @@ module.exports = {
 
     describe('Map Component', () => {
       test('Component parse map iframe', () => {
-        var src =
-          'https://maps.google.com/maps?&q=London,UK&z=11&t=q&output=embed';
+        var src = 'https://maps.google.com/maps?&q=London,UK&z=11&t=q&output=embed';
         var el = $('<iframe src="' + src + '"></iframe>');
         obj = ComponentMap.isComponent(el.get(0));
         expect(obj).toEqual({ type: 'map', src });
       });
 
       test('Component parse not map iframe', () => {
-        var el = $(
-          '<iframe src="https://www.youtube.com/watch?v=jNQXAC9IVRw"></iframe>'
-        );
+        var el = $('<iframe src="https://www.youtube.com/watch?v=jNQXAC9IVRw"></iframe>');
         obj = ComponentMap.isComponent(el.get(0));
         expect(obj).toEqual('');
       });

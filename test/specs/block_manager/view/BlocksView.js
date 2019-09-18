@@ -1,6 +1,6 @@
-var Backbone = require('backbone');
-var BlocksView = require('block_manager/view/BlocksView');
-var Blocks = require('block_manager/model/Blocks');
+import Backbone from 'backbone';
+import BlocksView from 'block_manager/view/BlocksView';
+import Blocks from 'block_manager/model/Blocks';
 
 module.exports = {
   run() {
@@ -59,9 +59,7 @@ module.exports = {
             }
           );
           document.body.innerHTML = '<div id="fixtures"></div>';
-          document.body
-            .querySelector('#fixtures')
-            .appendChild(view.render().el);
+          document.body.querySelector('#fixtures').appendChild(view.render().el);
         });
 
         test('Render children', () => {
@@ -69,9 +67,7 @@ module.exports = {
         });
 
         test('Render container', () => {
-          expect(view.getBlocksEl().getAttribute('class')).toEqual(
-            ppfx + 'blocks-c'
-          );
+          expect(view.getBlocksEl().getAttribute('class')).toEqual(ppfx + 'blocks-c');
         });
       });
     });

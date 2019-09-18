@@ -1,8 +1,9 @@
 import Backbone from 'backbone';
-const StyleManager = require('style_manager');
+import StyleManager from 'style_manager';
+
 const $ = Backbone.$;
 
-module.exports = {
+export default {
   run(em, sender) {
     this.sender = sender;
     if (!this.$cn) {
@@ -18,9 +19,7 @@ module.exports = {
       var dvm = em.DeviceManager;
       if (dvm && config.showDevices) {
         var devicePanel = panels.addPanel({ id: 'devices-c' });
-        devicePanel
-          .set('appendContent', dvm.render())
-          .trigger('change:appendContent');
+        devicePanel.set('appendContent', dvm.render()).trigger('change:appendContent');
       }
 
       // Class Manager container
@@ -31,9 +30,7 @@ module.exports = {
       var smConfig = em.StyleManager.getConfig();
       const pfx = smConfig.stylePrefix;
       // Create header
-      this.$header = $(
-        `<div class="${pfx}header">${smConfig.textNoElement}</div>`
-      );
+      this.$header = $(`<div class="${pfx}header">${smConfig.textNoElement}</div>`);
       this.$cn.append(this.$header);
 
       // Create panel if not exists

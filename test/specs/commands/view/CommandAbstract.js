@@ -1,5 +1,5 @@
 import CommandAbstract from 'commands/view/CommandAbstract';
-const Editor = require('editor/model/Editor');
+import Editor from 'editor/model/Editor';
 
 module.exports = {
   run() {
@@ -25,21 +25,9 @@ module.exports = {
 
         const result = command.callRun(editor);
         expect(editorTriggerSpy.callCount).toEqual(3);
-        expect(editorTriggerSpy.getCall(0).args).toEqual([
-          'run:test:before',
-          {}
-        ]);
-        expect(editorTriggerSpy.getCall(1).args).toEqual([
-          'run:test',
-          'result',
-          {}
-        ]);
-        expect(editorTriggerSpy.getCall(2).args).toEqual([
-          'run',
-          'test',
-          'result',
-          {}
-        ]);
+        expect(editorTriggerSpy.getCall(0).args).toEqual(['run:test:before', {}]);
+        expect(editorTriggerSpy.getCall(1).args).toEqual(['run:test', 'result', {}]);
+        expect(editorTriggerSpy.getCall(2).args).toEqual(['run', 'test', 'result', {}]);
 
         expect(result).toEqual('result');
         expect(runStub.calledOnce).toEqual(true);
@@ -51,14 +39,8 @@ module.exports = {
         const result = command.callRun(editor, { abort: true });
 
         expect(editorTriggerSpy.calledTwice).toEqual(true);
-        expect(editorTriggerSpy.getCall(0).args).toEqual([
-          'run:test:before',
-          { abort: true }
-        ]);
-        expect(editorTriggerSpy.getCall(1).args).toEqual([
-          'abort:test',
-          { abort: true }
-        ]);
+        expect(editorTriggerSpy.getCall(0).args).toEqual(['run:test:before', { abort: true }]);
+        expect(editorTriggerSpy.getCall(1).args).toEqual(['abort:test', { abort: true }]);
 
         expect(result).toEqual(undefined);
         expect(runStub.notCalled).toEqual(true);
@@ -70,21 +52,9 @@ module.exports = {
         const result = command.callStop(editor);
 
         expect(editorTriggerSpy.callCount).toEqual(3);
-        expect(editorTriggerSpy.getCall(0).args).toEqual([
-          'stop:test:before',
-          {}
-        ]);
-        expect(editorTriggerSpy.getCall(1).args).toEqual([
-          'stop:test',
-          'stopped',
-          {}
-        ]);
-        expect(editorTriggerSpy.getCall(2).args).toEqual([
-          'stop',
-          'test',
-          'stopped',
-          {}
-        ]);
+        expect(editorTriggerSpy.getCall(0).args).toEqual(['stop:test:before', {}]);
+        expect(editorTriggerSpy.getCall(1).args).toEqual(['stop:test', 'stopped', {}]);
+        expect(editorTriggerSpy.getCall(2).args).toEqual(['stop', 'test', 'stopped', {}]);
 
         expect(result).toEqual('stopped');
         expect(stopStub.calledOnce).toEqual(true);

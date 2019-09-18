@@ -1,10 +1,10 @@
-var SelectorManager = require('selector_manager');
-var Selector = require('selector_manager/model/Selector');
-var Models = require('./model/SelectorModels');
-var ClassTagView = require('./view/ClassTagView');
-var ClassTagsView = require('./view/ClassTagsView');
-var e2e = require('./e2e/ClassManager');
-var Editor = require('editor/model/Editor');
+import SelectorManager from 'selector_manager';
+import Selector from 'selector_manager/model/Selector';
+import Models from './model/SelectorModels';
+import ClassTagView from './view/ClassTagView';
+import ClassTagsView from './view/ClassTagsView';
+import e2e from './e2e/ClassManager';
+import Editor from 'editor/model/Editor';
 
 describe('SelectorManager', () => {
   describe('Main', () => {
@@ -80,16 +80,7 @@ describe('SelectorManager', () => {
     });
 
     test('Add multiple selectors', () => {
-      const cls = [
-        '.test1',
-        'test1',
-        '.test2',
-        '.test2',
-        '#test3',
-        'test3',
-        'test3',
-        '#test3'
-      ];
+      const cls = ['.test1', 'test1', '.test2', '.test2', '#test3', 'test3', 'test3', '#test3'];
       const result = obj.add(cls);
       expect(Array.isArray(result)).toEqual(true);
       const concat = obj

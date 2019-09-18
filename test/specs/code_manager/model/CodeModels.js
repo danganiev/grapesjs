@@ -1,9 +1,9 @@
-const CssGenerator = require('code_manager/model/CssGenerator');
-const HtmlGenerator = require('code_manager/model/HtmlGenerator');
-const DomComponents = require('dom_components');
-const Component = require('dom_components/model/Component');
-const Editor = require('editor/model/Editor');
-const CssComposer = require('css_composer');
+import CssGenerator from 'code_manager/model/CssGenerator';
+import HtmlGenerator from 'code_manager/model/HtmlGenerator';
+import DomComponents from 'dom_components';
+import Component from 'dom_components/model/Component';
+import Editor from 'editor/model/Editor';
+import CssComposer from 'css_composer';
 
 module.exports = {
   run() {
@@ -110,9 +110,7 @@ module.exports = {
             prop2: 'value2'
           }
         });
-        expect(obj.build(comp)).toEqual(
-          '#' + m1.getId() + '{prop1:value1;prop2:value2;}'
-        );
+        expect(obj.build(comp)).toEqual('#' + m1.getId() + '{prop1:value1;prop2:value2;}');
       });
 
       test('Build correctly component with class styled', () => {
@@ -123,9 +121,7 @@ module.exports = {
         var rule = cssc.add(cls1);
         rule.set('style', { prop1: 'value1', prop2: 'value2' });
 
-        expect(obj.build(comp, { cssc })).toEqual(
-          '.class1{prop1:value1;prop2:value2;}'
-        );
+        expect(obj.build(comp, { cssc })).toEqual('.class1{prop1:value1;prop2:value2;}');
       });
 
       test('Build correctly component styled with class and state', () => {
@@ -137,9 +133,7 @@ module.exports = {
         rule.set('style', { prop1: 'value1', prop2: 'value2' });
         rule.set('state', 'hover');
 
-        expect(obj.build(comp, { cssc })).toEqual(
-          '.class1:hover{prop1:value1;prop2:value2;}'
-        );
+        expect(obj.build(comp, { cssc })).toEqual('.class1:hover{prop1:value1;prop2:value2;}');
       });
 
       test('Build correctly with more classes', () => {
@@ -151,9 +145,7 @@ module.exports = {
         var rule = cssc.add([cls1, cls2]);
         rule.set('style', { prop1: 'value1', prop2: 'value2' });
 
-        expect(obj.build(comp, { cssc })).toEqual(
-          '.class1.class2{prop1:value1;prop2:value2;}'
-        );
+        expect(obj.build(comp, { cssc })).toEqual('.class1.class2{prop1:value1;prop2:value2;}');
       });
 
       test('Build rules with mixed classes', () => {
@@ -322,6 +314,24 @@ module.exports = {
           { key: '@media (max-width: 768px)', value: 3 },
           { key: '@media (max-width: 480px)', value: 1 },
           { key: '@media (max-width: 10%)', value: 5 }
+        ]);
+      });
+
+      test('The media objects, for the mobile first approach, are correctly sorted', () => {
+        expect(
+          obj.sortMediaObject({
+            '@media (min-width: 480px)': 1,
+            '@font-face': 2,
+            '@media (min-width: 768px)': 3,
+            '@media (min-width: 1020ch)': 4,
+            '@media (min-width: 10%)': 5
+          })
+        ).toEqual([
+          { key: '@font-face', value: 2 },
+          { key: '@media (min-width: 10%)', value: 5 },
+          { key: '@media (min-width: 480px)', value: 1 },
+          { key: '@media (min-width: 768px)', value: 3 },
+          { key: '@media (min-width: 1020ch)', value: 4 }
         ]);
       });
     });

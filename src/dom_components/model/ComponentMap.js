@@ -1,7 +1,7 @@
-const Component = require('./ComponentImage');
-const OComponent = require('./Component');
+import Component from './ComponentImage';
+import OComponent from './Component';
 
-module.exports = Component.extend(
+export default Component.extend(
   {
     defaults: {
       ...Component.prototype.defaults,
@@ -27,10 +27,7 @@ module.exports = Component.extend(
           label: 'Map type',
           name: 'mapType',
           changeProp: 1,
-          options: [
-            { value: 'q', name: 'Roadmap' },
-            { value: 'w', name: 'Satellite' }
-          ]
+          options: [{ value: 'q', name: 'Roadmap' }, { value: 'w', name: 'Satellite' }]
         },
         {
           label: 'Zoom',
@@ -47,11 +44,7 @@ module.exports = Component.extend(
       if (this.get('src')) this.parseFromSrc();
       else this.updateSrc();
       Component.prototype.initialize.apply(this, arguments);
-      this.listenTo(
-        this,
-        'change:address change:zoom change:mapType',
-        this.updateSrc
-      );
+      this.listenTo(this, 'change:address change:zoom change:mapType', this.updateSrc);
     },
 
     updateSrc() {

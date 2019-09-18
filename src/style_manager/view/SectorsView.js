@@ -1,10 +1,10 @@
 import Backbone from 'backbone';
 import { extend, isString } from 'underscore';
-import { isTextNode } from 'utils/mixins';
+import { isTaggableNode } from 'utils/mixins';
+import { appendAtIndex } from 'utils/dom';
+import SectorView from './SectorView';
 
-const SectorView = require('./SectorView');
-
-module.exports = Backbone.View.extend({
+export default Backbone.View.extend({
   initialize(o = {}) {
     const config = o.config || {};
     this.pfx = config.stylePrefix || '';
@@ -35,8 +35,8 @@ module.exports = Backbone.View.extend({
    * @return {Object}
    * @private
    * */
-  addTo(model) {
-    this.addToCollection(model);
+  addTo(model, coll, opts = {}) {
+    this.addToCollection(model, null, opts);
   },
 
   /**
@@ -55,7 +55,7 @@ module.exports = Backbone.View.extend({
     pt.helper = null;
 
     // Create computed style container
-    if (el && !isTextNode(el)) {
+    if (el && isTaggableNode(el)) {
       const stateStr = state ? `:${state}` : null;
       pt.computed = window.getComputedStyle(el, stateStr);
     }
@@ -103,9 +103,7 @@ module.exports = Backbone.View.extend({
       const rules = em.get('CssComposer').getAll();
 
       if (targetIsClass) {
-        rule = rules.filter(
-          rule => rule.get('selectors').getFullString() === target
-        )[0];
+        rule = rules.filter(rule => rule.get('selectors').getFullString() === target)[0];
       }
 
       if (!rule) {
@@ -134,10 +132,10 @@ module.exports = Backbone.View.extend({
    * @return {Object} Object created
    * @private
    * */
-  addToCollection(model, fragmentEl) {
-    const { pfx, target, propTarget, config } = this;
-    var fragment = fragmentEl || null;
-    var view = new SectorView({
+  addToCollection(model, fragmentEl, opts = {}) {
+    const { pfx, target, propTarget, config, el } = this;
+    const appendTo = fragmentEl || el;
+    const rendered = new SectorView({
       model,
       id: `${pfx}${model.get('id')}`,
       name: model.get('name'),
@@ -145,14 +143,8 @@ module.exports = Backbone.View.extend({
       target,
       propTarget,
       config
-    });
-    var rendered = view.render().el;
-
-    if (fragment) {
-      fragment.appendChild(rendered);
-    } else {
-      this.$el.append(rendered);
-    }
+    }).render().el;
+    appendAtIndex(appendTo, rendered, opts.at);
 
     return rendered;
   },

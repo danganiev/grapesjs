@@ -32,10 +32,9 @@
  */
 
 import { isString } from 'underscore';
+import keymaster from 'keymaster';
 
-const keymaster = require('keymaster');
-
-module.exports = () => {
+export default () => {
   let em;
   let config;
   const keymaps = {};
@@ -151,9 +150,7 @@ module.exports = () => {
         opts.prevent && canvas.getCanvasView().preventDefault(e);
         const ableTorun = !em.isEditing() && !editor.Canvas.isInputFocused();
         if (ableTorun || opts.force) {
-          typeof handler == 'object'
-            ? handler.run(editor, 0, opt)
-            : handler(editor, 0, opt);
+          typeof handler == 'object' ? handler.run(editor, 0, opt) : handler(editor, 0, opt);
           const args = [id, h.shortcut, e];
           em.trigger('keymap:emit', ...args);
           em.trigger(`keymap:emit:${id}`, ...args);

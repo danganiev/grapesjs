@@ -1,7 +1,7 @@
 import Backbone from 'backbone';
-var Commands = require('commands');
-var Models = require('./model/CommandModels');
-var CommandAbstract = require('./view/CommandAbstract');
+import Commands from 'commands';
+import Models from './model/CommandModels';
+import CommandAbstract from './view/CommandAbstract';
 
 describe('Commands', () => {
   describe('Main', () => {
@@ -14,6 +14,7 @@ describe('Commands', () => {
       commResultStop = 'Stop executed';
 
     const mockEditor = {
+      ...Backbone.Events,
       get(id) {
         switch (id) {
           case 'Canvas':

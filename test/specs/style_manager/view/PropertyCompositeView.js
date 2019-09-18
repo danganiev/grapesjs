@@ -1,9 +1,8 @@
-const PropertyCompositeView = require('style_manager/view/PropertyCompositeView');
-const Property = require('style_manager/model/Property');
-const PropertyComposite = require('style_manager/model/PropertyComposite');
-const Component = require('dom_components/model/Component');
-const Editor = require('editor/model/Editor');
-const DomComponents = require('dom_components');
+import PropertyCompositeView from 'style_manager/view/PropertyCompositeView';
+import PropertyComposite from 'style_manager/model/PropertyComposite';
+import Component from 'dom_components/model/Component';
+import Editor from 'editor/model/Editor';
+import DomComponents from 'dom_components';
 
 module.exports = {
   run() {
@@ -191,8 +190,7 @@ module.exports = {
           style[propName] = finalResult;
           component.set('style', style);
           view.propTarget.trigger('update');
-          style[propName] =
-            propValue + '2 ' + prop2Val + '2' + prop2Unit + ' ' + 'val1';
+          style[propName] = propValue + '2 ' + prop2Val + '2' + prop2Unit + ' ' + 'val1';
           component.set('style', style);
           view.propTarget.trigger('update');
           expect($prop1.val()).toEqual(propValue + '2');

@@ -1,12 +1,12 @@
 import Backbone from 'backbone';
 import { isUndefined } from 'underscore';
 import ColorPicker from 'utils/ColorPicker';
+import Input from './Input';
 
-const Input = require('./Input');
 const $ = Backbone.$;
 ColorPicker($);
 
-module.exports = Input.extend({
+export default Input.extend({
   template() {
     const ppfx = this.ppfx;
     return `
@@ -64,11 +64,9 @@ module.exports = Input.extend({
       var cpStyle = colorEl.get(0).style;
       var elToAppend = this.em && this.em.config ? this.em.config.el : '';
       var colorPickerConfig =
-        (this.em && this.em.getConfig && this.em.getConfig('colorPicker')) ||
-        {};
+        (this.em && this.em.getConfig && this.em.getConfig('colorPicker')) || {};
       const getColor = color => {
-        let cl =
-          color.getAlpha() == 1 ? color.toHexString() : color.toRgbString();
+        let cl = color.getAlpha() == 1 ? color.toHexString() : color.toRgbString();
         return cl.replace(/ /g, '');
       };
 

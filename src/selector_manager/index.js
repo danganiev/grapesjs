@@ -45,16 +45,16 @@
  */
 
 import { isString, isElement, isObject, isArray } from 'underscore';
+import defaults from './config/config';
+import Selector from './model/Selector';
+import Selectors from './model/Selectors';
+import ClassTagsView from './view/ClassTagsView';
 
 const isId = str => isString(str) && str[0] == '#';
 const isClass = str => isString(str) && str[0] == '.';
 
-module.exports = config => {
-  var c = config || {},
-    defaults = require('./config/config'),
-    Selector = require('./model/Selector'),
-    Selectors = require('./model/Selectors'),
-    ClassTagsView = require('./view/ClassTagsView');
+export default config => {
+  var c = config || {};
   var selectors, selectorTags;
 
   return {
@@ -83,13 +83,11 @@ module.exports = config => {
      * @return {this}
      * @private
      */
-    init(conf) {
-      c = conf || {};
-
-      for (var name in defaults) {
-        if (!(name in c)) c[name] = defaults[name];
-      }
-
+    init(conf = {}) {
+      c = {
+        ...defaults,
+        ...conf
+      };
       const em = c.em;
       const ppfx = c.pStylePrefix;
 
@@ -135,16 +133,14 @@ module.exports = config => {
       }
 
       if (opts.label && !opts.name) {
-        opts.name = Selector.escapeName(opts.label);
+        opts.name = this.escapeName(opts.label);
       }
 
       const cname = opts.name;
-      const selector = cname
-        ? this.get(cname, opts.type)
-        : selectors.where(opts)[0];
+      const selector = cname ? this.get(cname, opts.type) : selectors.where(opts)[0];
 
       if (!selector) {
-        return selectors.add(opts);
+        return selectors.add(opts, { config: c });
       }
 
       return selector;
@@ -203,7 +199,7 @@ module.exports = config => {
         classes = classes.trim().split(' ');
       }
 
-      classes.forEach(name => added.push(selectors.add({ name })));
+      classes.forEach(name => added.push(this.addSelector(name)));
       return added;
     },
 
@@ -220,12 +216,8 @@ module.exports = config => {
     get(name, type) {
       if (isArray(name)) {
         const result = [];
-        const selectors = name
-          .map(item => this.getSelector(item))
-          .filter(item => item);
-        selectors.forEach(
-          item => result.indexOf(item) < 0 && result.push(item)
-        );
+        const selectors = name.map(item => this.getSelector(item)).filter(item => item);
+        selectors.forEach(item => result.indexOf(item) < 0 && result.push(item));
         return result;
       } else {
         return this.getSelector(name, type);
@@ -238,6 +230,16 @@ module.exports = config => {
      * */
     getAll() {
       return selectors;
+    },
+
+    /**
+     * Return escaped selector name
+     * @param {String} name Selector name to escape
+     * @returns {String} Escaped name
+     */
+    escapeName(name) {
+      const { escapeName } = c;
+      return escapeName ? escapeName(name) : Selector.escapeName(name);
     },
 
     /**

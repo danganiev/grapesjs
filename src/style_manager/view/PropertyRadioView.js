@@ -1,4 +1,6 @@
-module.exports = require('./PropertyView').extend({
+import PropertyView from './PropertyView';
+
+export default PropertyView.extend({
   templateInput() {
     const pfx = this.pfx;
     const ppfx = this.ppfx;
@@ -30,9 +32,7 @@ module.exports = require('./PropertyView').extend({
               <input type="radio" class="${pfx}radio" id="${id}" name="${prop}" value="${
             el.value
           }"/>
-              <label class="${cl || itemCls}" ${titleAttr} for="${id}">${
-            cl ? '' : labelTxt
-          }</label>
+              <label class="${cl || itemCls}" ${titleAttr} for="${id}">${cl ? '' : labelTxt}</label>
             </div>
           `;
         });

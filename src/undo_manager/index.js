@@ -26,7 +26,7 @@
 
 import UndoManager from 'backbone-undo';
 
-module.exports = () => {
+export default () => {
   let em;
   let um;
   let config;
@@ -97,9 +97,7 @@ module.exports = () => {
 
       const events = ['style', 'attributes', 'content', 'src'];
       events.forEach(ev => um.addUndoType(`change:${ev}`, customUndoType));
-      um.on('undo redo', () =>
-        em.trigger('component:toggled change:canvasOffset')
-      );
+      um.on('undo redo', () => em.trigger('component:toggled change:canvasOffset'));
       ['undo', 'redo'].forEach(ev => um.on(ev, () => em.trigger(ev)));
 
       return this;

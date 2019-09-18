@@ -1,5 +1,5 @@
-const ButtonView = require('panels/view/ButtonView');
-const Button = require('panels/model/Button');
+import ButtonView from 'panels/view/ButtonView';
+import Button from 'panels/model/Button';
 
 module.exports = {
   run() {
@@ -24,9 +24,7 @@ module.exports = {
       });
 
       test('Button empty', () => {
-        expect(fixtures.innerHTML).toEqual(
-          '<span class="' + btnClass + '"></span>'
-        );
+        expect(fixtures.innerHTML).toEqual('<span class="' + btnClass + '"></span>');
       });
 
       test('Update class', () => {

@@ -1,7 +1,8 @@
+import Backbone from 'backbone';
 import { isUndefined, isString } from 'underscore';
 import { capitalize } from 'utils/mixins';
 
-const Property = require('backbone').Model.extend(
+const Property = Backbone.Model.extend(
   {
     defaults: {
       name: '',
@@ -45,8 +46,7 @@ const Property = require('backbone').Model.extend(
     initialize(props = {}, opts = {}) {
       const id = this.get('id') || '';
       const name = this.get('name') || '';
-      !this.get('property') &&
-        this.set('property', (name || id).replace(/ /g, '-'));
+      !this.get('property') && this.set('property', (name || id).replace(/ /g, '-'));
       const prop = this.get('property');
       !this.get('id') && this.set('id', prop);
       !name && this.set('name', capitalize(prop).replace(/-/g, ' '));
@@ -161,12 +161,13 @@ const Property = require('backbone').Model.extend(
     getFullValue(val) {
       const fn = this.get('functionName');
       let value = isUndefined(val) ? this.get('value') : val;
+      const hasValue = !isUndefined(value);
 
-      if (fn && !isUndefined(value)) {
+      if (fn && hasValue) {
         value = `${fn}(${value})`;
       }
 
-      if (this.get('important')) {
+      if (hasValue && this.get('important')) {
         value = `${value} !important`;
       }
 
@@ -190,4 +191,4 @@ const Property = require('backbone').Model.extend(
   }
 );
 
-module.exports = Property;
+export default Property;

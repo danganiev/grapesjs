@@ -1,6 +1,5 @@
 import { parseSelector } from 'parser/model/BrowserParserCss';
-const ParserCss = require('parser/model/ParserCss');
-const Selector = require('selector_manager/model/Selector');
+import ParserCss from 'parser/model/ParserCss';
 
 module.exports = {
   run() {
@@ -35,8 +34,7 @@ module.exports = {
       });
 
       test('Ignore not valid selectors', () => {
-        var str =
-          '.test1.test2, .test2 .test3, div > .test4, #test.test5, .test6';
+        var str = '.test1.test2, .test2 .test3, div > .test4, #test.test5, .test6';
         var result = [['test1', 'test2'], ['test6']];
         expect(parseSelector(str).result).toEqual(result);
       });
@@ -84,8 +82,7 @@ module.exports = {
       });
 
       test('Parse more rules', () => {
-        var str =
-          ' .test1.test2, .test3{ color:red } .test4, .test5.test6{ width:10px }';
+        var str = ' .test1.test2, .test3{ color:red } .test4, .test5.test6{ width:10px }';
         var result = [
           {
             selectors: ['test1', 'test2'],
@@ -139,8 +136,7 @@ module.exports = {
 
       // Phantom don't find 'node.conditionText' so will skip it
       test('Parse rule inside media query', () => {
-        var str =
-          '@media only screen and (max-width: 992px){ .test1.test2:hover{ color:red }}';
+        var str = '@media only screen and (max-width: 992px){ .test1.test2:hover{ color:red }}';
         var result = {
           atRuleType: 'media',
           selectors: ['test1', 'test2'],
@@ -202,8 +198,7 @@ module.exports = {
       });
 
       test('Parse rule with mixed selectors', () => {
-        var str =
-          ' .class1 .class2, .class3, div > .class4, .class5.class6 { color:red }';
+        var str = ' .class1 .class2, .class3, div > .class4, .class5.class6 { color:red }';
         var result = [
           {
             selectors: ['class3'],
@@ -219,8 +214,7 @@ module.exports = {
       });
 
       test('Parse rule with important styles', () => {
-        var str =
-          ' .test1 {color:red !important; width: 100px; height: 10px !important}';
+        var str = ' .test1 {color:red !important; width: 100px; height: 10px !important}';
         var result = {
           selectors: ['test1'],
           style: {
@@ -458,8 +452,7 @@ module.exports = {
         };
         expect(
           obj.checkNode({
-            selectors:
-              '.class1, .class1.class2:hover, div > .test:hover, span.test2',
+            selectors: '.class1, .class1.class2:hover, div > .test:hover, span.test2',
             style
           })
         ).toEqual([

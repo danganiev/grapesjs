@@ -1,7 +1,7 @@
-const ClassTagsView = require('selector_manager/view/ClassTagsView');
-const Selectors = require('selector_manager/model/Selectors');
-const Component = require('dom_components/model/Component');
-const Editor = require('editor/model/Editor');
+import ClassTagsView from 'selector_manager/view/ClassTagsView';
+import Selectors from 'selector_manager/model/Selectors';
+import Component from 'dom_components/model/Component';
+import Editor from 'editor/model/Editor';
 
 module.exports = {
   run() {
@@ -109,10 +109,13 @@ module.exports = {
         expect(view.endNewTag.calledOnce).toEqual(true);
       });
 
-      test('Collection changes on update of target', () => {
+      test('Collection changes on update of target', done => {
         coll.add({ name: 'test' });
         target.trigger('component:toggled');
-        expect(coll.length).toEqual(0);
+        setTimeout(() => {
+          expect(coll.length).toEqual(0);
+          done();
+        });
       });
 
       test('Collection reacts on reset', () => {
@@ -181,9 +184,7 @@ module.exports = {
           },
           collection: coll
         });
-        expect(view.getStateOptions()).toEqual(
-          '<option value="testName">testLabel</option>'
-        );
+        expect(view.getStateOptions()).toEqual('<option value="testName">testLabel</option>');
       });
 
       describe('Should be rendered correctly', () => {

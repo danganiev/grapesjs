@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   stylePrefix: 'trt-',
 
   // Specify the element to use as a container, string (query) or HTMLElement
@@ -14,10 +14,7 @@ module.exports = {
   labelPlhHref: 'eg. https://google.com',
 
   // Default options for the target input
-  optionsTarget: [
-    { value: '', name: 'This window' },
-    { value: '_blank', name: 'New window' }
-  ],
+  optionsTarget: [{ value: '', name: 'This window' }, { value: '_blank', name: 'New window' }],
 
   // Text to show in case no element selected
   textNoElement: 'Select an element before using Trait Manager'
