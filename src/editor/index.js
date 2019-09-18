@@ -19,7 +19,7 @@
  *
  * ### Components
  * * `component:create` - Component is created (only the model, is not yet mounted in the canvas), called after the init() method
- * * `component:mount` - Component is monted to an element and rendered in canvas
+ * * `component:mount` - Component is mounted to an element and rendered in canvas
  * * `component:add` - Triggered when a new component is added to the editor, the model is passed as an argument to the callback
  * * `component:remove` - Triggered when a component is removed, the model is passed as an argument to the callback
  * * `component:clone` - Triggered when a component is cloned, the new model is passed as an argument to the callback
@@ -99,11 +99,11 @@
  * @module Editor
  */
 import $ from 'cash-dom';
+import defaults from './config/config';
+import EditorModel from './model/Editor';
+import EditorView from './view/EditorView';
 
 export default (config = {}) => {
-  const defaults = require('./config/config');
-  const EditorModel = require('./model/Editor');
-  const EditorView = require('./view/EditorView');
   const c = {
     ...defaults,
     ...config
@@ -337,7 +337,7 @@ export default (config = {}) => {
      * @param {Boolean} [opts.avoidUpdateStyle=false] If the HTML string contains styles,
      * by default, they will be created and, if already exist, updated. When this option
      * is true, styles already created will not be updated.
-     * @return {Model|Array<Model>}
+     * @return {Array<Component>}
      * @example
      * editor.addComponents('<div class="cls">New component</div>');
      * // or
@@ -348,7 +348,7 @@ export default (config = {}) => {
      * });
      */
     addComponents(components, opts) {
-      return this.getComponents().add(components, opts);
+      return this.getWrapper().append(components, opts);
     },
 
     /**
@@ -411,6 +411,8 @@ export default (config = {}) => {
     /**
      * Select a component
      * @param  {Component|HTMLElement} el Component to select
+     * @param  {Object} [opts] Options
+     * @param  {Boolean} [opts.scroll] Scroll canvas to the selected element
      * @return {this}
      * @example
      * // Select dropped block
@@ -418,8 +420,8 @@ export default (config = {}) => {
      *  editor.select(model);
      * });
      */
-    select(el) {
-      em.setSelected(el);
+    select(el, opts) {
+      em.setSelected(el, opts);
       return this;
     },
 
@@ -612,6 +614,17 @@ export default (config = {}) => {
      */
     setCustomParserCss(parser) {
       this.Parser.getConfig().parserCss = parser;
+      return this;
+    },
+
+    /**
+     * Change the global drag mode of components.
+     * To get more about this feature read: https://github.com/artf/grapesjs/issues/1936
+     * @param {String} value Drag mode, options: 'absolute' | 'translate'
+     * @returns {this}
+     */
+    setDragMode(value) {
+      em.setDragMode(value);
       return this;
     },
 

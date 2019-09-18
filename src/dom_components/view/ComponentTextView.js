@@ -1,15 +1,16 @@
 import { on, off } from 'utils/mixins';
+import ComponentView from './ComponentView';
 
-const ComponentView = require('./ComponentView');
+const compProt = ComponentView.prototype;
 
-module.exports = ComponentView.extend({
+export default ComponentView.extend({
   events: {
     dblclick: 'onActive',
     input: 'onInput'
   },
 
   initialize(o) {
-    ComponentView.prototype.initialize.apply(this, arguments);
+    compProt.initialize.apply(this, arguments);
     this.disableEditing = this.disableEditing.bind(this);
     const model = this.model;
     const em = this.em;
@@ -88,19 +89,19 @@ module.exports = ComponentView.extend({
       model.set('content', content, contentOpt);
     } else {
       const clean = model => {
-        const selectable = !['text', 'default', ''].some(type =>
-          model.is(type)
-        );
+        const textable = !!model.get('textable');
+        const selectable =
+          !['text', 'default', ''].some(type => model.is(type)) || textable;
         model.set(
           {
             editable: selectable && model.get('editable'),
             selectable: selectable,
             hoverable: selectable,
+            removable: textable,
+            draggable: textable,
             highlightable: 0,
-            removable: 0,
-            draggable: 0,
-            copyable: 0,
-            toolbar: ''
+            copyable: textable,
+            ...(!textable && { toolbar: '' })
           },
           opts
         );
@@ -152,5 +153,17 @@ module.exports = ComponentView.extend({
     // Avoid closing edit mode on component click
     this.$el.off('mousedown', this.disablePropagation);
     this.$el[method]('mousedown', this.disablePropagation);
+
+    // Fixes #2210 but use this also as a replacement
+    // of this fix: bd7b804f3b46eb45b4398304b2345ce870f232d2
+    if (this.config.draggableComponents) {
+      let { el } = this;
+
+      while (el) {
+        el.draggable = enable ? !1 : !0;
+        el = el.parentNode;
+        el.tagName == 'BODY' && (el = 0);
+      }
+    }
   }
 });

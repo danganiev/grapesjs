@@ -2,7 +2,7 @@
 
 ## SelectorManager
 
-Selectors in GrapesJS are used in CSS Composer inside Rules and in Components as classes. To get better this concept let's take
+Selectors in GrapesJS are used in CSS Composer inside Rules and in Components as classes. To illustrate this concept let's take
 a look at this code:
 
 ```css
@@ -122,6 +122,16 @@ Returns **(Model | [Array][9])**
 Get all selectors
 
 Returns **Collection** 
+
+## escapeName
+
+Return escaped selector name
+
+### Parameters
+
+-   `name` **[String][8]** Selector name to escape
+
+Returns **[String][8]** Escaped name
 
 [1]: https://github.com/artf/grapesjs/blob/master/src/selector_manager/config/config.js
 

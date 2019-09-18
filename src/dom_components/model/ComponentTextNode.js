@@ -1,10 +1,11 @@
-const Component = require('./Component');
+import Component from './Component';
 
-module.exports = Component.extend(
+export default Component.extend(
   {
     defaults: {
       ...Component.prototype.defaults,
       droppable: false,
+      layerable: false,
       editable: true
     },
 

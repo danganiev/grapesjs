@@ -1,12 +1,13 @@
+import Backbone from 'backbone';
 import { bindAll, isElement, isUndefined } from 'underscore';
-import { on, off, getUnitFromValue } from 'utils/mixins';
+import { on, off, getUnitFromValue, isTaggableNode } from 'utils/mixins';
+import ToolbarView from 'dom_components/view/ToolbarView';
+import Toolbar from 'dom_components/model/Toolbar';
 
-const ToolbarView = require('dom_components/view/ToolbarView');
-const Toolbar = require('dom_components/model/Toolbar');
-const $ = require('backbone').$;
+const $ = Backbone.$;
 let showOffsets;
 
-module.exports = {
+export default {
   init(o) {
     bindAll(this, 'onHover', 'onOut', 'onClick', 'onFrameScroll');
   },
@@ -49,7 +50,7 @@ module.exports = {
     const win = this.getContentWindow();
     methods[method](body, 'mouseover', this.onHover);
     methods[method](body, 'mouseout', this.onOut);
-    methods[method](body, 'click', this.onClick);
+    methods[method](body, 'click touchend', this.onClick);
     methods[method](win, 'scroll resize', this.onFrameScroll);
     em[method]('component:toggled', this.onSelect, this);
     em[method]('change:componentHovered', this.onHovered, this);
@@ -176,7 +177,10 @@ module.exports = {
    * @private
    */
   onClick(e) {
+    const { em } = this;
     e.stopPropagation();
+    e.preventDefault();
+    if (em.get('_cmpDrag')) return em.set('_cmpDrag');
     const $el = $(e.target);
     let model = $el.data('model');
 
@@ -268,12 +272,18 @@ module.exports = {
     var $el = $(el);
     var canvas = this.canvas;
     var config = canvas.getConfig();
+    const ppfx = config.pStylePrefix || '';
     var customeLabel = config.customBadgeLabel;
     this.cacheEl = el;
     var model = $el.data('model');
     if (!model || !model.get('badgable')) return;
     var badge = this.getBadge();
-    var badgeLabel = model.getIcon() + model.getName();
+    const icon = model.getIcon();
+    const clsBadge = `${ppfx}badge`;
+    let badgeLabel = `${
+      icon ? `<div class="${clsBadge}__icon">${icon}</div>` : ''
+    }
+      <div class="${clsBadge}__name">${model.getName()}</div>`;
     badgeLabel = customeLabel ? customeLabel(model) : badgeLabel;
     badge.innerHTML = badgeLabel;
     var bStyle = badge.style;
@@ -355,9 +365,9 @@ module.exports = {
     const editor = em ? em.get('Editor') : '';
     const config = em ? em.get('Config') : '';
     const pfx = config.stylePrefix || '';
-    const attrName = `data-${pfx}handler`;
     const resizeClass = `${pfx}resizing`;
-    const model = !isElement(elem) ? elem : em.getSelected();
+    const model =
+      !isElement(elem) && isTaggableNode(elem) ? elem : em.getSelected();
     const resizable = model.get('resizable');
     const el = isElement(elem) ? elem : model.getEl();
     let options = {};
@@ -445,12 +455,8 @@ module.exports = {
           const style = modelToStyle.getStyle();
 
           if (!onlyHeight) {
-            const padding = 10;
-            const frameOffset = canvas.getCanvasView().getFrameOffset();
-            const width =
-              rect.w < frameOffset.width - padding
-                ? rect.w
-                : frameOffset.width - padding;
+            const bodyw = canvas.getBody().offsetWidth;
+            const width = rect.w < bodyw ? rect.w : bodyw;
             style[keyWidth] = autoWidth ? 'auto' : `${width}${unitWidth}`;
           }
 
@@ -555,14 +561,17 @@ module.exports = {
         pos.top = pos.elementTop + pos.elementHeight;
       }
 
-      // Check if not outside of the canvas
-      if (pos.left < pos.canvasLeft) {
-        pos.left = pos.canvasLeft;
+      // Check left position of the toolbar
+      const elRight = pos.elementLeft + pos.elementWidth;
+      let left = elRight - pos.targetWidth;
+
+      if (elRight > pos.canvasWidth) {
+        left -= elRight - pos.canvasWidth;
       }
 
-      var leftPos = pos.left + pos.elementWidth - pos.targetWidth;
-      toolbarStyle.top = pos.top + unit;
-      toolbarStyle.left = (leftPos < 0 ? 0 : leftPos) + unit;
+      left = left < 0 ? 0 : left;
+      toolbarStyle.top = `${pos.top}${unit}`;
+      toolbarStyle.left = `${left}${unit}`;
       toolbarStyle.opacity = '';
     }
   },
@@ -596,16 +605,15 @@ module.exports = {
    * On frame scroll callback
    * @private
    */
-  onFrameScroll(e) {
-    var el = this.cacheEl;
-    if (el) {
-      var elPos = this.getElementPos(el);
-      this.updateBadge(el, elPos);
-      var model = this.em.getSelected();
+  onFrameScroll() {
+    const el = this.cacheEl;
 
-      if (model) {
-        this.updateToolbarPos(model.view.el);
-      }
+    if (el) {
+      const elPos = this.getElementPos(el);
+      this.updateBadge(el, elPos);
+      const model = this.em.getSelected();
+      const viewEl = model && model.getEl();
+      viewEl && this.updateToolbarPos(viewEl);
     }
   },
 
@@ -670,14 +678,15 @@ module.exports = {
     this.onSelect();
   },
 
-  stop(editor, sender, opts = {}) {
-    const em = this.em;
+  stop(ed, sender, opts = {}) {
+    const { em, editor } = this;
     this.stopSelectComponent();
     !opts.preserveSelected && em.setSelected(null);
     this.clean();
     this.onOut();
     this.hideFixedElementOffset();
     this.canvas.getToolbarEl().style.display = 'none';
+    editor && editor.stopCommand('resize');
 
     em.off('component:update', this.updateAttached, this);
     em.off('change:canvasOffset', this.updateAttached, this);

@@ -1,6 +1,7 @@
+import Backbone from 'backbone';
 import ItemView from './ItemView';
 
-module.exports = require('backbone').View.extend({
+export default Backbone.View.extend({
   initialize(o = {}) {
     this.opt = o;
     const config = o.config || {};
@@ -74,10 +75,6 @@ module.exports = require('backbone').View.extend({
     const level = this.level;
     var fragment = fragmentEl || null;
     var viewObject = ItemView;
-
-    if (!this.isCountable(model, this.config.hideTextnode)) {
-      return;
-    }
 
     var view = new viewObject({
       level,

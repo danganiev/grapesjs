@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   // Style prefix
   stylePrefix: 'gjs-',
 
@@ -117,7 +117,7 @@ module.exports = {
   exportWrapper: 0,
 
   // The wrapper, if visible, will be shown as a `<body>`
-  wrappesIsBody: 1,
+  wrapperIsBody: 1,
 
   // Usually when you update the `style` of the component this changes the
   // element's `style` attribute. Unfortunately, inline styling doesn't allow
@@ -128,7 +128,7 @@ module.exports = {
   // Avoid default properties from storable JSON data, like `components` and `styles`.
   // With this option enabled your data will be smaller (usefull if need to
   // save some storage space)
-  avoidDefaults: 0,
+  avoidDefaults: 1,
 
   // (experimental)
   // The structure of components is always on the screen but it's not the same
@@ -139,6 +139,13 @@ module.exports = {
   // But be careful, not always leaving the style not used mean you wouldn't
   // use it later, but this option comes really handy when deal with big templates.
   clearStyles: 0,
+
+  // Specify the global drag mode of components. By default, components are moved
+  // following the HTML flow. Two other options are available:
+  // 'absolute' - Move components absolutely (design tools way)
+  // 'translate' - Use translate CSS from transform property
+  // To get more about this feature read: https://github.com/artf/grapesjs/issues/1936
+  dragMode: 0,
 
   // Dom element
   el: '',
@@ -159,7 +166,7 @@ module.exports = {
   storageManager: {},
 
   //Configurations for Rich Text Editor
-  rte: {},
+  richTextEditor: {},
 
   //Configurations for DomComponents
   domComponents: {},
