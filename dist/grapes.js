@@ -28565,6 +28565,10 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     model: _model_ComponentImage__WEBPACK_IMPORTED_MODULE_29__["default"],
     view: _view_ComponentImageView__WEBPACK_IMPORTED_MODULE_30__["default"]
   }, {
+    id: 'section',
+    model: _model_ComponentSection__WEBPACK_IMPORTED_MODULE_41__["default"],
+    view: _view_ComponentSectionView__WEBPACK_IMPORTED_MODULE_42__["default"]
+  }, {
     id: 'script',
     model: _model_ComponentScript__WEBPACK_IMPORTED_MODULE_31__["default"],
     view: _view_ComponentScriptView__WEBPACK_IMPORTED_MODULE_32__["default"]
@@ -28588,10 +28592,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     id: 'wrapper',
     model: _model_ComponentWrapper__WEBPACK_IMPORTED_MODULE_43__["default"],
     view: _view_ComponentView__WEBPACK_IMPORTED_MODULE_7__["default"]
-  }, {
-    id: 'section',
-    model: _model_ComponentSection__WEBPACK_IMPORTED_MODULE_41__["default"],
-    view: _view_ComponentSectionView__WEBPACK_IMPORTED_MODULE_42__["default"]
   }, {
     id: 'default',
     model: _model_Component__WEBPACK_IMPORTED_MODULE_5__["default"],
@@ -30967,6 +30967,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
   defaults: _objectSpread({}, _Component__WEBPACK_IMPORTED_MODULE_1__["default"].prototype.defaults, {
     name: 'Секция',
     type: 'section',
+    tagName: 'section',
     // Component can be toggled for permission for children to be changed and selected and dropped into
     childrenAreProtected: true
   }),
@@ -36349,7 +36350,7 @@ var defaultConfig = {
   editors: editors,
   plugins: plugins,
   // Will be replaced on build
-  version: '0.15.9',
+  version: '0.15.10',
 
   /**
    * Initialize the editor with passed options
@@ -50871,7 +50872,8 @@ function () {
       var types = dataTransfer.types;
       var files = dataTransfer.files || [];
       var dragContent = em.get('dragContent');
-      var content = dataTransfer.getData('text'); // debugger;
+      var content = dataTransfer.getData('text');
+      debugger;
 
       if (files.length) {
         content = [];
@@ -51866,7 +51868,8 @@ var $ = backbone__WEBPACK_IMPORTED_MODULE_1___default.a.$;
           avoidChildren: avoidChildren,
           avoidStore: 1,
           avoidUpdateStyle: 1
-        };
+        }; // This is where the magic happens -- Components.add parses string to create a component
+
         var tempModel = comps.add(dropContent, _objectSpread({}, opts, {
           temporary: 1
         }));
