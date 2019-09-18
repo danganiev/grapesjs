@@ -1,12 +1,9 @@
-module.exports = {
+export default {
   run(ed, sender, opts = {}) {
     let component = opts.component || ed.getSelected();
 
     if (!component || !component.get('childrenAreProtected')) {
-      console.warn(
-        "The element doesn't want to protect it's children",
-        component
-      );
+      console.warn("The element doesn't want to protect it's children", component);
       return;
     }
 

@@ -62,12 +62,12 @@ export default () => {
      * @private
      */
     init(opts = {}) {
-      // config = opts;
+      config = opts;
 
-      // this.noRTE = config.noRTE;
-      // if (config.noRTE) {
-      //   return;
-      // }
+      this.noRTE = config.noRTE;
+      if (config.noRTE) {
+        return;
+      }
 
       // for (let name in defaults) {
       //   if (!(name in config)) {
@@ -79,6 +79,7 @@ export default () => {
         ...defaults,
         ...opts
       };
+
       const ppfx = config.pStylePrefix;
 
       if (ppfx) {

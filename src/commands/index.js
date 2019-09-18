@@ -62,7 +62,6 @@ export default () => {
     ['component-delete', 'ComponentDelete'],
     ['component-style-clear', 'ComponentStyleClear'],
     ['component-drag', 'ComponentDrag'],
-
     ['toggle-children-edit', 'ToggleChildrenEdit']
   ];
 
