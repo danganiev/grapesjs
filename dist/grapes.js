@@ -50872,8 +50872,7 @@ function () {
       var types = dataTransfer.types;
       var files = dataTransfer.files || [];
       var dragContent = em.get('dragContent');
-      var content = dataTransfer.getData('text');
-      debugger;
+      var content = dataTransfer.getData('text'); // debugger;
 
       if (files.length) {
         content = [];
