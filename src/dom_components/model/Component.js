@@ -118,7 +118,8 @@ const Component = Backbone.Model.extend(Styleable).extend(
       traits: ['id', 'title'],
       propagate: '',
       dmode: '',
-      toolbar: null
+      toolbar: null,
+      hasSettings: true
     },
 
     /**
@@ -640,6 +641,15 @@ const Component = Backbone.Model.extend(Styleable).extend(
 
       if (!model.get('toolbar')) {
         var tb = [];
+        if (model.get('hasSettings')) {
+          tb.push({
+            attributes: {
+              class: 'fa fa-cog',
+              title: 'Настройки'
+            },
+            command: ed => ed.runCommand('landing:component-settings')
+          });
+        }
         if (model.collection) {
           tb.push({
             attributes: {

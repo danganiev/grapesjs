@@ -11,6 +11,7 @@ export default {
     removable: false,
     copyable: false,
     draggable: false,
+    hasSettings: false,
     components: [],
     traits: [],
     stylable: [
