@@ -28339,6 +28339,7 @@ __webpack_require__.r(__webpack_exports__);
     removable: false,
     copyable: false,
     draggable: false,
+    hasSettings: false,
     components: [],
     traits: [],
     stylable: ['background', 'background-color', 'background-image', 'background-repeat', 'background-attachment', 'background-position', 'background-size']
@@ -29286,7 +29287,8 @@ var Component = backbone__WEBPACK_IMPORTED_MODULE_5___default.a.Model.extend(dom
     traits: ['id', 'title'],
     propagate: '',
     dmode: '',
-    toolbar: null
+    toolbar: null,
+    hasSettings: true
   },
 
   /**
@@ -29838,6 +29840,18 @@ var Component = backbone__WEBPACK_IMPORTED_MODULE_5___default.a.Model.extend(dom
 
     if (!model.get('toolbar')) {
       var tb = [];
+
+      if (model.get('hasSettings')) {
+        tb.push({
+          attributes: {
+            class: 'fa fa-cog',
+            title: 'Настройки'
+          },
+          command: function command(ed) {
+            return ed.runCommand('landing:component-settings');
+          }
+        });
+      }
 
       if (model.collection) {
         tb.push({
@@ -36350,7 +36364,7 @@ var defaultConfig = {
   editors: editors,
   plugins: plugins,
   // Will be replaced on build
-  version: '0.15.10',
+  version: '0.15.11',
 
   /**
    * Initialize the editor with passed options
