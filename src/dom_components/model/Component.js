@@ -119,7 +119,7 @@ const Component = Backbone.Model.extend(Styleable).extend(
       propagate: '',
       dmode: '',
       toolbar: null,
-      hasSettings: true
+      hasSettings: false
     },
 
     /**

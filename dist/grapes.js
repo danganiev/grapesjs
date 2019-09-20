@@ -29288,7 +29288,7 @@ var Component = backbone__WEBPACK_IMPORTED_MODULE_5___default.a.Model.extend(dom
     propagate: '',
     dmode: '',
     toolbar: null,
-    hasSettings: true
+    hasSettings: false
   },
 
   /**
@@ -30983,7 +30983,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     type: 'section',
     tagName: 'section',
     // Component can be toggled for permission for children to be changed and selected and dropped into
-    childrenAreProtected: true
+    childrenAreProtected: true,
+    hasSettings: true
   }),
   init: function init() {
     this.toggleChildrenEditable();
@@ -36364,7 +36365,7 @@ var defaultConfig = {
   editors: editors,
   plugins: plugins,
   // Will be replaced on build
-  version: '0.15.11',
+  version: '0.15.12',
 
   /**
    * Initialize the editor with passed options
