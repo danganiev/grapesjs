@@ -29451,6 +29451,25 @@ var Component = backbone__WEBPACK_IMPORTED_MODULE_5___default.a.Model.extend(dom
     return result;
   },
 
+  /** Finds all inner components with a set attribute value
+   * @param {String} attrName Attribute name
+   * @param {String} attrValue Attribute value
+   * @returns {Array<Component>}
+   */
+  findByAttr: function findByAttr(attrName, attrValue) {
+    var result = [];
+
+    var find = function find(components) {
+      return components.forEach(function (item) {
+        item.get('attributes')[attrName] === attrValue && result.push(item);
+        find(item.components());
+      });
+    };
+
+    find(this.components());
+    return result;
+  },
+
   /**
    * Find the closest parent component by query string.
    * **ATTENTION**: this method works only with already rendered component
@@ -36365,7 +36384,7 @@ var defaultConfig = {
   editors: editors,
   plugins: plugins,
   // Will be replaced on build
-  version: '0.15.12',
+  version: '0.15.13',
 
   /**
    * Initialize the editor with passed options

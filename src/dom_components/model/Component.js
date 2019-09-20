@@ -275,6 +275,22 @@ const Component = Backbone.Model.extend(Styleable).extend(
       return result;
     },
 
+    /** Finds all inner components with a set attribute value
+     * @param {String} attrName Attribute name
+     * @param {String} attrValue Attribute value
+     * @returns {Array<Component>}
+     */
+    findByAttr(attrName, attrValue) {
+      const result = [];
+      const find = components =>
+        components.forEach(item => {
+          item.get('attributes')[attrName] === attrValue && result.push(item);
+          find(item.components());
+        });
+      find(this.components());
+      return result;
+    },
+
     /**
      * Find the closest parent component by query string.
      * **ATTENTION**: this method works only with already rendered component
