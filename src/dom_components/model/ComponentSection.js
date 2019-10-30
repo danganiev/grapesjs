@@ -21,11 +21,15 @@ export default Component.extend(
       let value = this.toggleChildren;
       const components = this.get('components');
 
+      this.set('droppable', value);
+
       const recursionToggle = components => {
         components.each((component, key) => {
           component.set('selectable', value);
           component.set('hoverable', value);
           component.set('highlightable', value);
+          component.set('draggable', value);
+          component.set('droppable', value);
           recursionToggle(component.get('components'));
         });
       };
