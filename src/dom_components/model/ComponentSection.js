@@ -56,24 +56,35 @@ export default Component.extend(
     setEditToolbarButtons() {
       let tb = clone(this.defaultToolbar);
       var cmdName = 'core:toggle-children-edit';
+      var hasButton = false;
 
-      if (this.toggleChildren) {
-        tb.push({
-          attributes: {
-            class: 'fa fa-pencil',
-            title: 'Разрешить редактирование секции'
-          },
-          command: cmdName
-        });
-      } else {
-        tb.push({
-          attributes: {
-            class: 'fa fa-ban',
-            title: 'Запретить редактирование секции'
-          },
-          command: cmdName
-        });
+      for (let i = 0; i < tb.length; i++) {
+        if (tb[i].command === cmdName) {
+          hasButton = true;
+          break;
+        }
       }
+
+      if (!hasButton) {
+        if (this.toggleChildren) {
+          tb.push({
+            attributes: {
+              class: 'fa fa-pencil',
+              title: 'Разрешить редактирование секции'
+            },
+            command: cmdName
+          });
+        } else {
+          tb.push({
+            attributes: {
+              class: 'fa fa-ban',
+              title: 'Запретить редактирование секции'
+            },
+            command: cmdName
+          });
+        }
+      }
+
       this.set('toolbar', tb);
     }
   },
