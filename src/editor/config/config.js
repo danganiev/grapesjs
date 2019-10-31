@@ -54,6 +54,10 @@ export default {
     p{
       margin: 0
     }
+    b,
+    strong {
+      font-weight: bolder;
+    }
 
     #wrapper {
       overflow: auto;
