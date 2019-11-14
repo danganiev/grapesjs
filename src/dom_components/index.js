@@ -69,6 +69,8 @@ import ComponentTextView from './view/ComponentTextView';
 import ComponentSection from './model/ComponentSection';
 import ComponentSectionView from './view/ComponentSectionView';
 import ComponentWrapper from './model/ComponentWrapper';
+import ComponentContentGrid from './model/ComponentContentGrid';
+import ComponentContentGridView from './view/ComponentContentGridView';
 
 export default () => {
   var c = {};
@@ -77,6 +79,11 @@ export default () => {
 
   var component, componentView;
   var componentTypes = [
+    {
+      id: 'content-grid',
+      model: ComponentContentGrid,
+      view: ComponentContentGridView
+    },
     {
       id: 'cell',
       model: ComponentTableCell,
@@ -162,6 +169,7 @@ export default () => {
       model: ComponentText,
       view: ComponentTextView
     },
+
     {
       id: 'wrapper',
       model: ComponentWrapper,

@@ -62,6 +62,7 @@ export default Backbone.Collection.extend({
 
   add(models, opt = {}) {
     if (isString(models)) {
+      // also a place of magic where the string is parsed
       models = this.parseString(models, opt);
     } else if (isArray(models)) {
       models.forEach((item, index) => {

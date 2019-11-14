@@ -31,7 +31,7 @@ export default {
    * @param {Object} opts
    * @return {Object} Applied properties
    */
-  setStyle(prop = {}, opts = {}) {
+  setStyle(prop = {}, opts = {}, force = false) {
     if (isString(prop)) {
       prop = parseStyle(prop);
     }
@@ -39,6 +39,18 @@ export default {
     const propOrig = this.getStyle();
     const propNew = { ...prop };
     this.set('style', propNew, opts);
+    if (force) {
+      keys(propNew).forEach(pr => {
+        const em = this.em;
+        this.trigger(`change:style:${pr}`);
+        if (em) {
+          em.trigger(`styleable:change`, this, pr);
+          em.trigger(`styleable:change:${pr}`, this, pr);
+        }
+      });
+
+      return propNew;
+    }
     const diff = shallowDiff(propOrig, propNew);
     keys(diff).forEach(pr => {
       const em = this.em;

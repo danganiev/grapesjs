@@ -127,7 +127,9 @@ export default class Droppable {
     ev.preventDefault();
     const { dragContent } = this;
     const dt = ev.dataTransfer;
-    // debugger;
+    //To debug this correctly I need to turn off ParserHtml.js breakpoints and only turn them on after the following
+    // breakpoint procs
+    debugger;
     const content = this.getContentByData(dt).content;
     ev.target.style.border = '';
     content && dragContent && dragContent(content);
@@ -140,7 +142,7 @@ export default class Droppable {
     const files = dataTransfer.files || [];
     const dragContent = em.get('dragContent');
     let content = dataTransfer.getData('text');
-    // debugger;
+    debugger;
 
     if (files.length) {
       content = [];

@@ -5,7 +5,6 @@ const $ = Backbone.$;
 
 export default Backbone.View.extend({
   initialize(opt) {
-    // debugger;
     this.opt = opt || {};
     bindAll(this, 'startSort', 'onMove', 'endMove', 'rollback', 'updateOffset', 'moveDragHelper');
     var o = opt || {};
@@ -1042,6 +1041,9 @@ export default Backbone.View.extend({
         opts.silent = false;
         opts.avoidUpdateStyle = 1;
       }
+
+      // This is the last function that is called from droppable after the 'text'
+      // element has been dropped to canvas
 
       if (isTextableActive) {
         const viewActive = activeTextModel.getView();
