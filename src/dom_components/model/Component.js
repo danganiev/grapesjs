@@ -287,7 +287,8 @@ const Component = Backbone.Model.extend(Styleable).extend(
           item.get('attributes')[attrName] === attrValue && result.push(item);
           find(item.components());
         });
-      find(this.components());
+      // find(this.components());
+      find(this);
       return result;
     },
 
