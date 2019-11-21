@@ -97,9 +97,14 @@ export default () => {
       if (config.customToolbar) {
         on(config.customToolbar, 'mousedown', e => e.stopPropagation());
       }
+
+      this.preventDisabling = false;
       return this;
     },
 
+    setPreventDisabling(value) {
+      this.preventDisabling = value;
+    },
     /**
      * Post render callback
      * @param  {View} ev
