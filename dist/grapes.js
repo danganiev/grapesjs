@@ -25892,8 +25892,8 @@ __webpack_require__.r(__webpack_exports__);
     var _this$sender = this.sender,
         sender = _this$sender === void 0 ? {} : _this$sender;
     sender.set && sender.set('active', 0);
-    var panels = this.getPanels(editor);
-    editor.runCommand('sw-visibility');
+    var panels = this.getPanels(editor); // editor.runCommand('sw-visibility');
+
     editor.getModel().runDefault();
     panels.style.display = '';
     var canvas = editor.Canvas.getElement();
@@ -25903,6 +25903,7 @@ __webpack_require__.r(__webpack_exports__);
       this.helper.style.display = 'none';
     }
 
+    editor.trigger('previewStopped');
     editor.refresh();
     this.tglPointers(editor, 1);
   }
@@ -28438,6 +28439,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _model_ComponentSection__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./model/ComponentSection */ "./src/dom_components/model/ComponentSection.js");
 /* harmony import */ var _view_ComponentSectionView__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./view/ComponentSectionView */ "./src/dom_components/view/ComponentSectionView.js");
 /* harmony import */ var _model_ComponentWrapper__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./model/ComponentWrapper */ "./src/dom_components/model/ComponentWrapper.js");
+/* harmony import */ var _model_ComponentContentGrid__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./model/ComponentContentGrid */ "./src/dom_components/model/ComponentContentGrid.js");
+/* harmony import */ var _view_ComponentContentGridView__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./view/ComponentContentGridView */ "./src/dom_components/view/ComponentContentGridView.js");
 
 
 
@@ -28516,12 +28519,18 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = (function () {
   var c = {};
   var em;
   var componentsById = {};
   var component, componentView;
   var componentTypes = [{
+    id: 'content-grid',
+    model: _model_ComponentContentGrid__WEBPACK_IMPORTED_MODULE_44__["default"],
+    view: _view_ComponentContentGridView__WEBPACK_IMPORTED_MODULE_45__["default"]
+  }, {
     id: 'cell',
     model: _model_ComponentTableCell__WEBPACK_IMPORTED_MODULE_9__["default"],
     view: _view_ComponentTableCellView__WEBPACK_IMPORTED_MODULE_10__["default"]
@@ -30530,6 +30539,48 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 /***/ }),
 
+/***/ "./src/dom_components/model/ComponentContentGrid.js":
+/*!**********************************************************!*\
+  !*** ./src/dom_components/model/ComponentContentGrid.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Component */ "./src/dom_components/model/Component.js");
+/* harmony import */ var underscore__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! underscore */ "./node_modules/underscore/underscore.js");
+/* harmony import */ var underscore__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(underscore__WEBPACK_IMPORTED_MODULE_2__);
+
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = (_Component__WEBPACK_IMPORTED_MODULE_1__["default"].extend({
+  defaults: _objectSpread({}, _Component__WEBPACK_IMPORTED_MODULE_1__["default"].prototype.defaults, {
+    name: 'Грид с колонками',
+    type: 'content-grid',
+    tagName: 'div',
+    hasSettings: true
+  }),
+  init: function init() {}
+}, {
+  isComponent: function isComponent(el) {
+    if (el.tagName == 'DIV' && el.className.includes('landing-content-grid')) {
+      return {
+        type: 'content-grid'
+      };
+    }
+  }
+}));
+
+/***/ }),
+
 /***/ "./src/dom_components/model/ComponentImage.js":
 /*!****************************************************!*\
   !*** ./src/dom_components/model/ComponentImage.js ***!
@@ -31011,12 +31062,15 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
   toggleChildrenEditable: function toggleChildrenEditable() {
     var value = this.toggleChildren;
     var components = this.get('components');
+    this.set('droppable', value);
 
     var recursionToggle = function recursionToggle(components) {
       components.each(function (component, key) {
         component.set('selectable', value);
         component.set('hoverable', value);
         component.set('highlightable', value);
+        component.set('draggable', value);
+        component.set('droppable', value);
         recursionToggle(component.get('components'));
       });
     };
@@ -31044,23 +31098,33 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
   setEditToolbarButtons: function setEditToolbarButtons() {
     var tb = Object(underscore__WEBPACK_IMPORTED_MODULE_2__["clone"])(this.defaultToolbar);
     var cmdName = 'core:toggle-children-edit';
+    var hasButton = false;
 
-    if (this.toggleChildren) {
-      tb.push({
-        attributes: {
-          class: 'fa fa-pencil',
-          title: 'Разрешить редактирование секции'
-        },
-        command: cmdName
-      });
-    } else {
-      tb.push({
-        attributes: {
-          class: 'fa fa-ban',
-          title: 'Запретить редактирование секции'
-        },
-        command: cmdName
-      });
+    for (var i = 0; i < tb.length; i++) {
+      if (tb[i].command === cmdName) {
+        hasButton = true;
+        break;
+      }
+    }
+
+    if (!hasButton) {
+      if (this.toggleChildren) {
+        tb.push({
+          attributes: {
+            class: 'fa fa-pencil',
+            title: 'Разрешить редактирование секции'
+          },
+          command: cmdName
+        });
+      } else {
+        tb.push({
+          attributes: {
+            class: 'fa fa-ban',
+            title: 'Запретить редактирование секции'
+          },
+          command: cmdName
+        });
+      }
     }
 
     this.set('toolbar', tb);
@@ -32010,6 +32074,7 @@ var Component;
     var opt = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
     if (Object(underscore__WEBPACK_IMPORTED_MODULE_3__["isString"])(models)) {
+      // also a place of magic where the string is parsed
       models = this.parseString(models, opt);
     } else if (Object(underscore__WEBPACK_IMPORTED_MODULE_3__["isArray"])(models)) {
       models.forEach(function (item, index) {
@@ -32149,6 +32214,21 @@ __webpack_require__.r(__webpack_exports__);
     return document.createComment(this.model.get('content'));
   }
 }));
+
+/***/ }),
+
+/***/ "./src/dom_components/view/ComponentContentGridView.js":
+/*!*************************************************************!*\
+  !*** ./src/dom_components/view/ComponentContentGridView.js ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ComponentView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ComponentView */ "./src/dom_components/view/ComponentView.js");
+
+/* harmony default export */ __webpack_exports__["default"] = (_ComponentView__WEBPACK_IMPORTED_MODULE_0__["default"].extend({}));
 
 /***/ }),
 
@@ -32590,6 +32670,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 var compProt = _ComponentView__WEBPACK_IMPORTED_MODULE_2__["default"].prototype;
 /* harmony default export */ __webpack_exports__["default"] = (_ComponentView__WEBPACK_IMPORTED_MODULE_2__["default"].extend({
   events: {
+    click: 'onActive',
     dblclick: 'onActive',
     input: 'onInput'
   },
@@ -32643,6 +32724,10 @@ var compProt = _ComponentView__WEBPACK_IMPORTED_MODULE_2__["default"].prototype;
         rte = this.rte,
         activeRte = this.activeRte;
     var editable = model.get('editable');
+
+    if (rte.preventDisabling) {
+      return;
+    }
 
     if (rte && editable) {
       try {
@@ -33705,6 +33790,7 @@ var parseStyle = Object(parser_model_ParserHtml__WEBPACK_IMPORTED_MODULE_3__["de
 
     var prop = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    var force = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
 
     if (Object(underscore__WEBPACK_IMPORTED_MODULE_1__["isString"])(prop)) {
       prop = parseStyle(prop);
@@ -33715,6 +33801,21 @@ var parseStyle = Object(parser_model_ParserHtml__WEBPACK_IMPORTED_MODULE_3__["de
     var propNew = _objectSpread({}, prop);
 
     this.set('style', propNew, opts);
+
+    if (force) {
+      Object(underscore__WEBPACK_IMPORTED_MODULE_1__["keys"])(propNew).forEach(function (pr) {
+        var em = _this.em;
+
+        _this.trigger("change:style:".concat(pr));
+
+        if (em) {
+          em.trigger("styleable:change", _this, pr);
+          em.trigger("styleable:change:".concat(pr), _this, pr);
+        }
+      });
+      return propNew;
+    }
+
     var diff = Object(utils_mixins__WEBPACK_IMPORTED_MODULE_2__["shallowDiff"])(propOrig, propNew);
     Object(underscore__WEBPACK_IMPORTED_MODULE_1__["keys"])(diff).forEach(function (pr) {
       var em = _this.em;
@@ -34603,7 +34704,7 @@ __webpack_require__.r(__webpack_exports__);
   // and sets a default background color of white. This CSS is desired in most cases.
   // use this property if you wish to overwrite the base CSS to your own CSS. This is most
   // useful if for example your template is not based off a document with 0 as body margin.
-  baseCss: "\n    * {\n      box-sizing: border-box;\n    }\n    html, body, #wrapper {\n      min-height: 100%;\n    }\n    body {\n      margin: 0;\n      height: 100%;\n      background-color: #fff\n    }\n    p{\n      margin: 0\n    }\n\n    #wrapper {\n      overflow: auto;\n      overflow-x: hidden;\n    }\n\n    span > div {\n      display: inline-block;\n    }\n\n    * ::-webkit-scrollbar-track {\n      background: rgba(0, 0, 0, 0.1)\n    }\n\n    * ::-webkit-scrollbar-thumb {\n      background: rgba(255, 255, 255, 0.2)\n    }\n\n    * ::-webkit-scrollbar {\n      width: 10px\n    }\n\n    .ql-container {\n    }\n\n    .ql-container.ql-disabled .ql-tooltip {\n      visibility: hidden;\n    }\n    .ql-container.ql-disabled .ql-editor ul[data-checked] > li::before {\n      pointer-events: none;\n    }\n    .ql-clipboard {\n      left: -100000px;\n      height: 1px;\n      overflow-y: hidden;\n      position: absolute;\n      top: 50%;\n    }\n    .ql-clipboard p {\n      margin: 0;\n      padding: 0;\n    }\n    .ql-editor {\n      white-space: pre-wrap;\n      // word-wrap: break-word;\n    }\n    .ql-editor > * {\n      cursor: text;\n    }\n\n    .ql-cursor {\n      display: none;\n    }\n  ",
+  baseCss: "\n    * {\n      box-sizing: border-box;\n    }\n    html, body, #wrapper {\n      min-height: 100%;\n    }\n    body {\n      margin: 0;\n      height: 100%;\n      background-color: #fff\n    }\n    p{\n      margin: 0\n    }\n\n    b,\n    strong {\n      font-weight: bold;\n    }\n\n    #wrapper {\n      overflow: auto;\n      overflow-x: hidden;\n    }\n\n    span > div {\n      display: inline-block;\n    }\n\n    * ::-webkit-scrollbar-track {\n      background: rgba(0, 0, 0, 0.1)\n    }\n\n    * ::-webkit-scrollbar-thumb {\n      background: rgba(255, 255, 255, 0.2)\n    }\n\n    * ::-webkit-scrollbar {\n      width: 10px\n    }\n  ",
   // CSS that could only be seen (for instance, inside the code viewer)
   protectedCss: '* { box-sizing: border-box; } body {margin: 0;}',
   // CSS for the iframe which containing the canvas, useful if you need to custom something inside
@@ -36384,7 +36485,7 @@ var defaultConfig = {
   editors: editors,
   plugins: plugins,
   // Will be replaced on build
-  version: '0.15.13',
+  version: '0.15.14',
 
   /**
    * Initialize the editor with passed options
@@ -40210,6 +40311,7 @@ function () {
 
     settings.styleWithCSS && this.exec('styleWithCSS');
     this.syncActions();
+    this.preventDisabling = false;
     return this;
   }
 
@@ -40218,6 +40320,11 @@ function () {
     value: function setEl(el) {
       this.el = el;
       this.doc = el.ownerDocument;
+    }
+  }, {
+    key: "setPreventDisabling",
+    value: function setPreventDisabling(value) {
+      this.preventDisabling = value;
     }
   }, {
     key: "updateActiveActions",
@@ -50892,8 +50999,10 @@ function () {
     value: function handleDrop(ev) {
       ev.preventDefault();
       var dragContent = this.dragContent;
-      var dt = ev.dataTransfer; // debugger;
+      var dt = ev.dataTransfer; //To debug this correctly I need to turn off ParserHtml.js breakpoints and only turn them on after the following
+      // breakpoint procs
 
+      debugger;
       var content = this.getContentByData(dt).content;
       ev.target.style.border = '';
       content && dragContent && dragContent(content);
@@ -50906,7 +51015,8 @@ function () {
       var types = dataTransfer.types;
       var files = dataTransfer.files || [];
       var dragContent = em.get('dragContent');
-      var content = dataTransfer.getData('text'); // debugger;
+      var content = dataTransfer.getData('text');
+      debugger;
 
       if (files.length) {
         content = [];
@@ -51561,7 +51671,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 var $ = backbone__WEBPACK_IMPORTED_MODULE_1___default.a.$;
 /* harmony default export */ __webpack_exports__["default"] = (backbone__WEBPACK_IMPORTED_MODULE_1___default.a.View.extend({
   initialize: function initialize(opt) {
-    // debugger;
     this.opt = opt || {};
     Object(underscore__WEBPACK_IMPORTED_MODULE_2__["bindAll"])(this, 'startSort', 'onMove', 'endMove', 'rollback', 'updateOffset', 'moveDragHelper');
     var o = opt || {};
@@ -52610,7 +52719,9 @@ var $ = backbone__WEBPACK_IMPORTED_MODULE_1___default.a.$;
         modelToDrop = dropContent;
         opts.silent = false;
         opts.avoidUpdateStyle = 1;
-      }
+      } // This is the last function that is called from droppable after the 'text'
+      // element has been dropped to canvas
+
 
       if (isTextableActive) {
         var viewActive = activeTextModel.getView();
