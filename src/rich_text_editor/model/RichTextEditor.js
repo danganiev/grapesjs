@@ -102,12 +102,18 @@ export default class RichTextEditor {
     settings.styleWithCSS && this.exec('styleWithCSS');
     this.syncActions();
 
+    this.preventDisabling = false;
+
     return this;
   }
 
   setEl(el) {
     this.el = el;
     this.doc = el.ownerDocument;
+  }
+
+  setPreventDisabling(value) {
+    this.preventDisabling = value;
   }
 
   updateActiveActions() {

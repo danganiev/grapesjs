@@ -58,6 +58,10 @@ export default ComponentView.extend({
     const { model, rte, activeRte } = this;
     const editable = model.get('editable');
 
+    if (rte.preventDisabling) {
+      return;
+    }
+
     if (rte && editable) {
       try {
         rte.disable(this, activeRte);
