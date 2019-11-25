@@ -71,6 +71,8 @@ import ComponentSectionView from './view/ComponentSectionView';
 import ComponentWrapper from './model/ComponentWrapper';
 import ComponentContentGrid from './model/ComponentContentGrid';
 import ComponentContentGridView from './view/ComponentContentGridView';
+import ComponentTextQuill from './model/ComponentTextQuill';
+import ComponentTextQuillView from './view/ComponentTextQuillView';
 
 export default () => {
   var c = {};
@@ -158,6 +160,11 @@ export default () => {
       id: 'comment',
       model: ComponentComment,
       view: ComponentCommentView
+    },
+    {
+      id: 'quilltext',
+      model: ComponentTextQuill,
+      view: ComponentTextQuillView
     },
     {
       id: 'textnode',

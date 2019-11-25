@@ -114,6 +114,7 @@ export default config => {
         let model = {};
 
         // Start with understanding what kind of component it is
+        let finalCompType = null;
         if (ct) {
           let obj = '';
           let type = node.getAttribute && node.getAttribute(`${modelAttrStart}type`);
@@ -195,7 +196,7 @@ export default config => {
           if (nodeChild === 1 && firstChild.nodeType === 3) {
             !model.type && (model.type = 'text');
             model.content = firstChild.nodeValue;
-          } else {
+          } else if (model.type !== 'quilltext') {
             model.components = this.parseNode(node);
           }
         }

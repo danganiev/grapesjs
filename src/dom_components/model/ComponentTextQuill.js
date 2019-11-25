@@ -1,0 +1,22 @@
+import ComponentText from './ComponentText';
+
+export default ComponentText.extend(
+  {
+    defaults: {
+      ...ComponentText.prototype.defaults
+    }
+  },
+  {
+    isComponent(el) {
+      var result = '';
+      debugger;
+      if (el.classList && el.classList.contains('ql-container')) {
+        result = {
+          type: 'quilltext',
+          content: el.innerHTML
+        };
+      }
+      return result;
+    }
+  }
+);
