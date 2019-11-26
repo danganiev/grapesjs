@@ -92,6 +92,7 @@ export default ComponentView.extend({
     // inside 'content'
     if (rte.customRte) {
       model.set('content', content, contentOpt);
+      model.addClass('ql-container');
     } else {
       const clean = model => {
         const textable = !!model.get('textable');
