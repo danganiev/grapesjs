@@ -35,18 +35,21 @@ export default ComponentView.extend({
       return;
     }
     e && e.stopPropagation && e.stopPropagation();
-    const rte = this.rte;
+    const { rte, em } = this;
 
     if (rte) {
       try {
         this.activeRte = rte.enable(this, this.activeRte);
       } catch (err) {
-        console.error(err);
+        em.logError(err);
       }
     }
 
-    this.rteEnabled = 1;
     this.toggleEvents(1);
+  },
+
+  onDisable() {
+    this.disableEditing();
   },
 
   /**
@@ -54,21 +57,38 @@ export default ComponentView.extend({
    * @private
    * */
   disableEditing() {
-    const { model, rte, activeRte } = this;
+    const { model, rte, activeRte, em } = this;
     const editable = model.get('editable');
 
     if (rte && editable) {
       try {
         rte.disable(this, activeRte);
       } catch (err) {
-        console.error(err);
+        em.logError(err);
       }
 
       this.syncContent();
     }
 
-    this.rteEnabled = 0;
     this.toggleEvents();
+  },
+
+  /**
+   * get content from RTE
+   * @return string
+   */
+  getContent() {
+    const { rte } = this;
+    const { activeRte } = rte || {};
+    let content = '';
+
+    if (activeRte && typeof activeRte.getContent === 'function') {
+      content = activeRte.getContent();
+    } else {
+      content = this.getChildrenContainer().innerHTML;
+    }
+
+    return content;
   },
 
   /**
@@ -77,7 +97,7 @@ export default ComponentView.extend({
   syncContent(opts = {}) {
     const { model, rte, rteEnabled } = this;
     if (!rteEnabled && !opts.force) return;
-    const content = this.getChildrenContainer().innerHTML;
+    const content = this.getContent();
     const comps = model.components();
     const contentOpt = { fromDisable: 1, ...opts };
     comps.length && comps.reset(null, opts);
@@ -94,6 +114,7 @@ export default ComponentView.extend({
           !['text', 'default', ''].some(type => model.is(type)) || textable;
         model.set(
           {
+            _innertext: !selectable,
             editable: selectable && model.get('editable'),
             selectable: selectable,
             hoverable: selectable,
@@ -116,15 +137,38 @@ export default ComponentView.extend({
     }
   },
 
+  getModelsFromEl(el) {
+    const result = [];
+    const children = (el || this.el).childNodes;
+
+    for (let index = 0; index < children.length; index++) {
+      const child = children[index];
+      const model = child.__cashData && child.__cashData.model;
+
+      if (model) {
+        model.components = this.getModelsFromEl(child);
+        if (model.get('content')) {
+          model.attributes.content = child.textContent;
+        }
+        // TODO add attributes;
+        result.push(model);
+      }
+    }
+
+    return result;
+  },
+
   /**
    * Callback on input event
    * @param  {Event} e
    */
   onInput() {
     const { em } = this;
+    const evPfx = 'component';
+    const ev = [`${evPfx}:update`, `${evPfx}:input`].join(' ');
 
     // Update toolbars
-    em && em.trigger('change:canvasOffset');
+    em && em.trigger(ev, this.model);
   },
 
   /**
@@ -141,14 +185,17 @@ export default ComponentView.extend({
    * @param {Boolean} enable
    */
   toggleEvents(enable) {
-    var method = enable ? 'on' : 'off';
+    const { em } = this;
     const mixins = { on, off };
-    this.em.setEditing(enable);
+    const method = enable ? 'on' : 'off';
+    em.setEditing(enable);
+    this.rteEnabled = !!enable;
 
     // The ownerDocument is from the frame
     var elDocs = [this.el.ownerDocument, document];
     mixins.off(elDocs, 'mousedown', this.disableEditing);
     mixins[method](elDocs, 'mousedown', this.disableEditing);
+    em[method]('toolbar:run:before', this.disableEditing);
 
     // Avoid closing edit mode on component click
     this.$el.off('mousedown', this.disablePropagation);
@@ -161,8 +208,9 @@ export default ComponentView.extend({
 
       while (el) {
         el.draggable = enable ? !1 : !0;
+        // Note: el.parentNode is sometimes null here
         el = el.parentNode;
-        el.tagName == 'BODY' && (el = 0);
+        el && el.tagName == 'BODY' && (el = 0);
       }
     }
   }
