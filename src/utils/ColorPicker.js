@@ -71,10 +71,7 @@ export default function($, undefined) {
       var elem = document.createElement('div');
       var style = elem.style;
       style.cssText = 'background-color:rgba(0,0,0,.5)';
-      return (
-        contains(style.backgroundColor, 'rgba') ||
-        contains(style.backgroundColor, 'hsla')
-      );
+      return contains(style.backgroundColor, 'rgba') || contains(style.backgroundColor, 'hsla');
     })(),
     replaceInput = [
       "<div class='sp-replacer'>",
@@ -139,10 +136,7 @@ export default function($, undefined) {
       var current = p[i];
       if (current) {
         var tiny = tinycolor(current);
-        var c =
-          tiny.toHsl().l < 0.5
-            ? 'sp-thumb-el sp-thumb-dark'
-            : 'sp-thumb-el sp-thumb-light';
+        var c = tiny.toHsl().l < 0.5 ? 'sp-thumb-el sp-thumb-dark' : 'sp-thumb-el sp-thumb-light';
         c += tinycolor.equals(color, current) ? ' sp-thumb-active' : '';
         var formattedString = tiny.toString(opts.preferredFormat || 'rgb');
         var swatchStyle = rgbaSupport
@@ -249,9 +243,7 @@ export default function($, undefined) {
       toggleButton = container.find('.sp-palette-toggle'),
       isInput = boundElement.is('input'),
       isInputTypeColor =
-        isInput &&
-        boundElement.attr('type') === 'color' &&
-        inputTypeColorSupport(),
+        isInput && boundElement.attr('type') === 'color' && inputTypeColorSupport(),
       shouldReplace = isInput && !flat,
       replacer = shouldReplace
         ? $(replaceInput)
@@ -274,9 +266,7 @@ export default function($, undefined) {
       }
 
       toggleButton.text(
-        opts.showPaletteOnly
-          ? opts.togglePaletteMoreText
-          : opts.togglePaletteLessText
+        opts.showPaletteOnly ? opts.togglePaletteMoreText : opts.togglePaletteLessText
       );
 
       if (opts.palette) {
@@ -296,10 +286,7 @@ export default function($, undefined) {
       container.toggleClass('sp-alpha-enabled', opts.showAlpha);
       container.toggleClass('sp-clear-enabled', allowEmpty);
       container.toggleClass('sp-buttons-disabled', !opts.showButtons);
-      container.toggleClass(
-        'sp-palette-buttons-disabled',
-        !opts.togglePaletteOnly
-      );
+      container.toggleClass('sp-palette-buttons-disabled', !opts.togglePaletteOnly);
       container.toggleClass('sp-palette-disabled', !opts.showPalette);
       container.toggleClass('sp-palette-only', opts.showPaletteOnly);
       container.toggleClass('sp-initial-disabled', !opts.showInitial);
@@ -326,8 +313,7 @@ export default function($, undefined) {
       if (flat) {
         boundElement.after(container).hide();
       } else {
-        var appendTo =
-          opts.appendTo === 'parent' ? boundElement.parent() : $(opts.appendTo);
+        var appendTo = opts.appendTo === 'parent' ? boundElement.parent() : $(opts.appendTo);
         if (appendTo.length !== 1) {
           appendTo = $('body');
         }
@@ -404,9 +390,7 @@ export default function($, undefined) {
       });
 
       toggleButton.text(
-        opts.showPaletteOnly
-          ? opts.togglePaletteMoreText
-          : opts.togglePaletteLessText
+        opts.showPaletteOnly ? opts.togglePaletteMoreText : opts.togglePaletteLessText
       );
       toggleButton.bind('click.spectrum', function(e) {
         e.stopPropagation();
@@ -463,16 +447,13 @@ export default function($, undefined) {
           } else if (!shiftMovementDirection) {
             var oldDragX = currentSaturation * dragWidth;
             var oldDragY = dragHeight - currentValue * dragHeight;
-            var furtherFromX =
-              Math.abs(dragX - oldDragX) > Math.abs(dragY - oldDragY);
+            var furtherFromX = Math.abs(dragX - oldDragX) > Math.abs(dragY - oldDragY);
 
             shiftMovementDirection = furtherFromX ? 'x' : 'y';
           }
 
-          var setSaturation =
-            !shiftMovementDirection || shiftMovementDirection === 'x';
-          var setValue =
-            !shiftMovementDirection || shiftMovementDirection === 'y';
+          var setSaturation = !shiftMovementDirection || shiftMovementDirection === 'x';
+          var setValue = !shiftMovementDirection || shiftMovementDirection === 'y';
 
           if (setSaturation) {
             currentSaturation = parseFloat(dragX / dragWidth);
@@ -498,8 +479,7 @@ export default function($, undefined) {
         // In case color was black - update the preview UI and set the format
         // since the set function will not run (default color is black).
         updateUI();
-        currentPreferredFormat =
-          opts.preferredFormat || tinycolor(initialColor).format;
+        currentPreferredFormat = opts.preferredFormat || tinycolor(initialColor).format;
 
         addColorToSelectionPalette(initialColor);
       } else {
@@ -534,14 +514,8 @@ export default function($, undefined) {
         return false;
       }
 
-      var paletteEvent = IE
-        ? 'mousedown.spectrum'
-        : 'click.spectrum touchstart.spectrum';
-      paletteContainer.delegate(
-        '.sp-thumb-el',
-        paletteEvent,
-        paletteElementClick
-      );
+      var paletteEvent = IE ? 'mousedown.spectrum' : 'click.spectrum touchstart.spectrum';
+      paletteContainer.delegate('.sp-thumb-el', paletteEvent, paletteElementClick);
       initialColorContainer.delegate(
         '.sp-thumb-el:nth-child(1)',
         paletteEvent,
@@ -606,12 +580,7 @@ export default function($, undefined) {
       var currentColor = get();
 
       var html = $.map(paletteArray, function(palette, i) {
-        return paletteTemplate(
-          palette,
-          currentColor,
-          'sp-palette-row sp-palette-row-' + i,
-          opts
-        );
+        return paletteTemplate(palette, currentColor, 'sp-palette-row sp-palette-row-' + i, opts);
       });
 
       updateSelectionPaletteFromStorage();
@@ -635,12 +604,7 @@ export default function($, undefined) {
         var initial = colorOnShow;
         var current = get();
         initialColorContainer.html(
-          paletteTemplate(
-            [initial, current],
-            current,
-            'sp-palette-row-initial',
-            opts
-          )
+          paletteTemplate([initial, current], current, 'sp-palette-row-initial', opts)
         );
       }
     }
@@ -694,7 +658,7 @@ export default function($, undefined) {
         return;
       }
 
-      boundElement.trigger(event, [get()]);
+      boundElement.trigger('beforeShow.spectrum', [get()]);
 
       if (callbacks.beforeShow(get()) === false || event.isDefaultPrevented()) {
         return;
@@ -838,12 +802,7 @@ export default function($, undefined) {
       // Get a format that alpha will be included in (hex and names ignore alpha)
       var format = currentPreferredFormat;
       if (currentAlpha < 1 && !(currentAlpha === 0 && format === 'name')) {
-        if (
-          format === 'hex' ||
-          format === 'hex3' ||
-          format === 'hex6' ||
-          format === 'name'
-        ) {
+        if (format === 'hex' || format === 'hex3' || format === 'hex6' || format === 'name') {
           format = 'rgb';
         }
       }
@@ -874,8 +833,7 @@ export default function($, undefined) {
           var rgb = realColor.toRgb();
           rgb.a = 0;
           var realAlpha = tinycolor(rgb).toRgbString();
-          var gradient =
-            'linear-gradient(left, ' + realAlpha + ', ' + realHex + ')';
+          var gradient = 'linear-gradient(left, ' + realAlpha + ', ' + realHex + ')';
 
           if (IE) {
             alphaSliderInner.css(
@@ -1293,8 +1251,7 @@ export default function($, undefined) {
   $.fn.spectrum.inputTypeColorSupport = function inputTypeColorSupport() {
     if (typeof inputTypeColorSupport._cachedResult === 'undefined') {
       var colorInput = $("<input type='color'/>")[0]; // if color element is supported, value will default to not null
-      inputTypeColorSupport._cachedResult =
-        colorInput.type === 'color' && colorInput.value !== '';
+      inputTypeColorSupport._cachedResult = colorInput.type === 'color' && colorInput.value !== '';
     }
     return inputTypeColorSupport._cachedResult;
   };
@@ -1444,13 +1401,7 @@ export default function($, undefined) {
     },
     toRgbString: function() {
       return this._a == 1
-        ? 'rgb(' +
-            mathRound(this._r) +
-            ', ' +
-            mathRound(this._g) +
-            ', ' +
-            mathRound(this._b) +
-            ')'
+        ? 'rgb(' + mathRound(this._r) + ', ' + mathRound(this._g) + ', ' + mathRound(this._b) + ')'
         : 'rgba(' +
             mathRound(this._r) +
             ', ' +
@@ -1528,10 +1479,7 @@ export default function($, undefined) {
       var needsAlphaFormat =
         !formatSet &&
         hasAlpha &&
-        (format === 'hex' ||
-          format === 'hex6' ||
-          format === 'hex3' ||
-          format === 'name');
+        (format === 'hex' || format === 'hex6' || format === 'hex3' || format === 'name');
 
       if (needsAlphaFormat) {
         // Special case for "transparent", all other non-alpha formats
@@ -1668,11 +1616,7 @@ export default function($, undefined) {
     }
 
     if (typeof color == 'object') {
-      if (
-        color.hasOwnProperty('r') &&
-        color.hasOwnProperty('g') &&
-        color.hasOwnProperty('b')
-      ) {
+      if (color.hasOwnProperty('r') && color.hasOwnProperty('g') && color.hasOwnProperty('b')) {
         rgb = rgbToRgb(color.r, color.g, color.b);
         ok = true;
         format = String(color.r).substr(-1) === '%' ? 'prgb' : 'rgb';
@@ -2419,13 +2363,7 @@ export default function($, undefined) {
     // Parentheses and commas are optional, but not required.
     // Whitespace can take the place of commas or opening paren
     var PERMISSIVE_MATCH3 =
-      '[\\s|\\(]+(' +
-      CSS_UNIT +
-      ')[,|\\s]+(' +
-      CSS_UNIT +
-      ')[,|\\s]+(' +
-      CSS_UNIT +
-      ')\\s*\\)?';
+      '[\\s|\\(]+(' + CSS_UNIT + ')[,|\\s]+(' + CSS_UNIT + ')[,|\\s]+(' + CSS_UNIT + ')\\s*\\)?';
     var PERMISSIVE_MATCH4 =
       '[\\s|\\(]+(' +
       CSS_UNIT +

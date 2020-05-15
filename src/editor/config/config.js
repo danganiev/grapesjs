@@ -43,7 +43,7 @@ export default {
     * {
       box-sizing: border-box;
     }
-    html, body, #wrapper {
+    html, body, [data-gjs-type=wrapper] {
       min-height: 100%;
     }
     body {
@@ -61,6 +61,11 @@ export default {
     }
 
     #wrapper {
+      overflow: auto;
+      overflow-x: hidden;
+    }
+
+    [data-gjs-type=wrapper] {
       overflow: auto;
       overflow-x: hidden;
     }
@@ -140,7 +145,8 @@ export default {
   // element's `style` attribute. Unfortunately, inline styling doesn't allow
   // use of media queries (@media) or even pseudo selectors (eg. :hover).
   // When `avoidInlineStyle` is true all styles are inserted inside the css rule
-  avoidInlineStyle: 0,
+  // @deprecated Don't use this option, we don't support inline styling anymore
+  avoidInlineStyle: 1,
 
   // Avoid default properties from storable JSON data, like `components` and `styles`.
   // With this option enabled your data will be smaller (usefull if need to
@@ -164,8 +170,14 @@ export default {
   // To get more about this feature read: https://github.com/artf/grapesjs/issues/1936
   dragMode: 0,
 
+  // Import asynchronously CSS to use as icons
+  cssIcons: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css',
+
   // Dom element
   el: '',
+
+  // Configurations for I18n
+  i18n: {},
 
   // Configurations for Undo Manager
   undoManager: {},
@@ -210,20 +222,24 @@ export default {
   deviceManager: {
     devices: [
       {
+        id: 'desktop',
         name: 'Desktop',
         width: ''
       },
       {
+        id: 'tablet',
         name: 'Tablet',
         width: '768px',
         widthMedia: '992px'
       },
       {
+        id: 'mobileLandscape',
         name: 'Mobile landscape',
         width: '568px',
         widthMedia: '768px'
       },
       {
+        id: 'mobilePortrait',
         name: 'Mobile portrait',
         width: '320px',
         widthMedia: '480px'
