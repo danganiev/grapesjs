@@ -65,6 +65,10 @@ export default {
       overflow-x: hidden;
     }
 
+    .wrapper{
+      height: 100%;
+    }
+
     span > div {
       display: inline-block;
     }
