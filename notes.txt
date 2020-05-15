@@ -1,1 +1,5 @@
 Base css override is in the /editor/config.js file
+-------
+Merge with upstream master
+git pull https://github.com/artf/grapesjs.git master
+-------
