@@ -19,7 +19,7 @@ export default {
   },
   domComponents: {
     names: {
-      '': 'Box',
+      '': 'Блок',
       wrapper: 'Body',
       text: 'Text',
       comment: 'Comment',

@@ -9,7 +9,6 @@ export default ComponentText.extend(
   {
     isComponent(el) {
       var result = '';
-      debugger;
       if (el.classList && el.classList.contains('ql-container')) {
         result = {
           type: 'quilltext',
