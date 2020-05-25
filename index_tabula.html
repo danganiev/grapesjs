@@ -5,7 +5,6 @@
     <title>GrapesJS</title>
     <link rel="stylesheet" href="dist/css/grapes.min.css" />
     <script src="dist/grapes.min.js"></script>
-    <!-- <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script> -->
     <script src="node_modules/quill/dist/quill.js"></script>
     <style>
       body,
@@ -16,10 +15,6 @@
     </style>
     <script>
       function onDragTextElement(ev) {
-        // console.log("dragStart");
-        // console.log(ev);
-        // console.log(ev.target);
-        // Add the target element's id to the data transfer object
         ev.dataTransfer.setData(
           'text/json',
           JSON.stringify({
@@ -50,23 +45,12 @@
       }
 
       function onDragBlock(ev) {
-        // ev.dataTransfer.setData(
-        //   "text/json",
-        //   JSON.stringify({
-        //     // type: "component",
-        //     content:
-        //       '<form class="form"> <div class="form-group"> <label class="label">Name</label> <input placeholder="Type here your name" class="input"/> </div> <div class="form-group"> <label class="label">Email</label> <input type="email" placeholder="Type here your email" class="input"/> </div> <div class="form-group"> <label class="label">Gender</label> <input type="checkbox" class="checkbox" value="M"> <label class="checkbox-label">M</label> <input type="checkbox" class="checkbox" value="F"> <label class="checkbox-label">F</label> </div> <div class="form-group"> <label class="label">Message</label> <textarea class="textarea"></textarea> </div> <div class="form-group"> <button type="submit" class="button">Send</button> </div> </form>'
-        //   })
-        // );
-
         ev.dataTransfer.clearData();
         // NOTE: Один единственный пробел в конце может зарешать.
         ev.dataTransfer.setData(
           'text',
           '<form class="form"> <div class="form-group"> <label class="label">Name</label> <input placeholder="Type here your name" class="input"/> </div> <div class="form-group"> <label class="label">Email</label> <input type="email" placeholder="Type here your email" class="input"/> </div> <div class="form-group"> <label class="label">Gender</label> <input type="checkbox" class="checkbox" value="M"> <label class="checkbox-label">M</label> <input type="checkbox" class="checkbox" value="F"> <label class="checkbox-label">F</label> </div> <div class="form-group"> <label class="label">Message</label> <textarea class="textarea"></textarea> </div> <div class="form-group"> <button type="submit" class="button">Send</button> </div> </form>'
         );
-
-        // ev.dataTransfer.setData("text", "<div>aldsjf</div>");
       }
     </script>
   </head>
@@ -96,24 +80,26 @@
     </div>
     <div id="blocks"></div>
     <div id="gjs" style="height:0px; overflow:hidden;">
-      <h1>sodjf</h1>
-      <span>saldfj</span>
-      <div class="panel">
-        <h1 class="welcome">Welcome to</h1>
-        <div class="big-title">
-          <svg class="logo" viewBox="0 0 100 100">
-            <path
-              d="M40 5l-12.9 7.4 -12.9 7.4c-1.4 0.8-2.7 2.3-3.7 3.9 -0.9 1.6-1.5 3.5-1.5 5.1v14.9 14.9c0 1.7 0.6 3.5 1.5 5.1 0.9 1.6 2.2 3.1 3.7 3.9l12.9 7.4 12.9 7.4c1.4 0.8 3.3 1.2 5.2 1.2 1.9 0 3.8-0.4 5.2-1.2l12.9-7.4 12.9-7.4c1.4-0.8 2.7-2.2 3.7-3.9 0.9-1.6 1.5-3.5 1.5-5.1v-14.9 -12.7c0-4.6-3.8-6-6.8-4.2l-28 16.2"
-            />
-          </svg>
-          <span>GrapesJS</span>
+      <section>
+        <h1>sodjf</h1>
+        <span>saldfj</span>
+        <div class="panel">
+          <h1 class="welcome">Welcome to</h1>
+          <div class="big-title">
+            <svg class="logo" viewBox="0 0 100 100">
+              <path
+                d="M40 5l-12.9 7.4 -12.9 7.4c-1.4 0.8-2.7 2.3-3.7 3.9 -0.9 1.6-1.5 3.5-1.5 5.1v14.9 14.9c0 1.7 0.6 3.5 1.5 5.1 0.9 1.6 2.2 3.1 3.7 3.9l12.9 7.4 12.9 7.4c1.4 0.8 3.3 1.2 5.2 1.2 1.9 0 3.8-0.4 5.2-1.2l12.9-7.4 12.9-7.4c1.4-0.8 2.7-2.2 3.7-3.9 0.9-1.6 1.5-3.5 1.5-5.1v-14.9 -12.7c0-4.6-3.8-6-6.8-4.2l-28 16.2"
+              />
+            </svg>
+            <span>GrapesJS</span>
+          </div>
+          <div class="description">
+            This is a demo content from index.html. For the development, you shouldn't edit this
+            file, instead you can copy and rename it to _index.html, on next server start the new
+            file will be served, and it will be ignored by git.
+          </div>
         </div>
-        <div class="description">
-          This is a demo content from index.html. For the development, you shouldn't edit this file,
-          instead you can copy and rename it to _index.html, on next server start the new file will
-          be served, and it will be ignored by git.
-        </div>
-      </div>
+      </section>
       <style>
         .panel {
           width: 90%;
@@ -226,7 +212,7 @@
               id: 'section', // id is mandatory
               label: '<b>Section</b>', // You can use HTML/SVG inside labels
               attributes: { class: 'gjs-block-section' },
-              content: `<section data-landing-sectionid="testSection">
+              content: `<section>
                 <h1>This is a simple title</h1>
                 <div>This is just a Lorem text: Lorem ipsum dolor sit amet</div>
               </section>`
@@ -256,11 +242,6 @@
 
       editor.setCustomRte({
         enable(el, rte) {
-          // if (rte) {
-          //   this.focus(el, rte);
-          //   return rte;
-          // }
-
           const rteToolbar = editor.RichTextEditor.getToolbarEl();
           // Hide everything inside the GrapesJS' toolbar container
           [].forEach.call(rteToolbar.children, child => (child.style.display = 'none'));
@@ -280,6 +261,9 @@
           return rte;
         },
         disable(el, rte) {
+          if (!rte) {
+            return;
+          }
           rte.blur();
           // var editorContent = rte.container.firstChild.firstChild
           var editorContent = [];
@@ -301,7 +285,6 @@
         }
       });
 
-      // const dvm = editor.DeviceManager;
       editor.BlockManager.add('testBlock', {
         label: 'Block',
         attributes: { class: 'gjs-fonts gjs-f-b1' },
@@ -345,10 +328,6 @@
       `
       });
 
-      editor.on('previewStopped', function() {
-        alert(1);
-      });
-
       // const Component = import {"./src/dom_components/model/Component");
 
       const wrapper = editor.DomComponents.getWrapper();
@@ -372,17 +351,7 @@
           ]
         }
       ]);
-      editor.Commands.add('landing:component-settings', editor => {
-        console.log('finding by attr results');
-        console.log(wrapper.findByAttr('data-landing-sectionid', 'testSection'));
-      });
-      // const myComponent = wrapper.findType('section')[0];
-      // console.log(myComponent);
-      // console.log(editor.BlockManager.get('testBlock').get('content'));
-      // wrapper.append(editor.BlockManager.get("testBlock").get("content"));
-
-      // var quillTest = new Quill("#quill-test")
-      // window.quillTest = quillTest
+      const myComponent = wrapper.findType('section')[0];
     </script>
   </body>
 </html>

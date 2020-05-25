@@ -283,6 +283,7 @@ export default {
 
     const adds = { position, width, height };
     const style = { left, top, en };
+    // debugger;
     keys(adds).forEach(add => {
       const prop = adds[add];
       if (prop) style[add] = prop;
@@ -304,12 +305,19 @@ export default {
     const { center, onStart } = opts;
     const { Canvas } = editor;
     const style = target.getStyle();
-    const position = 'absolute';
+    // const position = 'absolute';
+    const position = 'relative';
     onStart && onStart(this._getDragData());
     if (isTran) return;
 
     if (style.position !== position) {
       let { left, top, width, height } = Canvas.offset(target.getEl());
+      //changing offsets for relative positioning. This assumes that all elements have only one parent
+      // top = target.getEl().offsetTop - target.getEl().parentElement.offsetTop;
+      // left = target.getEl().offsetLeft - target.getEl().parentElement.offsetLeft;
+      // for some strange reason just 0s work
+      top = 0;
+      left = 0;
 
       // Check if to center the target to the pointer position
       if (center) {
@@ -319,8 +327,10 @@ export default {
       }
 
       this.setPosition({
-        x: left,
-        y: top,
+        x: 0,
+        // x: left,
+        y: 0,
+        // y: top,
         width: `${width}px`,
         height: `${height}px`,
         position

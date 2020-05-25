@@ -168,7 +168,7 @@ export default {
   // 'absolute' - Move components absolutely (design tools way)
   // 'translate' - Use translate CSS from transform property
   // To get more about this feature read: https://github.com/artf/grapesjs/issues/1936
-  dragMode: 0,
+  dragMode: 'absolute',
 
   // Import asynchronously CSS to use as icons
   cssIcons: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css',

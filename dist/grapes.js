@@ -26391,7 +26391,8 @@ var evName = 'dmode';
       left: left,
       top: top,
       en: en
-    };
+    }; // debugger;
+
     Object(underscore__WEBPACK_IMPORTED_MODULE_1__["keys"])(adds).forEach(function (add) {
       var prop = adds[add];
       if (prop) style[add] = prop;
@@ -26416,8 +26417,9 @@ var evName = 'dmode';
     var center = opts.center,
         onStart = opts.onStart;
     var Canvas = editor.Canvas;
-    var style = target.getStyle();
-    var position = 'absolute';
+    var style = target.getStyle(); // const position = 'absolute';
+
+    var position = 'relative';
     onStart && onStart(this._getDragData());
     if (isTran) return;
 
@@ -26426,8 +26428,14 @@ var evName = 'dmode';
           left = _Canvas$offset.left,
           top = _Canvas$offset.top,
           width = _Canvas$offset.width,
-          height = _Canvas$offset.height; // Check if to center the target to the pointer position
+          height = _Canvas$offset.height; //changing offsets for relative positioning. This assumes that all elements have only one parent
+      // top = target.getEl().offsetTop - target.getEl().parentElement.offsetTop;
+      // left = target.getEl().offsetLeft - target.getEl().parentElement.offsetLeft;
+      // for some strange reason just 0s work
 
+
+      top = 0;
+      left = 0; // Check if to center the target to the pointer position
 
       if (center) {
         var _Canvas$getMouseRelat = Canvas.getMouseRelativeCanvas(event),
@@ -26439,8 +26447,10 @@ var evName = 'dmode';
       }
 
       this.setPosition({
-        x: left,
-        y: top,
+        x: 0,
+        // x: left,
+        y: 0,
+        // y: top,
         width: "".concat(width, "px"),
         height: "".concat(height, "px"),
         position: position
@@ -27737,7 +27747,7 @@ var showOffsets;
     showOffsets = 1; // em.on('component:update', this.updateAttached, this);
     // em.on('change:canvasOffset', this.updateAttached, this);
 
-    em.on('component:updateToolbar', this.updateToolbar, this);
+    this.em.on('component:updateToolbar', this.updateToolbar, this);
   },
 
   /**
@@ -37211,7 +37221,7 @@ __webpack_require__.r(__webpack_exports__);
   // 'absolute' - Move components absolutely (design tools way)
   // 'translate' - Use translate CSS from transform property
   // To get more about this feature read: https://github.com/artf/grapesjs/issues/1936
-  dragMode: 0,
+  dragMode: 'absolute',
   // Import asynchronously CSS to use as icons
   cssIcons: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css',
   // Dom element
@@ -39214,7 +39224,7 @@ var traitInputAttr = {
   },
   domComponents: {
     names: {
-      '': 'Box',
+      '': 'Блок',
       wrapper: 'Body',
       text: 'Text',
       comment: 'Comment',

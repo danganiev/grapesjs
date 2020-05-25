@@ -38,7 +38,7 @@ export default {
 
     // em.on('component:update', this.updateAttached, this);
     // em.on('change:canvasOffset', this.updateAttached, this);
-    em.on('component:updateToolbar', this.updateToolbar, this);
+    this.em.on('component:updateToolbar', this.updateToolbar, this);
   },
 
   /**
