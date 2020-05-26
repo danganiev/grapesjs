@@ -108,7 +108,7 @@ export default () => {
 
     destroy() {
       const { customRte } = this;
-      globalRte && globalRte.destroy();
+      globalRte && globalRte.destroy && globalRte.destroy();
       customRte && customRte.destroy && customRte.destroy();
       toolbar = 0;
       globalRte = 0;
