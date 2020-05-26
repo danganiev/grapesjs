@@ -5,3 +5,5 @@ git pull https://github.com/artf/grapesjs.git master
 -------
 All relative positioning shit is in ComponentDrag.js
 -------
+Badge updates in SelectComponent.js in updateBadge method
+-------

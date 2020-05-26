@@ -10,7 +10,8 @@ export default Component.extend(
       tagName: 'section',
       // Component can be toggled for permission for children to be changed and selected and dropped into
       childrenAreProtected: true,
-      hasSettings: true
+      hasSettings: true,
+      resizeable: false
     },
 
     init() {

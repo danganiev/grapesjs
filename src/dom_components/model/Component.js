@@ -102,7 +102,7 @@ const Component = Backbone.Model.extend(Styleable).extend(
       unstylable: '',
       highlightable: true,
       copyable: true,
-      resizable: false,
+      resizable: true,
       editable: false,
       layerable: true,
       selectable: true,
