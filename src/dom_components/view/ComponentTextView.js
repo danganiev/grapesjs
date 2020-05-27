@@ -5,7 +5,7 @@ const compProt = ComponentView.prototype;
 
 export default ComponentView.extend({
   events: {
-    click: 'onActive',
+    // click: 'onActive',
     dblclick: 'onActive',
     input: 'onInput'
   },
