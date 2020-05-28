@@ -9,12 +9,17 @@ export default Component.extend(
       type: 'section',
       tagName: 'section',
       // Component can be toggled for permission for children to be changed and selected and dropped into
-      childrenAreProtected: true,
+      // childrenAreProtected: true,
       hasSettings: true,
-      resizeable: false
+      resizeable: false,
+      draggable: false,
+      selectable: true,
+      hoverable: true,
+      copyable: true
     },
 
     init() {
+      this.toggleChildren = false;
       this.toggleChildrenEditable();
     },
 
@@ -26,11 +31,18 @@ export default Component.extend(
 
       const recursionToggle = components => {
         components.each((component, key) => {
-          component.set('selectable', value);
-          component.set('hoverable', value);
-          component.set('highlightable', value);
-          component.set('draggable', value);
-          component.set('droppable', value);
+          if (component.get('type') !== '') {
+            // не работает резайзабл при такой проставке значений
+            // component.set('selectable', value);
+            // component.set('hoverable', value);
+            // component.set('highlightable', value);
+            component.set('draggable', value);
+            component.set('droppable', value);
+            component.set('resizable', value);
+            component.set('copyable', value);
+            component.set('toolbar', null);
+            component.initToolbar();
+          }
           recursionToggle(component.get('components'));
         });
       };

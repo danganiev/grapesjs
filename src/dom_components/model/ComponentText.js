@@ -1,11 +1,29 @@
 import Component from './Component';
 
-export default Component.extend({
+let LandingComponent = Component.extend({
   defaults: {
     ...Component.prototype.defaults,
-    type: 'text',
+    selectable: true,
+    highlightable: true,
+    hoverable: true,
+    draggable: false,
     droppable: false,
-    editable: true,
+    resizable: false,
+    editable: true
+  }
+});
+
+export default LandingComponent.extend({
+  defaults: {
+    ...LandingComponent.prototype.defaults,
+    type: 'text',
+    // selectable: true,
+    // highlightable: true,
+    // hoverable: true,
+    // draggable: false,
+    // droppable: false,
+    // resizable: false,
+    // editable: true,
     name: 'Текст'
   },
 

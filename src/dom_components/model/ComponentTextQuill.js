@@ -3,7 +3,8 @@ import ComponentText from './ComponentText';
 export default ComponentText.extend(
   {
     defaults: {
-      ...ComponentText.prototype.defaults
+      ...ComponentText.prototype.defaults,
+      type: 'quilltext'
     }
   },
   {

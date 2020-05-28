@@ -282,10 +282,11 @@ export default Backbone.View.extend({
       }
 
       .${ppfx}selected {
-        // outline: 3px solid #3b97e3 !important;
-          outline: 1px solid #006fff !important;
-          outline-offset: 0px;
-          // outline-offset: -3px;
+          outline-width: 1px;
+          outline-style: solid;
+          outline-color: #006fff;
+          outline-offset: -1px;
+          display: inherit;
       }
 
       .${ppfx}selected-parent {

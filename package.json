@@ -123,7 +123,7 @@
     "lint": "eslint src",
     "check": "npm run lint && npm run test",
     "build": "npm run check && npm run v:patch && npm run build-dev && npm run build-prod",
-    "build-n": "npm run check && npm run build:css && npm run build-prod",
+    "build-n": "npm run build:css && npm run build-prod",
     "build-dev": "webpack --env=dev && npm run build:css && npm run build:locale",
     "build-prod": "webpack --env=prod",
     "build:css": "node-sass src/styles/scss/main.scss dist/css/grapes.min.css --output-style compressed",

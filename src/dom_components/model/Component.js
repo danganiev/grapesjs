@@ -93,20 +93,20 @@ const Component = Backbone.Model.extend(Styleable).extend(
       type: '',
       name: '',
       removable: true,
-      draggable: true,
-      droppable: true,
+      draggable: false,
+      droppable: false,
       badgable: true,
       stylable: true,
       'stylable-require': '',
       'style-signature': '',
       unstylable: '',
       highlightable: true,
-      copyable: true,
-      resizable: true,
+      copyable: false,
+      resizable: false,
       editable: false,
       layerable: true,
-      selectable: true,
-      hoverable: true,
+      selectable: false,
+      hoverable: false,
       void: false,
       state: '', // Indicates if the component is in some CSS state like ':hover', ':active', etc.
       status: '', // State, eg. 'selected'
@@ -699,15 +699,15 @@ const Component = Backbone.Model.extend(Styleable).extend(
             command: ed => ed.runCommand('landing:component-settings')
           });
         }
-        if (model.collection) {
-          tb.push({
-            attributes: {
-              class: 'fa fa-arrow-up',
-              title: 'Выбрать родительский элемент'
-            },
-            command: ed => ed.runCommand('core:component-exit', { force: 1 })
-          });
-        }
+        // if (model.collection) {
+        //   tb.push({
+        //     attributes: {
+        //       class: 'fa fa-arrow-up',
+        //       title: 'Выбрать родительский элемент'
+        //     },
+        //     command: ed => ed.runCommand('core:component-exit', { force: 1 })
+        //   });
+        // }
         if (model.get('draggable')) {
           tb.push({
             attributes: {
