@@ -7,3 +7,5 @@ All relative positioning shit is in ComponentDrag.js
 -------
 Badge updates in SelectComponent.js in updateBadge method
 -------
+To test quill I need to build it in quill folder and then move here by hand
+-------
